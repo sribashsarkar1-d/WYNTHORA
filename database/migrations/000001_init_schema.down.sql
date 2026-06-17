@@ -1,0 +1,2 @@
+DROP TABLE IF EXISTS simulations;
+DROP TABLE IF EXISTS users;

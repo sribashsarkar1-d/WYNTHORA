@@ -1,0 +1,5 @@
+syntax = "proto3";
+package simulation;
+service AIService { rpc RunInference (InferenceRequest) returns (InferenceResponse); }
+message InferenceRequest { string scenario_id = 1; }
+message InferenceResponse { string status = 1; double confidence = 2; }

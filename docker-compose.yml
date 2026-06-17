@@ -1,0 +1,46 @@
+version: '3.8'
+
+services:
+  core-engine:
+    build:
+      context: ./backend/core-engine
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      - ENV=development
+    depends_on:
+      - postgres
+      - redis
+
+  ai-services:
+    build:
+      context: ./backend/ai-services
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    environment:
+      - ENV=development
+
+  dashboard:
+    build:
+      context: ./frontend/dashboard
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=development
+
+  postgres:
+    image: postgres:15-alpine
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=secret
+      - POSTGRES_DB=world_sim
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
