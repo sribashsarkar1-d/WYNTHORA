@@ -8,6 +8,7 @@
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
+  /* hello my name is sribash */
   --radius-xl: calc(var(--radius) + 4px);
   --radius-2xl: calc(var(--radius) + 8px);
   --color-background: var(--background);
@@ -82,11 +83,23 @@
   --shadow-panel: 0 8px 32px -8px oklch(0 0 0 / 0.5), inset 0 1px 0 oklch(1 0 0 / 0.05);
 }
 
-.dark { color-scheme: dark; }
+.dark {
+  color-scheme: dark;
+}
 
 @layer base {
-  * { border-color: var(--color-border); }
-  html, body { background: #060814; color: var(--color-foreground); font-family: var(--font-sans); -webkit-font-smoothing: antialiased; }
+  * {
+    border-color: var(--color-border);
+  }
+
+  html,
+  body {
+    background: #060814;
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+
   body {
     background-image:
       radial-gradient(at 15% 10%, oklch(0.30 0.15 260 / 0.35), transparent 50%),
@@ -103,18 +116,24 @@
   border: 1px solid oklch(1 0 0 / 0.08);
   box-shadow: var(--shadow-panel);
 }
+
 @utility glass-strong {
   background: oklch(0.20 0.04 252 / 0.75);
   backdrop-filter: blur(24px) saturate(160%);
   border: 1px solid oklch(1 0 0 / 0.10);
 }
+
 @utility text-gradient {
   background: var(--gradient-cyan);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
 }
-@utility glow-cyan { box-shadow: 0 0 40px -5px oklch(0.78 0.18 220 / 0.6); }
+
+@utility glow-cyan {
+  box-shadow: 0 0 40px -5px oklch(0.78 0.18 220 / 0.6);
+}
+
 @utility grid-bg {
   background-image:
     linear-gradient(oklch(1 0 0 / 0.04) 1px, transparent 1px),
