@@ -5,3 +5,14 @@ torch
 ray
 mesa
 numpy
+yfinance
+pandas
+wbgapi
+psycopg2-binary
+sqlalchemy
+requests
+hmmlearn
+pgmpy
+networkx
+joblib
+mlflow

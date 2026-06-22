@@ -1,8 +1,11 @@
 try:
-    from transformers import pipeline
+    from transformers import pipeline # type: ignore
     TRANSFORMERS_AVAILABLE = True
 except ImportError:
     TRANSFORMERS_AVAILABLE = False
+
+import re
+from typing import Union, List
 
 class FinBERTSentiment:
     """
@@ -10,31 +13,64 @@ class FinBERTSentiment:
     Predicts if Global News headlines are Bullish or Bearish.
     """
     def __init__(self):
-        self.pipeline = None
-        if TRANSFORMERS_AVAILABLE:
-            # Note: This will download the model on first run if internet is available.
-            try:
-                self.pipeline = pipeline("sentiment-analysis", model="ProsusAI/finbert")
-            except Exception as e:
-                print("FinBERT model download failed. Falling back to simple heuristic.")
-                self.pipeline = None
+        self._pipeline = None
+        self._initialized = False
 
-    def analyze(self, headline: str):
-        """
-        Returns +1 for Bullish, -1 for Bearish, 0 for Neutral
-        """
-        if self.pipeline is None:
-            # Fallback Keyword Heuristic if HuggingFace isn't installed
-            headline_lower = headline.lower()
-            if "crash" in headline_lower or "war" in headline_lower or "sanctions" in headline_lower:
-                return -1.0
-            if "boom" in headline_lower or "growth" in headline_lower or "peace" in headline_lower:
-                return 1.0
-            return 0.0
+    def _get_pipeline(self):
+        if not self._initialized:
+            self._initialized = True
+            if TRANSFORMERS_AVAILABLE:
+                # Note: This will download the model on first run if internet is available.
+                try:
+                    self._pipeline = pipeline("sentiment-analysis", model="ProsusAI/finbert")
+                except Exception as e:
+                    print("FinBERT model download failed. Falling back to simple heuristic.")
+                    self._pipeline = None
+        return self._pipeline
 
-        result = self.pipeline(headline)[0]
-        label = result['label']
+    def analyze(self, headlines: Union[str, List[str]]) -> Union[float, List[float]]:
+        """
+        Returns a continuous score between -1.0 (Bearish) and 1.0 (Bullish).
+        Supports processing a single headline or a batch of headlines.
+        """
+        single_input = isinstance(headlines, str)
+        if single_input:
+            headlines = [headlines] # type: ignore
+
+        pipe = self._get_pipeline()
         
-        if label == 'positive': return 1.0
-        if label == 'negative': return -1.0
-        return 0.0
+        if pipe is None:
+            # Expanded Fallback Keyword Heuristic using Regex for word boundaries
+            results = []
+            
+            very_negative = re.compile(r'\b(war|sanctions|blockade|coup|crash|collapse|devastates|plunge|damage|hurricane|conflict|severed)\b', re.IGNORECASE)
+            negative = re.compile(r'\b(drought|heatwave|crisis|tension|escalate|shortfall|decline|fear|tumble|selloff)\b', re.IGNORECASE)
+            positive = re.compile(r'\b(boom|growth|peace|agreement|trade|surge|alliance|recovery)\b', re.IGNORECASE)
+            
+            for headline in headlines:
+                score = 0.0
+                if very_negative.search(headline):
+                    score = -1.0
+                elif negative.search(headline):
+                    score = -0.6
+                elif positive.search(headline):
+                    score = 0.8
+                results.append(score)
+            
+            return results[0] if single_input else results
+
+        # Process batch through pipeline
+        predictions = pipe(headlines)
+        results = []
+        for result in predictions:
+            label = result['label']
+            score = result['score'] # Confidence score between 0 and 1
+            
+            if label == 'positive': 
+                results.append(score)
+            elif label == 'negative': 
+                results.append(-score)
+            else:
+                results.append(0.0)
+                
+        return results[0] if single_input else results

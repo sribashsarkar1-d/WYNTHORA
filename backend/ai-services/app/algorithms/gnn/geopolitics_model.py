@@ -1,11 +1,15 @@
 import numpy as np
 import torch
-from graph_sage import SimpleGraphSAGE
-from pagerank import calculate_pagerank
-from bbn import setup_geopolitics_bbn
-from mdp import MarkovDecisionProcess
-from hmm import HiddenMarkovModel
+from algorithms.gnn.graph_sage import SimpleGraphSAGE
+from algorithms.gnn.pagerank import calculate_pagerank
+from algorithms.gnn.bbn import setup_geopolitics_bbn
+from algorithms.gnn.mdp import MarkovDecisionProcess
+from algorithms.gnn.hmm import HiddenMarkovModel
 
+import sys
+import os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+from algorithms.data_loader import RealWorldDataLoader
 class GeopoliticsModel:
     """
     Integrates GNN, PageRank, MDP, HMM, and BBN to manage global alliances and supply chains.
@@ -16,13 +20,8 @@ class GeopoliticsModel:
         
         # 1. PageRank (Trade Matrix: rows=from, cols=to)
         # Represents volume of trade exports
-        self.trade_matrix = np.array([
-            [0.0, 0.2, 0.4, 0.1, 0.3], # USA
-            [0.4, 0.0, 0.3, 0.2, 0.1], # China
-            [0.3, 0.3, 0.0, 0.2, 0.2], # EU
-            [0.1, 0.4, 0.3, 0.0, 0.2], # Russia
-            [0.2, 0.1, 0.2, 0.5, 0.0]  # India
-        ])
+        self.data_loader = RealWorldDataLoader()
+        self.trade_matrix = self.data_loader.get_global_trade_matrix()
         
         # 2. GNN / GraphSAGE (Alliance Network)
         # Node Features: [GDP, Military_Power]
@@ -84,28 +83,62 @@ class GeopoliticsModel:
         self.mdp = MarkovDecisionProcess(states, actions, trans, rewards)
         self.mdp.value_iteration()
 
-    def run_analysis(self):
+    def run_analysis(self, active_events=None, global_gdp=None):
+        if active_events is None:
+            active_events = []
+            
         print("=== GEOPOLITICS MODEL ANALYSIS ===")
+        
+        # 1. Determine dynamic states from the simulation's active events
+        has_oil_crash = any(e.__class__.__name__ == 'EnergyCrisisEvent' for e in active_events)
+        has_sanctions = any(e.__class__.__name__ == 'WarEvent' for e in active_events)
+        has_war = any(e.__class__.__name__ == 'WarEvent' for e in active_events)
         
         # PageRank (Trade Hubs)
         ranks = calculate_pagerank(self.trade_matrix)
         top_hub = self.countries[np.argmax(ranks)]
         print(f"\n1. Global Trade Hub (PageRank): {top_hub} (Score: {np.max(ranks):.3f})")
         
-        # GNN Embeddings
+        # Dynamically update alliance matrix (e.g. isolate Russia during war)
+        if has_war:
+            self.alliance_matrix[3, :] = 0.0 # Isolate Russia
+            self.alliance_matrix[:, 3] = 0.0
+            
+        # GNN Embeddings (Dynamically scaled by global economic health)
+        if global_gdp is not None:
+            gdp_multiplier = max(0.5, min(1.5, global_gdp / 300000.0))
+            current_features = self.node_features * gdp_multiplier
+        else:
+            current_features = self.node_features
+            
         with torch.no_grad():
-            embeddings = self.gnn(self.node_features, self.alliance_matrix)
+            embeddings = self.gnn(current_features, self.alliance_matrix)
             print(f"\n2. GNN Generated Alliance Embeddings:\n{embeddings.numpy()}")
             
-        # BBN Probability
-        prob_recession = self.bbn.query_probability("Global_Recession", (True, True))
-        print(f"\n3. BBN: Prob. of Global Recession given Oil Crash AND Sanctions: {prob_recession*100}%")
+        # BBN Probability using dynamic simulation state
+        prob_recession = self.bbn.query_probability("Global_Recession", (has_oil_crash, has_sanctions))
+        print(f"\n3. BBN: Prob. of Global Recession given Oil Crash={has_oil_crash} AND Sanctions={has_sanctions}: {prob_recession*100}%")
         
-        # MDP Optimal Strategy
+        # MDP Dynamic Policy Optimization
+        for state in self.mdp.R:
+            if has_war:
+                self.mdp.R[state]['ATTACK'] = 10.0 # Reward aggression during war
+                self.mdp.R[state]['DIPLOMACY'] = -5.0 # Penalize diplomacy
+            else:
+                self.mdp.R[state]['ATTACK'] = -10.0 # Penalize aggression in peace
+                self.mdp.R[state]['DIPLOMACY'] = 10.0 # Reward peace
+                
+        self.mdp.value_iteration()
         policy = self.mdp.get_optimal_policy()
         print(f"\n4. MDP Leader Strategy: If PEACE -> {policy['PEACE']}, If TENSION -> {policy['TENSION']}")
         
-        # HMM Secret Inference
-        obs_seq = ['Trade_Normal', 'Military_Drill', 'Military_Drill']
+        # HMM Secret Inference using dynamic observation sequence
+        obs_seq = []
+        for _ in range(3):
+            if has_war:
+                obs_seq.append(np.random.choice(['Military_Drill', 'Sanctions_Imposed']))
+            else:
+                obs_seq.append('Trade_Normal')
+                
         _, hidden_states = self.hmm.viterbi(obs_seq)
-        print(f"\n5. HMM Inference: Based on observations {obs_seq}, the country's hidden states were: {hidden_states}")
+        print(f"\n5. HMM Inference: Based on dynamic observations {obs_seq}, the country's hidden states were: {hidden_states}")

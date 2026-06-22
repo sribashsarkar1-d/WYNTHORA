@@ -1,6 +1,6 @@
 import numpy as np
 from rk4 import RK4Integrator
-from lotka_volterra import LotkaVolterraEconomy
+from cge_model import CGEModel
 from pde import FiniteDifferencePDE
 from stochastic import StochasticIntegrator
 
@@ -13,10 +13,9 @@ class MacroEnvironment:
         self.time = 0.0
         self.dt = 0.1
         
-        # 1. Labor vs Automation (Lotka-Volterra via RK4)
-        self.lv_model = LotkaVolterraEconomy(alpha=0.1, beta=0.02, delta=0.01, gamma=0.1)
-        self.rk4 = RK4Integrator(step_size=self.dt)
-        self.economy_state = np.array([40.0, 9.0]) # [Laborers, Capital/Automation]
+        # 1. Multi-Sector Input-Output (CGE Model)
+        self.cge_model = CGEModel(num_sectors=3)
+        self.economy_output = self.cge_model.solve_equilibrium()
         
         # 2. Global CO2 Diffusion (PDE)
         self.co2_pde = FiniteDifferencePDE(nx=20, length=100.0, alpha=2.0, dt=self.dt)
@@ -32,8 +31,10 @@ class MacroEnvironment:
         """
         Advances the global macro simulation by one time step.
         """
-        # 1. Update Labor/Automation using RK4
-        self.economy_state = self.rk4.step(self.lv_model.derivative, self.time, self.economy_state)
+        # 1. Update Economy using CGE
+        # For dynamic changes, we might update Final Demand F
+        self.cge_model.F += np.random.normal(0, 1, 3) 
+        self.economy_output = self.cge_model.solve_equilibrium()
         
         # 2. Diffuse CO2
         self.co2_pde.step()
@@ -43,11 +44,12 @@ class MacroEnvironment:
         
         self.time += self.dt
 
-    def get_state(self):
+    def get_state(self) -> dict:
         return {
-            "Time": round(self.time, 2),
-            "Labor Force": round(self.economy_state[0], 2),
-            "Capital/Automation": round(self.economy_state[1], 2),
-            "Max Local CO2": round(np.max(self.co2_pde.u), 2),
-            "Market Index": round(self.market_index, 2)
+            "time": self.time,
+            "agriculture_output": self.economy_output.get('Agriculture Output', 0) if self.economy_output else 0,
+            "manufacturing_output": self.economy_output.get('Manufacturing Output', 0) if self.economy_output else 0,
+            "services_output": self.economy_output.get('Services Output', 0) if self.economy_output else 0,
+            "max_co2_ppm": float(np.max(self.co2_pde.u)),
+            "market_index": float(self.market_index)
         }

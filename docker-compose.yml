@@ -1,14 +1,15 @@
 version: '3.8'
 
 services:
-  core-engine:
+  data-pipeline:
     build:
-      context: ./backend/core-engine
+      context: ./backend/data-pipeline
       dockerfile: Dockerfile
     ports:
       - "8080:8080"
     environment:
       - ENV=development
+      - POSTGRES_URL=postgresql://admin:secret@postgres:5432/world_sim
     depends_on:
       - postgres
       - redis
@@ -21,6 +22,10 @@ services:
       - "8000:8000"
     environment:
       - ENV=development
+      - MLFLOW_TRACKING_URI=http://mlflow:5000
+    depends_on:
+      - postgres
+      - mlflow
 
   dashboard:
     build:
@@ -30,7 +35,15 @@ services:
       - "3000:3000"
     environment:
       - NODE_ENV=development
+      - NEXT_PUBLIC_API_URL=http://ai-services:8000
 
+  mlflow:
+    image: bitnami/mlflow:latest
+    ports:
+      - "5000:5000"
+    environment:
+      - MLFLOW_TRACKING_URI=sqlite:///mlflow.db
+      
   postgres:
     image: postgres:15-alpine
     ports:
@@ -39,8 +52,13 @@ services:
       - POSTGRES_USER=admin
       - POSTGRES_PASSWORD=secret
       - POSTGRES_DB=world_sim
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
 
   redis:
     image: redis:7-alpine
     ports:
       - "6379:6379"
+
+volumes:
+  postgres_data:

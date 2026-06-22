@@ -1,0 +1,8 @@
+{
+    "venvPath": "backend/ai-services",
+    "venv": "venv",
+    "extraPaths": [
+        "backend/data-pipeline/scripts/plugins",
+        "backend/ai-services/app"
+    ]
+}

@@ -18,6 +18,9 @@ class WorldEnvironment:
         # 6. A* Pathfinding map
         obstacles = [(2, 2), (2, 3), (2, 4)]
         self.pathfinder = AStarPathfinder(width, height, obstacles)
+        
+        # 7. Global State (influenced by Politics module)
+        self.global_tax_rate = 0.35
 
     def add_agent(self, agent):
         self.agents.append(agent)
