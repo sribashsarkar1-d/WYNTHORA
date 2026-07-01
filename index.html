@@ -1,10 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>World Simulation Engine | Architecture, SRS & Features</title>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=JetBrains+Mono:wght@400&display=swap"
+        rel="stylesheet">
     <style>
         :root {
             --bg-color: #0b0f19;
@@ -32,7 +35,7 @@
             line-height: 1.6;
             overflow-x: hidden;
             background-image: radial-gradient(circle at 15% 50%, rgba(56, 189, 248, 0.08), transparent 25%),
-                              radial-gradient(circle at 85% 30%, rgba(192, 132, 252, 0.08), transparent 25%);
+                radial-gradient(circle at 85% 30%, rgba(192, 132, 252, 0.08), transparent 25%);
             background-attachment: fixed;
         }
 
@@ -136,7 +139,8 @@
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
-        .srs-table th, .srs-table td {
+        .srs-table th,
+        .srs-table td {
             padding: 1.2rem;
             text-align: left;
             border-bottom: 1px solid rgba(255, 255, 255, 0.05);
@@ -173,7 +177,7 @@
             border: 1px solid rgba(255, 255, 255, 0.05);
             display: block;
         }
-        
+
         .mermaid {
             width: max-content;
             margin: 0 auto;
@@ -199,7 +203,10 @@
         .feature-card.implemented::before {
             content: '';
             position: absolute;
-            top: 0; left: 0; width: 4px; height: 100%;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
             background: var(--accent-success);
             opacity: 0.7;
             transition: opacity 0.3s ease, width 0.3s ease;
@@ -208,7 +215,10 @@
         .feature-card.missing::before {
             content: '';
             position: absolute;
-            top: 0; left: 0; width: 4px; height: 100%;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
             background: var(--accent-danger);
             opacity: 0.7;
             transition: opacity 0.3s ease, width 0.3s ease;
@@ -246,39 +256,89 @@
             margin-left: 10px;
         }
 
-        .badge.success { background: rgba(16, 185, 129, 0.1); color: var(--accent-success); }
-        .badge.danger { background: rgba(244, 63, 94, 0.1); color: var(--accent-danger); }
-        .badge.neutral { background: rgba(56, 189, 248, 0.1); color: var(--accent-primary); }
+        .badge.success {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--accent-success);
+        }
+
+        .badge.danger {
+            background: rgba(244, 63, 94, 0.1);
+            color: var(--accent-danger);
+        }
+
+        .badge.neutral {
+            background: rgba(56, 189, 248, 0.1);
+            color: var(--accent-primary);
+        }
 
         /* Animations */
         @keyframes fadeInDown {
-            from { opacity: 0; transform: translateY(-20px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
+
         @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
+
         @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
         }
 
         /* Custom Scrollbar */
-        ::-webkit-scrollbar { width: 8px; height: 8px; }
-        ::-webkit-scrollbar-track { background: var(--bg-color); }
-        ::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.2); border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: rgba(255, 255, 255, 0.4); }
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg-color);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.4);
+        }
     </style>
 </head>
+
 <body>
 
     <header>
         <h1>World Simulation Engine</h1>
         <p class="subtitle" style="margin-bottom: 1.5rem;">Complete SRS, DFD, ERD, and Features Index</p>
-        <div style="display: inline-block; background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 12px; padding: 1rem 2rem; backdrop-filter: blur(10px); text-align: center; margin-top: 1rem; animation: fadeIn 1s ease-out 0.4s both;">
-            <h3 style="color: var(--accent-primary); margin: 0 0 0.5rem 0; font-size: 1.2rem; letter-spacing: 1px;">Architect: SRIBASH SARKAR</h3>
-            <p style="color: var(--text-muted); font-family: 'JetBrains Mono', monospace; font-size: 0.95rem; margin: 0;">📞 Contact: 9083646603 | 📧 Email: sribashsarkarblp@gmail.com</p>
+        <div
+            style="display: inline-block; background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 12px; padding: 1rem 2rem; backdrop-filter: blur(10px); text-align: center; margin-top: 1rem; animation: fadeIn 1s ease-out 0.4s both;">
+            <h3 style="color: var(--accent-primary); margin: 0 0 0.5rem 0; font-size: 1.2rem; letter-spacing: 1px;">
+                Architect: SRIBASH SARKAR</h3>
+            <p
+                style="color: var(--text-muted); font-family: 'JetBrains Mono', monospace; font-size: 0.95rem; margin: 0;">
+                📞 Contact: 9083646603 | 📧 Email: sribashsarkarblp@gmail.com</p>
         </div>
     </header>
 
@@ -287,7 +347,8 @@
         <!-- SRS Section -->
         <section class="section" id="srs">
             <h2>Software Requirements Specification (SRS)</h2>
-            <p style="margin-bottom: 1.5rem; color: var(--text-muted);">The definitive guide to the capabilities, roles, and functional targets of the World Simulation Engine.</p>
+            <p style="margin-bottom: 1.5rem; color: var(--text-muted);">The definitive guide to the capabilities, roles,
+                and functional targets of the World Simulation Engine.</p>
 
             <h3>1. User Roles & Access Control</h3>
             <table class="srs-table">
@@ -300,19 +361,23 @@
                 <tbody>
                     <tr>
                         <td style="font-weight: 600; color: #fff;">System Admin</td>
-                        <td>Full control over infrastructure, global AI models, rate limits, and billing overrides. Can view system-wide audit logs.</td>
+                        <td>Full control over infrastructure, global AI models, rate limits, and billing overrides. Can
+                            view system-wide audit logs.</td>
                     </tr>
                     <tr>
                         <td style="font-weight: 600; color: #fff;">Data Scientist / Analyst</td>
-                        <td>Can upload new ML models, manage training datasets via S3, and trigger high-compute simulation testing.</td>
+                        <td>Can upload new ML models, manage training datasets via S3, and trigger high-compute
+                            simulation testing.</td>
                     </tr>
                     <tr>
                         <td style="font-weight: 600; color: #fff;">Organization Owner</td>
-                        <td>Manages billing, API keys, and invites users to their organization. Can view all organization simulation results.</td>
+                        <td>Manages billing, API keys, and invites users to their organization. Can view all
+                            organization simulation results.</td>
                     </tr>
                     <tr>
                         <td style="font-weight: 600; color: #fff;">Standard User</td>
-                        <td>Can create simulation requests, configure scenario variables, and view their own generated reports.</td>
+                        <td>Can create simulation requests, configure scenario variables, and view their own generated
+                            reports.</td>
                     </tr>
                 </tbody>
             </table>
@@ -327,12 +392,42 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr><td class="id-col">FR-01</td><td>Simulation Engine Execution</td><td>The system must allow users to configure global variables (climate, economy) and run predictive simulations targeting a specific future year.</td></tr>
-                    <tr><td class="id-col">FR-02</td><td>Data Pipeline Integration</td><td>The system must ingest data from external sources (e.g., World Bank APIs) on a scheduled DAG to update local indicators.</td></tr>
-                    <tr><td class="id-col">FR-03</td><td>AI Model Inference</td><td>The simulation engine must interact with deployed ML models via endpoints to calculate confidence scores and metrics.</td></tr>
-                    <tr><td class="id-col">FR-04</td><td>Reporting & Export</td><td>Simulation results must be compiled into downloadable artifacts (PDF/JSON) and stored securely in cloud storage.</td></tr>
-                    <tr><td class="id-col">FR-05</td><td>Notification System</td><td>Users must receive asynchronous alerts (Email/WebSockets) upon the completion of a long-running simulation job.</td></tr>
-                    <tr><td class="id-col">FR-06</td><td>Scenario Branching</td><td>Users must be able to branch a scenario mid-simulation to test alternate variables without recalculating historical paths.</td></tr>
+                    <tr>
+                        <td class="id-col">FR-01</td>
+                        <td>Simulation Engine Execution</td>
+                        <td>The system must allow users to configure global variables (climate, economy) and run
+                            predictive simulations targeting a specific future year.</td>
+                    </tr>
+                    <tr>
+                        <td class="id-col">FR-02</td>
+                        <td>Data Pipeline Integration</td>
+                        <td>The system must ingest data from external sources (e.g., World Bank APIs) on a scheduled DAG
+                            to update local indicators.</td>
+                    </tr>
+                    <tr>
+                        <td class="id-col">FR-03</td>
+                        <td>AI Model Inference</td>
+                        <td>The simulation engine must interact with deployed ML models via endpoints to calculate
+                            confidence scores and metrics.</td>
+                    </tr>
+                    <tr>
+                        <td class="id-col">FR-04</td>
+                        <td>Reporting & Export</td>
+                        <td>Simulation results must be compiled into downloadable artifacts (PDF/JSON) and stored
+                            securely in cloud storage.</td>
+                    </tr>
+                    <tr>
+                        <td class="id-col">FR-05</td>
+                        <td>Notification System</td>
+                        <td>Users must receive asynchronous alerts (Email/WebSockets) upon the completion of a
+                            long-running simulation job.</td>
+                    </tr>
+                    <tr>
+                        <td class="id-col">FR-06</td>
+                        <td>Scenario Branching</td>
+                        <td>Users must be able to branch a scenario mid-simulation to test alternate variables without
+                            recalculating historical paths.</td>
+                    </tr>
                 </tbody>
             </table>
 
@@ -346,184 +441,217 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr><td class="id-col">NFR-01</td><td>Scalability</td><td>The engine must support horizontal scaling and DB sharding to handle over 10,000 concurrent simulation requests.</td></tr>
-                    <tr><td class="id-col">NFR-02</td><td>Performance</td><td>API response times for static data must be under 200ms. Long-polling/WebSockets must be used for simulations exceeding 5s compute time.</td></tr>
-                    <tr><td class="id-col">NFR-03</td><td>Security</td><td>All passwords must be hashed (Argon2/bcrypt). All API requests must be validated via OAuth2 or secure API keys.</td></tr>
-                    <tr><td class="id-col">NFR-04</td><td>Reliability</td><td>System uptime must be 99.9%. Nightly backups of the PostgreSQL database must be maintained.</td></tr>
+                    <tr>
+                        <td class="id-col">NFR-01</td>
+                        <td>Scalability</td>
+                        <td>The engine must support horizontal scaling and DB sharding to handle over 10,000 concurrent
+                            simulation requests.</td>
+                    </tr>
+                    <tr>
+                        <td class="id-col">NFR-02</td>
+                        <td>Performance</td>
+                        <td>API response times for static data must be under 200ms. Long-polling/WebSockets must be used
+                            for simulations exceeding 5s compute time.</td>
+                    </tr>
+                    <tr>
+                        <td class="id-col">NFR-03</td>
+                        <td>Security</td>
+                        <td>All passwords must be hashed (Argon2/bcrypt). All API requests must be validated via OAuth2
+                            or secure API keys.</td>
+                    </tr>
+                    <tr>
+                        <td class="id-col">NFR-04</td>
+                        <td>Reliability</td>
+                        <td>System uptime must be 99.9%. Nightly backups of the PostgreSQL database must be maintained.
+                        </td>
+                    </tr>
                 </tbody>
             </table>
         </section>
 
         <!-- DFD Section -->
         <!-- DFD Section -->
-        <section class="section" id="dfd" style="padding: 0; max-width: 100%; border-radius: 12px; overflow: hidden; margin-top: 2rem;">
-            
+        <section class="section" id="dfd"
+            style="padding: 0; max-width: 100%; border-radius: 12px; overflow: hidden; margin-top: 2rem;">
+
             <!-- Level 0 DFD -->
             <div style="background-color: #222222; padding: 1.5rem; border-top: 1px solid #333;">
-                <h3 style="margin: 0; color: #ffffff; font-size: 1.25rem; font-weight: 400; font-family: sans-serif;">Level 0 DFD (Context Diagram)</h3>
-                <p style="margin: 0.5rem 0 0 0; color: #cccccc; font-size: 0.95rem; font-family: sans-serif;">The Context Diagram shows the World Simulation Engine interacting with external entities (Users, Data Providers, and Admins).</p>
+                <h3 style="margin: 0; color: #ffffff; font-size: 1.25rem; font-weight: 400; font-family: sans-serif;">
+                    Level 0 DFD (Context Diagram)</h3>
+                <p style="margin: 0.5rem 0 0 0; color: #cccccc; font-size: 0.95rem; font-family: sans-serif;">The
+                    Context Diagram shows the World Simulation Engine interacting with external entities (Users, Data
+                    Providers, and Admins).</p>
             </div>
-            <div class="mermaid-wrapper" style="background-color: #171717; padding: 3rem 1rem; border-bottom: 1px solid #333; border-radius: 0;">
+            <div class="mermaid-wrapper"
+                style="background-color: #171717; padding: 3rem 1rem; border-bottom: 1px solid #333; border-radius: 0;">
                 <div class="mermaid">
                     graph TD
-                        classDef default fill:#171717,stroke:#fff,stroke-width:1px,color:#fff;
-                        
-                        Users[Standard Users]
-                        DataSci[Data Scientists]
-                        OrgOwner[Organization Owners]
-                        DataProviders[External Data Providers: IoT, APIs]
-                        Engine((World Simulation Engine))
-                        Admins[System Administrators]
-                        Payment[Payment Gateway]
-                        
-                        Users -->|Queries, Variables, Branching| Engine
-                        Engine -->|Simulation Reports, WebSockets| Users
-                        
-                        DataSci -->|Upload ML Models, Training Data| Engine
-                        OrgOwner -->|Manage Billing & API Keys| Engine
-                        
-                        Engine -->|Process Charges| Payment
-                        
-                        DataProviders -->|Raw Real-time Data| Engine
-                        
-                        Admins -->|Configuration & Overrides| Engine
-                        Engine -->|Alerts & System Logs| Admins
+                    classDef default fill:#171717,stroke:#fff,stroke-width:1px,color:#fff;
+
+                    Users[Standard Users]
+                    DataSci[Data Scientists]
+                    OrgOwner[Organization Owners]
+                    DataProviders[External Data Providers: IoT, APIs]
+                    Engine((World Simulation Engine))
+                    Admins[System Administrators]
+                    Payment[Payment Gateway]
+
+                    Users -->|Queries, Variables, Branching| Engine
+                    Engine -->|Simulation Reports, WebSockets| Users
+
+                    DataSci -->|Upload ML Models, Training Data| Engine
+                    OrgOwner -->|Manage Billing & API Keys| Engine
+
+                    Engine -->|Process Charges| Payment
+
+                    DataProviders -->|Raw Real-time Data| Engine
+
+                    Admins -->|Configuration & Overrides| Engine
+                    Engine -->|Alerts & System Logs| Admins
                 </div>
             </div>
 
             <!-- Level 1 DFD -->
             <div style="background-color: #222222; padding: 1.5rem;">
-                <h3 style="margin: 0; color: #ffffff; font-size: 1.25rem; font-weight: 400; font-family: sans-serif;">Level 1 DFD</h3>
-                <p style="margin: 0.5rem 0 0 0; color: #cccccc; font-size: 0.95rem; font-family: sans-serif;">The Level 1 DFD breaks down the main system into major operational modules.</p>
+                <h3 style="margin: 0; color: #ffffff; font-size: 1.25rem; font-weight: 400; font-family: sans-serif;">
+                    Level 1 DFD</h3>
+                <p style="margin: 0.5rem 0 0 0; color: #cccccc; font-size: 0.95rem; font-family: sans-serif;">The Level
+                    1 DFD breaks down the main system into major operational modules.</p>
             </div>
-            <div class="mermaid-wrapper" style="background-color: #171717; padding: 3rem 1rem; border-bottom: 1px solid #333; border-radius: 0;">
+            <div class="mermaid-wrapper"
+                style="background-color: #171717; padding: 3rem 1rem; border-bottom: 1px solid #333; border-radius: 0;">
                 <div class="mermaid">
                     graph TD
-                        classDef default fill:#171717,stroke:#fff,stroke-width:1px,color:#fff;
-                        
-                        User[Users / Org Owners]
-                        DataSci[Data Scientists]
-                        DataProv[Data Providers]
-                        Admin[Admin]
-                        
-                        P1[1.0 Auth & Billing]
-                        P2[2.0 Simulation Configuration]
-                        P25[2.5 Scenario Branching]
-                        P3[3.0 Scheduled Data Ingestion]
-                        P4[4.0 AI Processing]
-                        P5[5.0 Result Generation]
-                        P6[6.0 System Monitor]
-                        P7[7.0 Notification System]
-                        P8[8.0 Model Management]
-                        
-                        DBUser[(User & Billing DB)]
-                        DBRules[(Rules & Scenarios DB)]
-                        DBLake[(Data Lake & Snowflake)]
-                        CloudStorage[(Cloud Storage / S3)]
-                        DAGs((Airflow Scheduler))
-                        
-                        User -->|Login/Token/Billing| P1
-                        P1 -->|Update Context| DBUser
-                        
-                        DataSci -->|Upload Models| P8
-                        P8 -->|Save Weights| CloudStorage
-                        
-                        P1 -->|Authenticated Request| P2
-                        DBRules -->|Constraints| P2
-                        
-                        User -->|Branch Request| P25
-                        P25 -->|Save Forked State| DBRules
-                        
-                        P2 -->|Parameters| P4
-                        P25 -->|Branched Params| P4
-                        
-                        DAGs -.->|Trigger| P3
-                        DataProv -->|Ingest APIs| P3
-                        P3 -->|Cleaned Streams| DBLake
-                        DBLake -->|Historical & Real-time Data| P4
-                        
-                        P4 -->|Raw Results| P5
-                        P5 -->|Upload PDFs/JSON| CloudStorage
-                        
-                        P5 -->|Trigger Alert| P7
-                        P7 -->|Email/WebSocket Alert| User
-                        P5 -->|Final Report Link| User
-                        
-                        P5 -->|Metrics| P6
-                        P6 -->|Dashboard| Admin
+                    classDef default fill:#171717,stroke:#fff,stroke-width:1px,color:#fff;
+
+                    User[Users / Org Owners]
+                    DataSci[Data Scientists]
+                    DataProv[Data Providers]
+                    Admin[Admin]
+
+                    P1[1.0 Auth & Billing]
+                    P2[2.0 Simulation Configuration]
+                    P25[2.5 Scenario Branching]
+                    P3[3.0 Scheduled Data Ingestion]
+                    P4[4.0 AI Processing]
+                    P5[5.0 Result Generation]
+                    P6[6.0 System Monitor]
+                    P7[7.0 Notification System]
+                    P8[8.0 Model Management]
+
+                    DBUser[(User & Billing DB)]
+                    DBRules[(Rules & Scenarios DB)]
+                    DBLake[(Data Lake & Snowflake)]
+                    CloudStorage[(Cloud Storage / S3)]
+                    DAGs((Airflow Scheduler))
+
+                    User -->|Login/Token/Billing| P1
+                    P1 -->|Update Context| DBUser
+
+                    DataSci -->|Upload Models| P8
+                    P8 -->|Save Weights| CloudStorage
+
+                    P1 -->|Authenticated Request| P2
+                    DBRules -->|Constraints| P2
+
+                    User -->|Branch Request| P25
+                    P25 -->|Save Forked State| DBRules
+
+                    P2 -->|Parameters| P4
+                    P25 -->|Branched Params| P4
+
+                    DAGs -.->|Trigger| P3
+                    DataProv -->|Ingest APIs| P3
+                    P3 -->|Cleaned Streams| DBLake
+                    DBLake -->|Historical & Real-time Data| P4
+
+                    P4 -->|Raw Results| P5
+                    P5 -->|Upload PDFs/JSON| CloudStorage
+
+                    P5 -->|Trigger Alert| P7
+                    P7 -->|Email/WebSocket Alert| User
+                    P5 -->|Final Report Link| User
+
+                    P5 -->|Metrics| P6
+                    P6 -->|Dashboard| Admin
                 </div>
             </div>
 
             <!-- Level 2 DFD -->
             <div style="background-color: #222222; padding: 1.5rem;">
-                <h3 style="margin: 0; color: #ffffff; font-size: 1.25rem; font-weight: 400; font-family: sans-serif;">Level 2 DFD (Focus on 4.0 AI Processing)</h3>
-                <p style="margin: 0.5rem 0 0 0; color: #cccccc; font-size: 0.95rem; font-family: sans-serif;">This zooms into the AI Processing block from Level 1.</p>
+                <h3 style="margin: 0; color: #ffffff; font-size: 1.25rem; font-weight: 400; font-family: sans-serif;">
+                    Level 2 DFD (Focus on 4.0 AI Processing)</h3>
+                <p style="margin: 0.5rem 0 0 0; color: #cccccc; font-size: 0.95rem; font-family: sans-serif;">This zooms
+                    into the AI Processing block from Level 1.</p>
             </div>
-            <div class="mermaid-wrapper" style="background-color: #171717; padding: 3rem 1rem; border-bottom: 1px solid #333; border-radius: 0;">
+            <div class="mermaid-wrapper"
+                style="background-color: #171717; padding: 3rem 1rem; border-bottom: 1px solid #333; border-radius: 0;">
                 <div class="mermaid">
                     graph TD
-                        classDef default fill:#171717,stroke:#fff,stroke-width:1px,color:#fff;
-                        
-                        DBLake[(Data Lake)]
-                        CloudStorage[(Cloud Storage / S3)]
-                        
-                        P41[4.1 Data Cleaning & Normalization]
-                        P42[4.2 Feature Extraction]
-                        P43[4.3 Model Inference]
-                        P44[4.4 Scenario Aggregation]
-                        
-                        DBLake -->|Raw Data| P41
-                        P41 -->|Normalized Tensors| P42
-                        P42 -->|Features| P43
-                        CloudStorage -->|Load ML Weights| P43
-                        P43 -->|Agent Predictions| P44
-                        P44 -->|Raw Results to 5.0| Final[5.0 Result Generation]
+                    classDef default fill:#171717,stroke:#fff,stroke-width:1px,color:#fff;
+
+                    DBLake[(Data Lake)]
+                    CloudStorage[(Cloud Storage / S3)]
+
+                    P41[4.1 Data Cleaning & Normalization]
+                    P42[4.2 Feature Extraction]
+                    P43[4.3 Model Inference]
+                    P44[4.4 Scenario Aggregation]
+
+                    DBLake -->|Raw Data| P41
+                    P41 -->|Normalized Tensors| P42
+                    P42 -->|Features| P43
+                    CloudStorage -->|Load ML Weights| P43
+                    P43 -->|Agent Predictions| P44
+                    P44 -->|Raw Results to 5.0| Final[5.0 Result Generation]
                 </div>
             </div>
 
             <!-- Level 3 DFD -->
             <div style="background-color: #222222; padding: 1.5rem;">
-                <h3 style="margin: 0; color: #ffffff; font-size: 1.25rem; font-weight: 400; font-family: sans-serif;">Level 3 DFD (Focus on 4.3 Model Inference)</h3>
-                <p style="margin: 0.5rem 0 0 0; color: #cccccc; font-size: 0.95rem; font-family: sans-serif;">This zooms into the Model Inference block to show the Multi-Agent architecture.</p>
+                <h3 style="margin: 0; color: #ffffff; font-size: 1.25rem; font-weight: 400; font-family: sans-serif;">
+                    Level 3 DFD (Focus on 4.3 Model Inference)</h3>
+                <p style="margin: 0.5rem 0 0 0; color: #cccccc; font-size: 0.95rem; font-family: sans-serif;">This zooms
+                    into the Model Inference block to show the Multi-Agent architecture.</p>
             </div>
             <div class="mermaid-wrapper" style="background-color: #171717; padding: 3rem 1rem; border-radius: 0;">
                 <div class="mermaid">
                     graph TD
-                        classDef default fill:#171717,stroke:#fff,stroke-width:1px,color:#fff;
-                        
-                        DBFeature[(Feature Store)]
-                        S3[(S3: Custom ML Models)]
-                        
-                        Econ[4.3.1 Economic Agent Engine]
-                        Clim[4.3.2 Climate Agent Engine]
-                        Geo[4.3.3 Geopolitical Agent Engine]
-                        Bus[4.3.4 Business Agent Engine]
-                        
-                        Synth[4.3.5 Multi-Agent Synthesis]
-                        RL[4.3.6 Reinforcement Learning Feedback Loop]
-                        
-                        Agg[To 4.4 Scenario Aggregation]
-                        
-                        DBFeature --> Econ
-                        DBFeature --> Clim
-                        DBFeature --> Geo
-                        DBFeature --> Bus
-                        
-                        S3 -.->|Custom Weights| Econ
-                        S3 -.->|Custom Weights| Clim
-                        
-                        Econ -->|GDP, Inflation| Synth
-                        Clim -->|Temps, CO2| Synth
-                        Geo -->|War Risk, Policies| Synth
-                        Bus -->|Market Cap, Tech| Synth
-                        
-                        Synth -->|Final Ticked State| Agg
-                        Synth -->|Cross-domain Interference| RL
-                        
-                        RL --> Econ
-                        RL --> Clim
-                        RL --> Geo
-                        RL --> Bus
+                    classDef default fill:#171717,stroke:#fff,stroke-width:1px,color:#fff;
+
+                    DBFeature[(Feature Store)]
+                    S3[(S3: Custom ML Models)]
+
+                    Econ[4.3.1 Economic Agent Engine]
+                    Clim[4.3.2 Climate Agent Engine]
+                    Geo[4.3.3 Geopolitical Agent Engine]
+                    Bus[4.3.4 Business Agent Engine]
+
+                    Synth[4.3.5 Multi-Agent Synthesis]
+                    RL[4.3.6 Reinforcement Learning Feedback Loop]
+
+                    Agg[To 4.4 Scenario Aggregation]
+
+                    DBFeature --> Econ
+                    DBFeature --> Clim
+                    DBFeature --> Geo
+                    DBFeature --> Bus
+
+                    S3 -.->|Custom Weights| Econ
+                    S3 -.->|Custom Weights| Clim
+
+                    Econ -->|GDP, Inflation| Synth
+                    Clim -->|Temps, CO2| Synth
+                    Geo -->|War Risk, Policies| Synth
+                    Bus -->|Market Cap, Tech| Synth
+
+                    Synth -->|Final Ticked State| Agg
+                    Synth -->|Cross-domain Interference| RL
+
+                    RL --> Econ
+                    RL --> Clim
+                    RL --> Geo
+                    RL --> Bus
                 </div>
             </div>
         </section>
@@ -531,97 +659,100 @@
         <!-- ERD Section -->
         <section class="section" id="erd">
             <h2 style="--accent-primary: var(--accent-secondary);">Entity-Relationship Diagram (ERD)</h2>
-            <p style="margin-bottom: 1.5rem; color: var(--text-muted);">Complete database schema representation including all tables defined in the V1 initialization.</p>
+            <p style="margin-bottom: 1.5rem; color: var(--text-muted);">Complete database schema representation
+                including all tables defined in the V1 initialization.</p>
             <div class="mermaid-wrapper">
                 <div class="mermaid">
                     erDiagram
-                        ORGANIZATIONS ||--o{ USERS : "has"
-                        ORGANIZATIONS ||--o{ SUBSCRIPTIONS : "has"
-                        ORGANIZATIONS ||--o{ INVOICE_LEDGERS : "billed"
-                        ORGANIZATIONS ||--o{ COMPUTE_USAGE_LOGS : "uses"
-                        ORGANIZATIONS ||--o{ WEBHOOK_ENDPOINTS : "configures"
-                        ORGANIZATIONS ||--o{ ORG_PLUGINS : "installs"
-                    
-                        ROLES ||--o{ PERMISSIONS : "grants"
-                        USERS }o--|| ROLES : "assigned_to"
-                    
-                        USERS ||--o{ USER_MFA_DEVICES : "secures"
-                        USERS ||--o{ OAUTH_TOKENS : "authenticates"
-                        USERS ||--o{ API_KEYS : "generates"
-                        USERS ||--o{ SIMULATION_REQUESTS : "creates"
-                        USERS ||--o{ AUDIT_LOGS : "performs"
-                        USERS ||--o{ NOTIFICATIONS : "receives"
-                    
-                        SIMULATION_REQUESTS ||--o{ SCENARIOS : "configures"
-                        SIMULATION_REQUESTS ||--o{ SIMULATION_RESULTS : "generates"
-                        SIMULATION_REQUESTS ||--o{ SIMULATION_CHECKPOINTS : "saves"
-                        SIMULATION_REQUESTS ||--o{ COLLAB_SESSIONS : "hosts"
-                    
-                        SCENARIOS ||--o{ SCENARIOS : "branches_from"
-                        SIMULATION_RESULTS ||--o{ PREDICTIONS : "forecasts"
-                    
-                        DATA_SOURCES ||--o{ PIPELINE_RUNS : "monitored_by"
-                        DATA_SOURCES ||--o{ TRAINING_DATASETS : "sources"
-                    
-                        COUNTRIES ||--o{ ECONOMIC_TIME_SERIES : "has_data"
-                        COUNTRIES ||--o{ CLIMATE_TIME_SERIES : "has_data"
-                        COUNTRIES ||--o{ GEOPOLITICAL_EVENTS : "experiences"
-                    
-                        MARKET_TICKERS ||--o{ MARKET_TICK_DATA : "has_price"
-                    
-                        AI_MODELS ||--o{ MODEL_VERSIONS : "versions"
-                        MODEL_VERSIONS ||--o{ MODEL_DEPLOYMENTS : "deploys"
-                        TRAINING_DATASETS ||--o{ MODEL_VERSIONS : "trains"
-                    
-                        WEBHOOK_ENDPOINTS ||--o{ WEBHOOK_DELIVERY_HISTORIES : "records"
-                        PLUGINS ||--o{ ORG_PLUGINS : "used_by"
-                        COLLAB_SESSIONS ||--o{ COLLAB_CURSORS : "tracks"
-                    
-                        ORGANIZATIONS { uuid id PK  string name  string domain  sub_tier subscription_tier }
-                        ROLES { uuid id PK  role_type name  string description }
-                        PERMISSIONS { uuid id PK  uuid role_id FK  string resource  string action }
-                        USERS { uuid id PK  uuid org_id FK  uuid role_id FK  string email  string password_hash }
-                        USER_MFA_DEVICES { uuid id PK  uuid user_id FK  string device_name  string secret_key }
-                        OAUTH_TOKENS { uuid id PK  uuid user_id FK  string provider  text access_token }
-                        API_KEYS { uuid id PK  uuid user_id FK  string key_hash  string key_prefix }
-                        
-                        SIMULATION_REQUESTS { uuid id PK  uuid user_id FK  uuid org_id FK  string name  int target_year }
-                        SCENARIOS { uuid id PK  uuid request_id FK  uuid parent_scenario_id FK  string name  jsonb variables }
-                        SIMULATION_RESULTS { uuid id PK  uuid request_id FK  uuid scenario_id FK  jsonb raw_payload }
-                        SIMULATION_CHECKPOINTS { uuid id PK  uuid request_id FK  bigint tick_number  string state_hash }
-                        PREDICTIONS { uuid id PK  uuid result_id FK  string domain  string metric  decimal predicted_value }
-                        
-                        DATA_SOURCES { uuid id PK  string name  string api_endpoint  jsonb auth_config }
-                        PIPELINE_RUNS { uuid id PK  uuid source_id FK  string status  int records_ingested }
-                        COUNTRIES { string iso_code PK  string name  string region }
-                        ECONOMIC_TIME_SERIES { timestamp time PK  string iso_code FK  numeric gdp_usd  decimal inflation_rate }
-                        MARKET_TICKERS { uuid id PK  string symbol  string company_name  string sector }
-                        MARKET_TICK_DATA { timestamp time PK  uuid ticker_id FK  decimal price_close  bigint volume }
-                        CLIMATE_TIME_SERIES { timestamp time PK  string iso_code FK  decimal avg_temp_celsius  decimal co2_ppm }
-                        GEOPOLITICAL_EVENTS { uuid id PK  string iso_code FK  string event_type  int severity  text description }
-                        NEWS_SENTIMENT_LOGS { uuid id PK  string source  text headline  decimal finbert_score }
-                        
-                        TRAINING_DATASETS { uuid id PK  uuid source_id FK  string name  string s3_path }
-                        AI_MODELS { uuid id PK  uuid org_id FK  string name  string architecture }
-                        MODEL_VERSIONS { uuid id PK  uuid model_id FK  string version_tag  uuid dataset_id FK }
-                        MODEL_DEPLOYMENTS { uuid id PK  uuid version_id FK  string environment  uuid deployed_by FK }
-                        
-                        SUBSCRIPTIONS { uuid id PK  uuid org_id FK  string stripe_sub_id  sub_tier plan_type }
-                        INVOICE_LEDGERS { uuid id PK  uuid org_id FK  string stripe_invoice_id  decimal amount_due }
-                        COMPUTE_USAGE_LOGS { uuid id PK  uuid org_id FK  uuid request_id FK  decimal compute_minutes }
-                        PAYMENT_METHODS { uuid id PK  uuid org_id FK  string stripe_pm_id  string card_last4 }
-                        
-                        WEBHOOK_ENDPOINTS { uuid id PK  uuid org_id FK  string target_url  jsonb events }
-                        WEBHOOK_DELIVERY_HISTORIES { uuid id PK  uuid endpoint_id FK  string event_type  int response_status }
-                        AUDIT_LOGS { uuid id PK  uuid user_id FK  uuid org_id FK  string action  inet ip_address }
-                        SYSTEM_ALERTS { uuid id PK  alert_level level  string service_name  text message }
-                        NOTIFICATIONS { uuid id PK  uuid user_id FK  string type  string title  boolean is_read }
-                        
-                        COLLAB_SESSIONS { uuid id PK  uuid request_id FK  uuid started_by FK  boolean is_active }
-                        COLLAB_CURSORS { uuid id PK  uuid session_id FK  uuid user_id FK  decimal pos_x  decimal pos_y }
-                        PLUGINS { uuid id PK  uuid developer_id FK  string name  string version }
-                        ORG_PLUGINS { uuid id PK  uuid org_id FK  uuid plugin_id FK  boolean is_enabled }
-                        GIS_TOPOLOGY_LAYERS { uuid id PK  string name  string layer_type  string s3_geojson_path }
+                    ORGANIZATIONS ||--o{ USERS : "has"
+                    ORGANIZATIONS ||--o{ SUBSCRIPTIONS : "has"
+                    ORGANIZATIONS ||--o{ INVOICE_LEDGERS : "billed"
+                    ORGANIZATIONS ||--o{ COMPUTE_USAGE_LOGS : "uses"
+                    ORGANIZATIONS ||--o{ WEBHOOK_ENDPOINTS : "configures"
+                    ORGANIZATIONS ||--o{ ORG_PLUGINS : "installs"
+
+                    ROLES ||--o{ PERMISSIONS : "grants"
+                    USERS }o--|| ROLES : "assigned_to"
+
+                    USERS ||--o{ USER_MFA_DEVICES : "secures"
+                    USERS ||--o{ OAUTH_TOKENS : "authenticates"
+                    USERS ||--o{ API_KEYS : "generates"
+                    USERS ||--o{ SIMULATION_REQUESTS : "creates"
+                    USERS ||--o{ AUDIT_LOGS : "performs"
+                    USERS ||--o{ NOTIFICATIONS : "receives"
+
+                    SIMULATION_REQUESTS ||--o{ SCENARIOS : "configures"
+                    SIMULATION_REQUESTS ||--o{ SIMULATION_RESULTS : "generates"
+                    SIMULATION_REQUESTS ||--o{ SIMULATION_CHECKPOINTS : "saves"
+                    SIMULATION_REQUESTS ||--o{ COLLAB_SESSIONS : "hosts"
+
+                    SCENARIOS ||--o{ SCENARIOS : "branches_from"
+                    SIMULATION_RESULTS ||--o{ PREDICTIONS : "forecasts"
+
+                    DATA_SOURCES ||--o{ PIPELINE_RUNS : "monitored_by"
+                    DATA_SOURCES ||--o{ TRAINING_DATASETS : "sources"
+
+                    COUNTRIES ||--o{ ECONOMIC_TIME_SERIES : "has_data"
+                    COUNTRIES ||--o{ CLIMATE_TIME_SERIES : "has_data"
+                    COUNTRIES ||--o{ GEOPOLITICAL_EVENTS : "experiences"
+
+                    MARKET_TICKERS ||--o{ MARKET_TICK_DATA : "has_price"
+
+                    AI_MODELS ||--o{ MODEL_VERSIONS : "versions"
+                    MODEL_VERSIONS ||--o{ MODEL_DEPLOYMENTS : "deploys"
+                    TRAINING_DATASETS ||--o{ MODEL_VERSIONS : "trains"
+
+                    WEBHOOK_ENDPOINTS ||--o{ WEBHOOK_DELIVERY_HISTORIES : "records"
+                    PLUGINS ||--o{ ORG_PLUGINS : "used_by"
+                    COLLAB_SESSIONS ||--o{ COLLAB_CURSORS : "tracks"
+
+                    ORGANIZATIONS { uuid id PK string name string domain sub_tier subscription_tier }
+                    ROLES { uuid id PK role_type name string description }
+                    PERMISSIONS { uuid id PK uuid role_id FK string resource string action }
+                    USERS { uuid id PK uuid org_id FK uuid role_id FK string email string password_hash }
+                    USER_MFA_DEVICES { uuid id PK uuid user_id FK string device_name string secret_key }
+                    OAUTH_TOKENS { uuid id PK uuid user_id FK string provider text access_token }
+                    API_KEYS { uuid id PK uuid user_id FK string key_hash string key_prefix }
+
+                    SIMULATION_REQUESTS { uuid id PK uuid user_id FK uuid org_id FK string name int target_year }
+                    SCENARIOS { uuid id PK uuid request_id FK uuid parent_scenario_id FK string name jsonb variables }
+                    SIMULATION_RESULTS { uuid id PK uuid request_id FK uuid scenario_id FK jsonb raw_payload }
+                    SIMULATION_CHECKPOINTS { uuid id PK uuid request_id FK bigint tick_number string state_hash }
+                    PREDICTIONS { uuid id PK uuid result_id FK string domain string metric decimal predicted_value }
+
+                    DATA_SOURCES { uuid id PK string name string api_endpoint jsonb auth_config }
+                    PIPELINE_RUNS { uuid id PK uuid source_id FK string status int records_ingested }
+                    COUNTRIES { string iso_code PK string name string region }
+                    ECONOMIC_TIME_SERIES { timestamp time PK string iso_code FK numeric gdp_usd decimal inflation_rate }
+                    MARKET_TICKERS { uuid id PK string symbol string company_name string sector }
+                    MARKET_TICK_DATA { timestamp time PK uuid ticker_id FK decimal price_close bigint volume }
+                    CLIMATE_TIME_SERIES { timestamp time PK string iso_code FK decimal avg_temp_celsius decimal co2_ppm
+                    }
+                    GEOPOLITICAL_EVENTS { uuid id PK string iso_code FK string event_type int severity text description
+                    }
+                    NEWS_SENTIMENT_LOGS { uuid id PK string source text headline decimal finbert_score }
+
+                    TRAINING_DATASETS { uuid id PK uuid source_id FK string name string s3_path }
+                    AI_MODELS { uuid id PK uuid org_id FK string name string architecture }
+                    MODEL_VERSIONS { uuid id PK uuid model_id FK string version_tag uuid dataset_id FK }
+                    MODEL_DEPLOYMENTS { uuid id PK uuid version_id FK string environment uuid deployed_by FK }
+
+                    SUBSCRIPTIONS { uuid id PK uuid org_id FK string stripe_sub_id sub_tier plan_type }
+                    INVOICE_LEDGERS { uuid id PK uuid org_id FK string stripe_invoice_id decimal amount_due }
+                    COMPUTE_USAGE_LOGS { uuid id PK uuid org_id FK uuid request_id FK decimal compute_minutes }
+                    PAYMENT_METHODS { uuid id PK uuid org_id FK string stripe_pm_id string card_last4 }
+
+                    WEBHOOK_ENDPOINTS { uuid id PK uuid org_id FK string target_url jsonb events }
+                    WEBHOOK_DELIVERY_HISTORIES { uuid id PK uuid endpoint_id FK string event_type int response_status }
+                    AUDIT_LOGS { uuid id PK uuid user_id FK uuid org_id FK string action inet ip_address }
+                    SYSTEM_ALERTS { uuid id PK alert_level level string service_name text message }
+                    NOTIFICATIONS { uuid id PK uuid user_id FK string type string title boolean is_read }
+
+                    COLLAB_SESSIONS { uuid id PK uuid request_id FK uuid started_by FK boolean is_active }
+                    COLLAB_CURSORS { uuid id PK uuid session_id FK uuid user_id FK decimal pos_x decimal pos_y }
+                    PLUGINS { uuid id PK uuid developer_id FK string name string version }
+                    ORG_PLUGINS { uuid id PK uuid org_id FK uuid plugin_id FK boolean is_enabled }
+                    GIS_TOPOLOGY_LAYERS { uuid id PK string name string layer_type string s3_geojson_path }
                 </div>
             </div>
         </section>
@@ -629,20 +760,26 @@
         <!-- Algorithms Section -->
         <section class="section" id="algorithms">
             <h2 style="--accent-primary: #8b5cf6;">Algorithms & AI Architecture</h2>
-            <p style="margin-bottom: 2rem; color: var(--text-muted);">The theoretical and mathematical backbone of the World Simulation Engine, mapping intelligence to our overarching AI architecture.</p>
-            
+            <p style="margin-bottom: 2rem; color: var(--text-muted);">The theoretical and mathematical backbone of the
+                World Simulation Engine, mapping intelligence to our overarching AI architecture.</p>
+
             <div class="features-grid">
-                
+
                 <!-- Architecture 1 -->
                 <div class="feature-card">
-                    <span class="badge success" style="background: rgba(16, 185, 129, 0.1); color: #10b981;">Micro-Simulation Engine</span>
+                    <span class="badge success"
+                        style="background: rgba(16, 185, 129, 0.1); color: #10b981;">Micro-Simulation Engine</span>
                     <h4 style="margin-top: 0.5rem;">Agent-Based Modeling (ABM)</h4>
-                    <p style="font-size: 0.9rem; color: #a3a3a3; margin-bottom: 0;">Handles the individual decision-making of millions of virtual citizens and micro-economic actors.</p>
-                    <ul style="list-style: none; padding: 0; margin-top: 1rem; font-family: monospace; font-size: 0.85rem; color: #a3a3a3;">
+                    <p style="font-size: 0.9rem; color: #a3a3a3; margin-bottom: 0;">Handles the individual
+                        decision-making of millions of virtual citizens and micro-economic actors.</p>
+                    <ul
+                        style="list-style: none; padding: 0; margin-top: 1rem; font-family: monospace; font-size: 0.85rem; color: #a3a3a3;">
                         <li><span style="color: #10b981;">▶</span> A* Pathfinding Algorithms</li>
                         <li><span style="color: #10b981;">▶</span> Multi-Armed Bandit Scoring</li>
                         <li><span style="color: #10b981;">▶</span> Cellular Automata (Spatial Spread)</li>
-                        <li style="color: #8b5cf6; margin-top: 0.5rem; border-top: 1px solid #333; padding-top: 0.5rem; cursor: pointer; user-select: none;" onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'none' ? 'block' : 'none'">+ 3 more sub-algorithms ▼</li>
+                        <li style="color: #8b5cf6; margin-top: 0.5rem; border-top: 1px solid #333; padding-top: 0.5rem; cursor: pointer; user-select: none;"
+                            onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'none' ? 'block' : 'none'">
+                            + 3 more sub-algorithms ▼</li>
                         <ul style="display: none; padding: 0; margin-top: 0.5rem; list-style: none;">
                             <li><span style="color: #666;">▶</span> Decision Trees / Random Forests</li>
                             <li><span style="color: #666;">▶</span> Finite State Machines (FSM)</li>
@@ -653,14 +790,19 @@
 
                 <!-- Architecture 2 -->
                 <div class="feature-card">
-                    <span class="badge success" style="background: rgba(16, 185, 129, 0.1); color: #10b981;">Macro-Simulation Engine</span>
+                    <span class="badge success"
+                        style="background: rgba(16, 185, 129, 0.1); color: #10b981;">Macro-Simulation Engine</span>
                     <h4 style="margin-top: 0.5rem;">System Dynamics & ODEs</h4>
-                    <p style="font-size: 0.9rem; color: #a3a3a3; margin-bottom: 0;">Simulates continuous, fluid macro-level states like atmospheric CO2, inflation rates, and GDP flow.</p>
-                    <ul style="list-style: none; padding: 0; margin-top: 1rem; font-family: monospace; font-size: 0.85rem; color: #a3a3a3;">
+                    <p style="font-size: 0.9rem; color: #a3a3a3; margin-bottom: 0;">Simulates continuous, fluid
+                        macro-level states like atmospheric CO2, inflation rates, and GDP flow.</p>
+                    <ul
+                        style="list-style: none; padding: 0; margin-top: 1rem; font-family: monospace; font-size: 0.85rem; color: #a3a3a3;">
                         <li><span style="color: #10b981;">▶</span> Runge-Kutta 4th Order (RK4)</li>
                         <li><span style="color: #10b981;">▶</span> Partial Differential Equations (PDEs)</li>
                         <li><span style="color: #10b981;">▶</span> Lotka-Volterra Equations</li>
-                        <li style="color: #8b5cf6; margin-top: 0.5rem; border-top: 1px solid #333; padding-top: 0.5rem; cursor: pointer; user-select: none;" onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'none' ? 'block' : 'none'">+ 2 more sub-algorithms ▼</li>
+                        <li style="color: #8b5cf6; margin-top: 0.5rem; border-top: 1px solid #333; padding-top: 0.5rem; cursor: pointer; user-select: none;"
+                            onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'none' ? 'block' : 'none'">
+                            + 2 more sub-algorithms ▼</li>
                         <ul style="display: none; padding: 0; margin-top: 0.5rem; list-style: none;">
                             <li><span style="color: #666;">▶</span> Euler Method Integration</li>
                             <li><span style="color: #666;">▶</span> Stochastic Calculus Integration</li>
@@ -670,14 +812,19 @@
 
                 <!-- Architecture 3 -->
                 <div class="feature-card">
-                    <span class="badge danger" style="background: rgba(244, 63, 94, 0.1); color: #f43f5e;">Geopolitical & Network Engine</span>
+                    <span class="badge danger" style="background: rgba(244, 63, 94, 0.1); color: #f43f5e;">Geopolitical
+                        & Network Engine</span>
                     <h4 style="margin-top: 0.5rem;">Graph Neural Networks (GNN)</h4>
-                    <p style="font-size: 0.9rem; color: #a3a3a3; margin-bottom: 0;">Maps complex geopolitical alliances, global trade supply chains, and dynamic causality graphs.</p>
-                    <ul style="list-style: none; padding: 0; margin-top: 1rem; font-family: monospace; font-size: 0.85rem; color: #a3a3a3;">
+                    <p style="font-size: 0.9rem; color: #a3a3a3; margin-bottom: 0;">Maps complex geopolitical alliances,
+                        global trade supply chains, and dynamic causality graphs.</p>
+                    <ul
+                        style="list-style: none; padding: 0; margin-top: 1rem; font-family: monospace; font-size: 0.85rem; color: #a3a3a3;">
                         <li><span style="color: #f43f5e;">▶</span> Node2Vec & GraphSAGE</li>
                         <li><span style="color: #f43f5e;">▶</span> Bayesian Belief Networks (BBN)</li>
                         <li><span style="color: #f43f5e;">▶</span> PageRank Centrality Routing</li>
-                        <li style="color: #8b5cf6; margin-top: 0.5rem; border-top: 1px solid #333; padding-top: 0.5rem; cursor: pointer; user-select: none;" onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'none' ? 'block' : 'none'">+ 2 more sub-algorithms ▼</li>
+                        <li style="color: #8b5cf6; margin-top: 0.5rem; border-top: 1px solid #333; padding-top: 0.5rem; cursor: pointer; user-select: none;"
+                            onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'none' ? 'block' : 'none'">
+                            + 2 more sub-algorithms ▼</li>
                         <ul style="display: none; padding: 0; margin-top: 0.5rem; list-style: none;">
                             <li><span style="color: #666;">▶</span> Markov Decision Processes (MDP)</li>
                             <li><span style="color: #666;">▶</span> Hidden Markov Models (HMM)</li>
@@ -687,14 +834,19 @@
 
                 <!-- Architecture 4 -->
                 <div class="feature-card">
-                    <span class="badge" style="background: rgba(234, 179, 8, 0.1); color: #eab308;">Predictive Financial Engine</span>
+                    <span class="badge" style="background: rgba(234, 179, 8, 0.1); color: #eab308;">Predictive Financial
+                        Engine</span>
                     <h4 style="margin-top: 0.5rem;">Time-Series & Math Finance</h4>
-                    <p style="font-size: 0.9rem; color: #a3a3a3; margin-bottom: 0;">Predicts sudden market crashes, options pricing, and baseline historical dataset trends.</p>
-                    <ul style="list-style: none; padding: 0; margin-top: 1rem; font-family: monospace; font-size: 0.85rem; color: #a3a3a3;">
+                    <p style="font-size: 0.9rem; color: #a3a3a3; margin-bottom: 0;">Predicts sudden market crashes,
+                        options pricing, and baseline historical dataset trends.</p>
+                    <ul
+                        style="list-style: none; padding: 0; margin-top: 1rem; font-family: monospace; font-size: 0.85rem; color: #a3a3a3;">
                         <li><span style="color: #eab308;">▶</span> Geometric Brownian Motion (GBM)</li>
                         <li><span style="color: #eab308;">▶</span> Black-Scholes Formulation</li>
                         <li><span style="color: #eab308;">▶</span> Long Short-Term Memory (LSTM)</li>
-                        <li style="color: #8b5cf6; margin-top: 0.5rem; border-top: 1px solid #333; padding-top: 0.5rem; cursor: pointer; user-select: none;" onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'none' ? 'block' : 'none'">+ 4 more sub-algorithms ▼</li>
+                        <li style="color: #8b5cf6; margin-top: 0.5rem; border-top: 1px solid #333; padding-top: 0.5rem; cursor: pointer; user-select: none;"
+                            onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'none' ? 'block' : 'none'">
+                            + 4 more sub-algorithms ▼</li>
                         <ul style="display: none; padding: 0; margin-top: 0.5rem; list-style: none;">
                             <li><span style="color: #666;">▶</span> Attention Transformers (Informer)</li>
                             <li><span style="color: #666;">▶</span> FinBERT (NLP Sentiment)</li>
@@ -706,14 +858,19 @@
 
                 <!-- Architecture 5 -->
                 <div class="feature-card">
-                    <span class="badge" style="background: rgba(139, 92, 246, 0.1); color: #8b5cf6;">Global Agent Synthesis</span>
+                    <span class="badge" style="background: rgba(139, 92, 246, 0.1); color: #8b5cf6;">Global Agent
+                        Synthesis</span>
                     <h4 style="margin-top: 0.5rem;">Federated RL & Branching</h4>
-                    <p style="font-size: 0.9rem; color: #a3a3a3; margin-bottom: 0;">Allows distinct engine agents to train locally but share "impact gradients" via advanced MCTS.</p>
-                    <ul style="list-style: none; padding: 0; margin-top: 1rem; font-family: monospace; font-size: 0.85rem; color: #a3a3a3;">
+                    <p style="font-size: 0.9rem; color: #a3a3a3; margin-bottom: 0;">Allows distinct engine agents to
+                        train locally but share "impact gradients" via advanced MCTS.</p>
+                    <ul
+                        style="list-style: none; padding: 0; margin-top: 1rem; font-family: monospace; font-size: 0.85rem; color: #a3a3a3;">
                         <li><span style="color: #8b5cf6;">▶</span> Proximal Policy Optimization (PPO)</li>
                         <li><span style="color: #8b5cf6;">▶</span> Soft Actor-Critic (SAC)</li>
                         <li><span style="color: #8b5cf6;">▶</span> Monte Carlo Tree Search (MCTS)</li>
-                        <li style="color: #8b5cf6; margin-top: 0.5rem; border-top: 1px solid #333; padding-top: 0.5rem; cursor: pointer; user-select: none;" onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'none' ? 'block' : 'none'">+ 3 more sub-algorithms ▼</li>
+                        <li style="color: #8b5cf6; margin-top: 0.5rem; border-top: 1px solid #333; padding-top: 0.5rem; cursor: pointer; user-select: none;"
+                            onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'none' ? 'block' : 'none'">
+                            + 3 more sub-algorithms ▼</li>
                         <ul style="display: none; padding: 0; margin-top: 0.5rem; list-style: none;">
                             <li><span style="color: #666;">▶</span> Upper Confidence Bound (UCB1)</li>
                             <li><span style="color: #666;">▶</span> Federated Averaging (FedAvg)</li>
@@ -724,14 +881,19 @@
 
                 <!-- Architecture 6 -->
                 <div class="feature-card">
-                    <span class="badge danger" style="background: rgba(244, 63, 94, 0.1); color: #f43f5e;">Enterprise Security & Verification</span>
+                    <span class="badge danger" style="background: rgba(244, 63, 94, 0.1); color: #f43f5e;">Enterprise
+                        Security & Verification</span>
                     <h4 style="margin-top: 0.5rem;">Cryptographic State Hashing</h4>
-                    <p style="font-size: 0.9rem; color: #a3a3a3; margin-bottom: 0;">Provides enterprise and government clients with cryptographic proof of simulation integrity.</p>
-                    <ul style="list-style: none; padding: 0; margin-top: 1rem; font-family: monospace; font-size: 0.85rem; color: #a3a3a3;">
+                    <p style="font-size: 0.9rem; color: #a3a3a3; margin-bottom: 0;">Provides enterprise and government
+                        clients with cryptographic proof of simulation integrity.</p>
+                    <ul
+                        style="list-style: none; padding: 0; margin-top: 1rem; font-family: monospace; font-size: 0.85rem; color: #a3a3a3;">
                         <li><span style="color: #f43f5e;">▶</span> Merkle Trees (State Hashing)</li>
                         <li><span style="color: #f43f5e;">▶</span> SHA-256 Checksums</li>
                         <li><span style="color: #f43f5e;">▶</span> Elliptic Curve Digital Signature</li>
-                        <li style="color: #8b5cf6; margin-top: 0.5rem; border-top: 1px solid #333; padding-top: 0.5rem; cursor: pointer; user-select: none;" onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'none' ? 'block' : 'none'">+ 2 more sub-algorithms ▼</li>
+                        <li style="color: #8b5cf6; margin-top: 0.5rem; border-top: 1px solid #333; padding-top: 0.5rem; cursor: pointer; user-select: none;"
+                            onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'none' ? 'block' : 'none'">
+                            + 2 more sub-algorithms ▼</li>
                         <ul style="display: none; padding: 0; margin-top: 0.5rem; list-style: none;">
                             <li><span style="color: #666;">▶</span> RSA Encryption Blocks</li>
                             <li><span style="color: #666;">▶</span> Zero-Knowledge Proofs (zk-SNARKs)</li>
@@ -745,20 +907,26 @@
         <!-- Data Sources Section -->
         <section class="section" id="data-sources">
             <h2 style="--accent-primary: #3b82f6;">Global Data Integration & Ingestion Pipelines</h2>
-            <p style="margin-bottom: 2rem; color: var(--text-muted);">The continuous real-time data feeds and historical datasets that power the world simulation engine, feeding directly into the Airflow pipelines.</p>
-            
+            <p style="margin-bottom: 2rem; color: var(--text-muted);">The continuous real-time data feeds and historical
+                datasets that power the world simulation engine, feeding directly into the Airflow pipelines.</p>
+
             <div class="features-grid">
-                
+
                 <!-- Data Group 1 -->
                 <div class="feature-card">
-                    <span class="badge" style="background: rgba(59, 130, 246, 0.1); color: #3b82f6;">Macroeconomic Data</span>
+                    <span class="badge" style="background: rgba(59, 130, 246, 0.1); color: #3b82f6;">Macroeconomic
+                        Data</span>
                     <h4 style="margin-top: 0.5rem;">Global Economy & Finance</h4>
-                    <p style="font-size: 0.9rem; color: #a3a3a3; margin-bottom: 0;">Feeds tracking national GDP, inflation, interest rates, and national debt.</p>
-                    <ul style="list-style: none; padding: 0; margin-top: 1rem; font-family: monospace; font-size: 0.85rem; color: #a3a3a3;">
+                    <p style="font-size: 0.9rem; color: #a3a3a3; margin-bottom: 0;">Feeds tracking national GDP,
+                        inflation, interest rates, and national debt.</p>
+                    <ul
+                        style="list-style: none; padding: 0; margin-top: 1rem; font-family: monospace; font-size: 0.85rem; color: #a3a3a3;">
                         <li><span style="color: #3b82f6;">●</span> World Bank Open Data API</li>
                         <li><span style="color: #3b82f6;">●</span> IMF (Intl. Monetary Fund) Data</li>
                         <li><span style="color: #3b82f6;">●</span> OECD Economic Indicators</li>
-                        <li style="color: #8b5cf6; margin-top: 0.5rem; border-top: 1px solid #333; padding-top: 0.5rem; cursor: pointer; user-select: none;" onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'none' ? 'block' : 'none'">+ 2 more sources ▼</li>
+                        <li style="color: #8b5cf6; margin-top: 0.5rem; border-top: 1px solid #333; padding-top: 0.5rem; cursor: pointer; user-select: none;"
+                            onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'none' ? 'block' : 'none'">
+                            + 2 more sources ▼</li>
                         <ul style="display: none; padding: 0; margin-top: 0.5rem; list-style: none;">
                             <li><span style="color: #666;">●</span> Federal Reserve Economic Data (FRED)</li>
                             <li><span style="color: #666;">●</span> European Central Bank (ECB) Feeds</li>
@@ -768,14 +936,19 @@
 
                 <!-- Data Group 2 -->
                 <div class="feature-card">
-                    <span class="badge" style="background: rgba(16, 185, 129, 0.1); color: #10b981;">Climate & Earth Data</span>
+                    <span class="badge" style="background: rgba(16, 185, 129, 0.1); color: #10b981;">Climate & Earth
+                        Data</span>
                     <h4 style="margin-top: 0.5rem;">Planetary & Spatial Feeds</h4>
-                    <p style="font-size: 0.9rem; color: #a3a3a3; margin-bottom: 0;">Real-time ingestion of global temperatures, natural disasters, and topography.</p>
-                    <ul style="list-style: none; padding: 0; margin-top: 1rem; font-family: monospace; font-size: 0.85rem; color: #a3a3a3;">
+                    <p style="font-size: 0.9rem; color: #a3a3a3; margin-bottom: 0;">Real-time ingestion of global
+                        temperatures, natural disasters, and topography.</p>
+                    <ul
+                        style="list-style: none; padding: 0; margin-top: 1rem; font-family: monospace; font-size: 0.85rem; color: #a3a3a3;">
                         <li><span style="color: #10b981;">●</span> NOAA Climate Data Record (CDR)</li>
                         <li><span style="color: #10b981;">●</span> Copernicus Satellite (ESA) Data</li>
                         <li><span style="color: #10b981;">●</span> NASA Earth Observatory</li>
-                        <li style="color: #8b5cf6; margin-top: 0.5rem; border-top: 1px solid #333; padding-top: 0.5rem; cursor: pointer; user-select: none;" onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'none' ? 'block' : 'none'">+ 2 more sources ▼</li>
+                        <li style="color: #8b5cf6; margin-top: 0.5rem; border-top: 1px solid #333; padding-top: 0.5rem; cursor: pointer; user-select: none;"
+                            onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'none' ? 'block' : 'none'">
+                            + 2 more sources ▼</li>
                         <ul style="display: none; padding: 0; margin-top: 0.5rem; list-style: none;">
                             <li><span style="color: #666;">●</span> USGS Earthquake Hazards</li>
                             <li><span style="color: #666;">●</span> Global Forest Watch (Deforestation)</li>
@@ -785,14 +958,19 @@
 
                 <!-- Data Group 3 -->
                 <div class="feature-card">
-                    <span class="badge" style="background: rgba(245, 158, 11, 0.1); color: #f59e0b;">Geopolitical & Demographic</span>
+                    <span class="badge" style="background: rgba(245, 158, 11, 0.1); color: #f59e0b;">Geopolitical &
+                        Demographic</span>
                     <h4 style="margin-top: 0.5rem;">Humanity & Society</h4>
-                    <p style="font-size: 0.9rem; color: #a3a3a3; margin-bottom: 0;">Tracks population metrics, migration, conflicts, and political stability scores.</p>
-                    <ul style="list-style: none; padding: 0; margin-top: 1rem; font-family: monospace; font-size: 0.85rem; color: #a3a3a3;">
+                    <p style="font-size: 0.9rem; color: #a3a3a3; margin-bottom: 0;">Tracks population metrics,
+                        migration, conflicts, and political stability scores.</p>
+                    <ul
+                        style="list-style: none; padding: 0; margin-top: 1rem; font-family: monospace; font-size: 0.85rem; color: #a3a3a3;">
                         <li><span style="color: #f59e0b;">●</span> UN (United Nations) Data Portal</li>
                         <li><span style="color: #f59e0b;">●</span> Armed Conflict Location Database (ACLED)</li>
                         <li><span style="color: #f59e0b;">●</span> WHO Global Health Observatory</li>
-                        <li style="color: #8b5cf6; margin-top: 0.5rem; border-top: 1px solid #333; padding-top: 0.5rem; cursor: pointer; user-select: none;" onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'none' ? 'block' : 'none'">+ 2 more sources ▼</li>
+                        <li style="color: #8b5cf6; margin-top: 0.5rem; border-top: 1px solid #333; padding-top: 0.5rem; cursor: pointer; user-select: none;"
+                            onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'none' ? 'block' : 'none'">
+                            + 2 more sources ▼</li>
                         <ul style="display: none; padding: 0; margin-top: 0.5rem; list-style: none;">
                             <li><span style="color: #666;">●</span> UNHCR Refugee Data</li>
                             <li><span style="color: #666;">●</span> Global Peace Index (IEP)</li>
@@ -802,14 +980,19 @@
 
                 <!-- Data Group 4 -->
                 <div class="feature-card">
-                    <span class="badge" style="background: rgba(139, 92, 246, 0.1); color: #8b5cf6;">Markets & Supply Chain</span>
+                    <span class="badge" style="background: rgba(139, 92, 246, 0.1); color: #8b5cf6;">Markets & Supply
+                        Chain</span>
                     <h4 style="margin-top: 0.5rem;">Global Trade & Stock Markets</h4>
-                    <p style="font-size: 0.9rem; color: #a3a3a3; margin-bottom: 0;">Tracks physical goods movement and digital stock/commodity markets.</p>
-                    <ul style="list-style: none; padding: 0; margin-top: 1rem; font-family: monospace; font-size: 0.85rem; color: #a3a3a3;">
+                    <p style="font-size: 0.9rem; color: #a3a3a3; margin-bottom: 0;">Tracks physical goods movement and
+                        digital stock/commodity markets.</p>
+                    <ul
+                        style="list-style: none; padding: 0; margin-top: 1rem; font-family: monospace; font-size: 0.85rem; color: #a3a3a3;">
                         <li><span style="color: #8b5cf6;">●</span> WTO (World Trade Org) Data</li>
                         <li><span style="color: #8b5cf6;">●</span> Bloomberg / Refinitiv Tickers</li>
                         <li><span style="color: #8b5cf6;">●</span> SWIFT Global Transaction Flows</li>
-                        <li style="color: #8b5cf6; margin-top: 0.5rem; border-top: 1px solid #333; padding-top: 0.5rem; cursor: pointer; user-select: none;" onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'none' ? 'block' : 'none'">+ 2 more sources ▼</li>
+                        <li style="color: #8b5cf6; margin-top: 0.5rem; border-top: 1px solid #333; padding-top: 0.5rem; cursor: pointer; user-select: none;"
+                            onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'none' ? 'block' : 'none'">
+                            + 2 more sources ▼</li>
                         <ul style="display: none; padding: 0; margin-top: 0.5rem; list-style: none;">
                             <li><span style="color: #666;">●</span> MarineTraffic (Vessel Tracking)</li>
                             <li><span style="color: #666;">●</span> OEC (Observatory of Econ Complexity)</li>
@@ -819,14 +1002,19 @@
 
                 <!-- Data Group 5 -->
                 <div class="feature-card">
-                    <span class="badge" style="background: rgba(236, 72, 153, 0.1); color: #ec4899;">Sentiment & OSINT</span>
+                    <span class="badge" style="background: rgba(236, 72, 153, 0.1); color: #ec4899;">Sentiment &
+                        OSINT</span>
                     <h4 style="margin-top: 0.5rem;">Live News & Public Sentiment</h4>
-                    <p style="font-size: 0.9rem; color: #a3a3a3; margin-bottom: 0;">Feeds the FinBERT and NLP models with real-time global news and public reaction.</p>
-                    <ul style="list-style: none; padding: 0; margin-top: 1rem; font-family: monospace; font-size: 0.85rem; color: #a3a3a3;">
+                    <p style="font-size: 0.9rem; color: #a3a3a3; margin-bottom: 0;">Feeds the FinBERT and NLP models
+                        with real-time global news and public reaction.</p>
+                    <ul
+                        style="list-style: none; padding: 0; margin-top: 1rem; font-family: monospace; font-size: 0.85rem; color: #a3a3a3;">
                         <li><span style="color: #ec4899;">●</span> Reuters / AP Global News API</li>
                         <li><span style="color: #ec4899;">●</span> Twitter/X Enterprise Firehose</li>
                         <li><span style="color: #ec4899;">●</span> Reddit / StockTwits Streams</li>
-                        <li style="color: #8b5cf6; margin-top: 0.5rem; border-top: 1px solid #333; padding-top: 0.5rem; cursor: pointer; user-select: none;" onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'none' ? 'block' : 'none'">+ 2 more sources ▼</li>
+                        <li style="color: #8b5cf6; margin-top: 0.5rem; border-top: 1px solid #333; padding-top: 0.5rem; cursor: pointer; user-select: none;"
+                            onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'none' ? 'block' : 'none'">
+                            + 2 more sources ▼</li>
                         <ul style="display: none; padding: 0; margin-top: 0.5rem; list-style: none;">
                             <li><span style="color: #666;">●</span> GDELT Project (Global Events)</li>
                             <li><span style="color: #666;">●</span> SEC EDGAR (Corporate Filings)</li>
@@ -840,35 +1028,41 @@
         <!-- Features Section -->
         <section class="section" id="features">
             <h2 style="--accent-primary: var(--accent-success);">System Features (Existing & Missing)</h2>
-            <p style="margin-bottom: 2rem; color: var(--text-muted);">A comprehensive list of features categorized into implemented functionality and architectural roadmap requirements.</p>
-            
+            <p style="margin-bottom: 2rem; color: var(--text-muted);">A comprehensive list of features categorized into
+                implemented functionality and architectural roadmap requirements.</p>
+
             <h3 style="border-bottom: none; margin-top: 0;">✅ Implemented / Existing Features</h3>
             <div class="features-grid" style="margin-bottom: 3rem;">
-                
+
                 <div class="feature-card implemented">
                     <span class="badge success">Core</span>
                     <h4>Simulation Requests</h4>
-                    <p>Ability to create and store simulation runs targeting specific future years with associated scenario variables.</p>
+                    <p>Ability to create and store simulation runs targeting specific future years with associated
+                        scenario variables.</p>
                 </div>
                 <div class="feature-card implemented">
                     <span class="badge success">AI / ML</span>
                     <h4>Model Management</h4>
-                    <p>Database structure to track AI models, versions, endpoints, and associated S3 training datasets.</p>
+                    <p>Database structure to track AI models, versions, endpoints, and associated S3 training datasets.
+                    </p>
                 </div>
                 <div class="feature-card implemented">
                     <span class="badge success">Data</span>
                     <h4>Global Indicators</h4>
-                    <p>Relational mapping for Economic (GDP, Inflation), Climate (CO2, Temp), and Political stability indicators mapped to ISO countries.</p>
+                    <p>Relational mapping for Economic (GDP, Inflation), Climate (CO2, Temp), and Political stability
+                        indicators mapped to ISO countries.</p>
                 </div>
                 <div class="feature-card implemented">
                     <span class="badge success">Security</span>
                     <h4>RBAC & Organizations</h4>
-                    <p>Multi-tenant organization structure with Role-Based Access Control, permissions mapping, and API key management.</p>
+                    <p>Multi-tenant organization structure with Role-Based Access Control, permissions mapping, and API
+                        key management.</p>
                 </div>
                 <div class="feature-card implemented">
                     <span class="badge success">System</span>
                     <h4>Audit & Logging</h4>
-                    <p>Comprehensive tracking of user actions (Audit Logs) and system-level events (Logs) for debugging and compliance.</p>
+                    <p>Comprehensive tracking of user actions (Audit Logs) and system-level events (Logs) for debugging
+                        and compliance.</p>
                 </div>
                 <div class="feature-card implemented">
                     <span class="badge success">Finance</span>
@@ -880,65 +1074,75 @@
 
             <h3 style="border-bottom: none;">❌ Missing / Planned Features</h3>
             <div class="features-grid">
-                
+
                 <div class="feature-card missing">
                     <span class="badge neutral">Architecture</span>
                     <h4>Real-Time WebSockets (SSE)</h4>
-                    <p>Bidirectional communication needed for live simulation progress updates and real-time multi-user collaboration.</p>
+                    <p>Bidirectional communication needed for live simulation progress updates and real-time multi-user
+                        collaboration.</p>
                 </div>
 
                 <div class="feature-card missing">
                     <span class="badge neutral">Data Modeling</span>
                     <h4>Granular World Indicators</h4>
-                    <p>Missing datasets: Demographics (age/gender), Public Health (pandemics), Infrastructure, and Military strength metrics.</p>
+                    <p>Missing datasets: Demographics (age/gender), Public Health (pandemics), Infrastructure, and
+                        Military strength metrics.</p>
                 </div>
 
                 <div class="feature-card missing">
                     <span class="badge neutral">Simulation Core</span>
                     <h4>Scenario Branching & Versioning</h4>
-                    <p>Inability to take a generated simulation result and "branch" it into alternate timeline scenarios (Git-like tree).</p>
+                    <p>Inability to take a generated simulation result and "branch" it into alternate timeline scenarios
+                        (Git-like tree).</p>
                 </div>
 
                 <div class="feature-card missing">
                     <span class="badge neutral">Frontend / UI</span>
                     <h4>3D Spatial / GIS Visualization</h4>
-                    <p>Needs a WebGL/Three.js mapping interface to visually project climate and economic shifts onto a global 3D globe.</p>
+                    <p>Needs a WebGL/Three.js mapping interface to visually project climate and economic shifts onto a
+                        global 3D globe.</p>
                 </div>
 
                 <div class="feature-card missing">
                     <span class="badge neutral">Architecture</span>
                     <h4>Message Broker / Event Bus</h4>
-                    <p>No Kafka or RabbitMQ mapped. An event-driven architecture is required to handle massive parallel simulation processing.</p>
+                    <p>No Kafka or RabbitMQ mapped. An event-driven architecture is required to handle massive parallel
+                        simulation processing.</p>
                 </div>
 
                 <div class="feature-card missing">
                     <span class="badge neutral">Security & DevOps</span>
                     <h4>API Rate Limiting & Quotas</h4>
-                    <p>Missing schema representation for request throttling, tier-based usage quotas, and dynamic rate-limiting to prevent abuse.</p>
+                    <p>Missing schema representation for request throttling, tier-based usage quotas, and dynamic
+                        rate-limiting to prevent abuse.</p>
                 </div>
 
                 <div class="feature-card missing">
                     <span class="badge neutral">Integrations</span>
                     <h4>External Webhooks</h4>
-                    <p>No capability to send outbound HTTP payloads to notify enterprise client systems when a simulation completes.</p>
+                    <p>No capability to send outbound HTTP payloads to notify enterprise client systems when a
+                        simulation completes.</p>
                 </div>
 
                 <div class="feature-card missing">
                     <span class="badge neutral">Finance / Billing</span>
                     <h4>Detailed Invoicing Ledger</h4>
-                    <p>Missing complex invoice generation, compute-based usage billing (per CPU minute), and comprehensive refund tracking.</p>
+                    <p>Missing complex invoice generation, compute-based usage billing (per CPU minute), and
+                        comprehensive refund tracking.</p>
                 </div>
 
                 <div class="feature-card missing">
                     <span class="badge neutral">Compliance</span>
                     <h4>Data Retention & GDPR</h4>
-                    <p>No automated data lifecycle rules, anonymization pipelines for ML training data, or right-to-be-forgotten pathways.</p>
+                    <p>No automated data lifecycle rules, anonymization pipelines for ML training data, or
+                        right-to-be-forgotten pathways.</p>
                 </div>
 
                 <div class="feature-card missing">
                     <span class="badge neutral">Infrastructure</span>
                     <h4>Disaster Recovery & Sharding</h4>
-                    <p>Single DB bottleneck. Missing database sharding strategy (e.g., Citus) and distributed read-replica routing.</p>
+                    <p>Single DB bottleneck. Missing database sharding strategy (e.g., Citus) and distributed
+                        read-replica routing.</p>
                 </div>
 
             </div>
@@ -947,205 +1151,346 @@
         <!-- API Documentation Section -->
         <section class="section" id="api">
             <h2 style="--accent-primary: #3b82f6;">API Reference Documentation</h2>
-            <p style="margin-bottom: 2rem; color: var(--text-muted);">A comprehensive list of RESTful API endpoints powering the World Simulation Engine, mapping to our defined architectural modules.</p>
-            
+            <p style="margin-bottom: 2rem; color: var(--text-muted);">A comprehensive list of RESTful API endpoints
+                powering the World Simulation Engine, mapping to our defined architectural modules.</p>
+
             <div class="features-grid">
-                
+
                 <!-- Microservice 1 -->
                 <div class="feature-card">
-                    <span class="badge" style="background: rgba(59, 130, 246, 0.1); color: #3b82f6;">Identity & Access API (12 Endpoints)</span>
-                    <ul style="list-style: none; padding: 0; margin-top: 1rem; font-family: monospace; font-size: 0.9rem; color: #a3a3a3;">
-                        <li><span style="color: #3b82f6; display: inline-block; width: 40px;">POST</span> /api/v1/auth/login</li>
-                        <li><span style="color: #3b82f6; display: inline-block; width: 40px;">POST</span> /api/v1/auth/mfa/verify</li>
-                        <li><span style="color: #10b981; display: inline-block; width: 40px;">GET</span> /api/v1/users/{id}/profile</li>
-                        <li><span style="color: #f59e0b; display: inline-block; width: 40px;">PUT</span> /api/v1/orgs/{id}/roles</li>
-                        <li><span style="color: #3b82f6; display: inline-block; width: 40px;">POST</span> /api/v1/auth/api-keys/generate</li>
-                        <li style="color: #8b5cf6; margin-top: 0.5rem; border-top: 1px solid #333; padding-top: 0.5rem; cursor: pointer; user-select: none;" onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'none' ? 'block' : 'none'">+ 7 more CRUD endpoints ▼</li>
+                    <span class="badge" style="background: rgba(59, 130, 246, 0.1); color: #3b82f6;">Identity & Access
+                        API (12 Endpoints)</span>
+                    <ul
+                        style="list-style: none; padding: 0; margin-top: 1rem; font-family: monospace; font-size: 0.9rem; color: #a3a3a3;">
+                        <li><span style="color: #3b82f6; display: inline-block; width: 40px;">POST</span>
+                            /api/v1/auth/login</li>
+                        <li><span style="color: #3b82f6; display: inline-block; width: 40px;">POST</span>
+                            /api/v1/auth/mfa/verify</li>
+                        <li><span style="color: #10b981; display: inline-block; width: 40px;">GET</span>
+                            /api/v1/users/{id}/profile</li>
+                        <li><span style="color: #f59e0b; display: inline-block; width: 40px;">PUT</span>
+                            /api/v1/orgs/{id}/roles</li>
+                        <li><span style="color: #3b82f6; display: inline-block; width: 40px;">POST</span>
+                            /api/v1/auth/api-keys/generate</li>
+                        <li style="color: #8b5cf6; margin-top: 0.5rem; border-top: 1px solid #333; padding-top: 0.5rem; cursor: pointer; user-select: none;"
+                            onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'none' ? 'block' : 'none'">
+                            + 7 more CRUD endpoints ▼</li>
                         <ul style="display: none; padding: 0; margin-top: 0.5rem; list-style: none;">
-                            <li><span style="color: #10b981; display: inline-block; width: 40px;">GET</span> /api/v1/auth/users</li>
-                            <li><span style="color: #3b82f6; display: inline-block; width: 40px;">POST</span> /api/v1/auth/register</li>
-                            <li><span style="color: #f43f5e; display: inline-block; width: 40px;">DEL</span> /api/v1/users/{id}</li>
-                            <li><span style="color: #10b981; display: inline-block; width: 40px;">GET</span> /api/v1/orgs/{id}/members</li>
-                            <li><span style="color: #3b82f6; display: inline-block; width: 40px;">POST</span> /api/v1/orgs/{id}/invites</li>
-                            <li><span style="color: #10b981; display: inline-block; width: 40px;">GET</span> /api/v1/auth/api-keys</li>
-                            <li><span style="color: #f43f5e; display: inline-block; width: 40px;">DEL</span> /api/v1/auth/api-keys/{id}</li>
+                            <li><span style="color: #10b981; display: inline-block; width: 40px;">GET</span>
+                                /api/v1/auth/users</li>
+                            <li><span style="color: #3b82f6; display: inline-block; width: 40px;">POST</span>
+                                /api/v1/auth/register</li>
+                            <li><span style="color: #f43f5e; display: inline-block; width: 40px;">DEL</span>
+                                /api/v1/users/{id}</li>
+                            <li><span style="color: #10b981; display: inline-block; width: 40px;">GET</span>
+                                /api/v1/orgs/{id}/members</li>
+                            <li><span style="color: #3b82f6; display: inline-block; width: 40px;">POST</span>
+                                /api/v1/orgs/{id}/invites</li>
+                            <li><span style="color: #10b981; display: inline-block; width: 40px;">GET</span>
+                                /api/v1/auth/api-keys</li>
+                            <li><span style="color: #f43f5e; display: inline-block; width: 40px;">DEL</span>
+                                /api/v1/auth/api-keys/{id}</li>
                         </ul>
                     </ul>
                 </div>
 
                 <!-- Microservice 2 -->
                 <div class="feature-card">
-                    <span class="badge" style="background: rgba(16, 185, 129, 0.1); color: #10b981;">Simulation Core API (18 Endpoints)</span>
-                    <ul style="list-style: none; padding: 0; margin-top: 1rem; font-family: monospace; font-size: 0.9rem; color: #a3a3a3;">
-                        <li><span style="color: #3b82f6; display: inline-block; width: 40px;">POST</span> /api/v1/simulations/run</li>
-                        <li><span style="color: #10b981; display: inline-block; width: 40px;">GET</span> /api/v1/simulations/{id}/status</li>
-                        <li><span style="color: #3b82f6; display: inline-block; width: 40px;">POST</span> /api/v1/simulations/{id}/pause</li>
-                        <li><span style="color: #3b82f6; display: inline-block; width: 40px;">POST</span> /api/v1/scenarios/{id}/branch</li>
-                        <li><span style="color: #10b981; display: inline-block; width: 40px;">GET</span> /api/v1/simulations/{id}/results</li>
-                        <li style="color: #8b5cf6; margin-top: 0.5rem; border-top: 1px solid #333; padding-top: 0.5rem; cursor: pointer; user-select: none;" onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'none' ? 'block' : 'none'">+ 13 more lifecycle endpoints ▼</li>
+                    <span class="badge" style="background: rgba(16, 185, 129, 0.1); color: #10b981;">Simulation Core API
+                        (18 Endpoints)</span>
+                    <ul
+                        style="list-style: none; padding: 0; margin-top: 1rem; font-family: monospace; font-size: 0.9rem; color: #a3a3a3;">
+                        <li><span style="color: #3b82f6; display: inline-block; width: 40px;">POST</span>
+                            /api/v1/simulations/run</li>
+                        <li><span style="color: #10b981; display: inline-block; width: 40px;">GET</span>
+                            /api/v1/simulations/{id}/status</li>
+                        <li><span style="color: #3b82f6; display: inline-block; width: 40px;">POST</span>
+                            /api/v1/simulations/{id}/pause</li>
+                        <li><span style="color: #3b82f6; display: inline-block; width: 40px;">POST</span>
+                            /api/v1/scenarios/{id}/branch</li>
+                        <li><span style="color: #10b981; display: inline-block; width: 40px;">GET</span>
+                            /api/v1/simulations/{id}/results</li>
+                        <li style="color: #8b5cf6; margin-top: 0.5rem; border-top: 1px solid #333; padding-top: 0.5rem; cursor: pointer; user-select: none;"
+                            onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'none' ? 'block' : 'none'">
+                            + 13 more lifecycle endpoints ▼</li>
                         <ul style="display: none; padding: 0; margin-top: 0.5rem; list-style: none;">
-                            <li><span style="color: #10b981; display: inline-block; width: 40px;">GET</span> /api/v1/simulations</li>
-                            <li><span style="color: #f43f5e; display: inline-block; width: 40px;">DEL</span> /api/v1/simulations/{id}</li>
-                            <li><span style="color: #3b82f6; display: inline-block; width: 40px;">POST</span> /api/v1/simulations/{id}/resume</li>
-                            <li><span style="color: #3b82f6; display: inline-block; width: 40px;">POST</span> /api/v1/simulations/{id}/stop</li>
-                            <li><span style="color: #10b981; display: inline-block; width: 40px;">GET</span> /api/v1/simulations/{id}/logs</li>
-                            <li><span style="color: #10b981; display: inline-block; width: 40px;">GET</span> /api/v1/simulations/{id}/metrics</li>
-                            <li><span style="color: #10b981; display: inline-block; width: 40px;">GET</span> /api/v1/simulations/{id}/scenarios</li>
-                            <li><span style="color: #10b981; display: inline-block; width: 40px;">GET</span> /api/v1/scenarios/{id}</li>
-                            <li><span style="color: #f59e0b; display: inline-block; width: 40px;">PUT</span> /api/v1/scenarios/{id}</li>
-                            <li><span style="color: #f43f5e; display: inline-block; width: 40px;">DEL</span> /api/v1/scenarios/{id}</li>
-                            <li><span style="color: #10b981; display: inline-block; width: 40px;">GET</span> /api/v1/simulations/{id}/predictions</li>
-                            <li><span style="color: #3b82f6; display: inline-block; width: 40px;">POST</span> /api/v1/simulations/{id}/export</li>
-                            <li><span style="color: #10b981; display: inline-block; width: 40px;">GET</span> /api/v1/simulations/templates</li>
+                            <li><span style="color: #10b981; display: inline-block; width: 40px;">GET</span>
+                                /api/v1/simulations</li>
+                            <li><span style="color: #f43f5e; display: inline-block; width: 40px;">DEL</span>
+                                /api/v1/simulations/{id}</li>
+                            <li><span style="color: #3b82f6; display: inline-block; width: 40px;">POST</span>
+                                /api/v1/simulations/{id}/resume</li>
+                            <li><span style="color: #3b82f6; display: inline-block; width: 40px;">POST</span>
+                                /api/v1/simulations/{id}/stop</li>
+                            <li><span style="color: #10b981; display: inline-block; width: 40px;">GET</span>
+                                /api/v1/simulations/{id}/logs</li>
+                            <li><span style="color: #10b981; display: inline-block; width: 40px;">GET</span>
+                                /api/v1/simulations/{id}/metrics</li>
+                            <li><span style="color: #10b981; display: inline-block; width: 40px;">GET</span>
+                                /api/v1/simulations/{id}/scenarios</li>
+                            <li><span style="color: #10b981; display: inline-block; width: 40px;">GET</span>
+                                /api/v1/scenarios/{id}</li>
+                            <li><span style="color: #f59e0b; display: inline-block; width: 40px;">PUT</span>
+                                /api/v1/scenarios/{id}</li>
+                            <li><span style="color: #f43f5e; display: inline-block; width: 40px;">DEL</span>
+                                /api/v1/scenarios/{id}</li>
+                            <li><span style="color: #10b981; display: inline-block; width: 40px;">GET</span>
+                                /api/v1/simulations/{id}/predictions</li>
+                            <li><span style="color: #3b82f6; display: inline-block; width: 40px;">POST</span>
+                                /api/v1/simulations/{id}/export</li>
+                            <li><span style="color: #10b981; display: inline-block; width: 40px;">GET</span>
+                                /api/v1/simulations/templates</li>
                         </ul>
                     </ul>
                 </div>
 
                 <!-- Microservice 3 -->
                 <div class="feature-card">
-                    <span class="badge" style="background: rgba(245, 158, 11, 0.1); color: #f59e0b;">Market & Data Pipeline API (15 Endpoints)</span>
-                    <ul style="list-style: none; padding: 0; margin-top: 1rem; font-family: monospace; font-size: 0.9rem; color: #a3a3a3;">
-                        <li><span style="color: #10b981; display: inline-block; width: 40px;">GET</span> /api/v1/data/economic-indicators</li>
-                        <li><span style="color: #10b981; display: inline-block; width: 40px;">GET</span> /api/v1/data/climate-sensors</li>
-                        <li><span style="color: #3b82f6; display: inline-block; width: 40px;">POST</span> /api/v1/data/ingest-custom</li>
-                        <li><span style="color: #3b82f6; display: inline-block; width: 40px;">POST</span> /api/v1/market/predict-crash</li>
-                        <li><span style="color: #10b981; display: inline-block; width: 40px;">GET</span> /api/v1/market/sentiment-score</li>
-                        <li style="color: #8b5cf6; margin-top: 0.5rem; border-top: 1px solid #333; padding-top: 0.5rem; cursor: pointer; user-select: none;" onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'none' ? 'block' : 'none'">+ 10 more real-time data endpoints ▼</li>
+                    <span class="badge" style="background: rgba(245, 158, 11, 0.1); color: #f59e0b;">Market & Data
+                        Pipeline API (15 Endpoints)</span>
+                    <ul
+                        style="list-style: none; padding: 0; margin-top: 1rem; font-family: monospace; font-size: 0.9rem; color: #a3a3a3;">
+                        <li><span style="color: #10b981; display: inline-block; width: 40px;">GET</span>
+                            /api/v1/data/economic-indicators</li>
+                        <li><span style="color: #10b981; display: inline-block; width: 40px;">GET</span>
+                            /api/v1/data/climate-sensors</li>
+                        <li><span style="color: #3b82f6; display: inline-block; width: 40px;">POST</span>
+                            /api/v1/data/ingest-custom</li>
+                        <li><span style="color: #3b82f6; display: inline-block; width: 40px;">POST</span>
+                            /api/v1/market/predict-crash</li>
+                        <li><span style="color: #10b981; display: inline-block; width: 40px;">GET</span>
+                            /api/v1/market/sentiment-score</li>
+                        <li style="color: #8b5cf6; margin-top: 0.5rem; border-top: 1px solid #333; padding-top: 0.5rem; cursor: pointer; user-select: none;"
+                            onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'none' ? 'block' : 'none'">
+                            + 10 more real-time data endpoints ▼</li>
                         <ul style="display: none; padding: 0; margin-top: 0.5rem; list-style: none;">
-                            <li><span style="color: #10b981; display: inline-block; width: 40px;">GET</span> /api/v1/data/political</li>
-                            <li><span style="color: #10b981; display: inline-block; width: 40px;">GET</span> /api/v1/data/business</li>
-                            <li><span style="color: #10b981; display: inline-block; width: 40px;">GET</span> /api/v1/data/demographics</li>
-                            <li><span style="color: #3b82f6; display: inline-block; width: 40px;">POST</span> /api/v1/data/sync-airflow</li>
-                            <li><span style="color: #10b981; display: inline-block; width: 40px;">GET</span> /api/v1/data/sources</li>
-                            <li><span style="color: #3b82f6; display: inline-block; width: 40px;">POST</span> /api/v1/data/sources</li>
-                            <li><span style="color: #f59e0b; display: inline-block; width: 40px;">PUT</span> /api/v1/data/sources/{id}</li>
-                            <li><span style="color: #f43f5e; display: inline-block; width: 40px;">DEL</span> /api/v1/data/sources/{id}</li>
-                            <li><span style="color: #10b981; display: inline-block; width: 40px;">GET</span> /api/v1/market/historical</li>
-                            <li><span style="color: #10b981; display: inline-block; width: 40px;">GET</span> /api/v1/market/volatility</li>
+                            <li><span style="color: #10b981; display: inline-block; width: 40px;">GET</span>
+                                /api/v1/data/political</li>
+                            <li><span style="color: #10b981; display: inline-block; width: 40px;">GET</span>
+                                /api/v1/data/business</li>
+                            <li><span style="color: #10b981; display: inline-block; width: 40px;">GET</span>
+                                /api/v1/data/demographics</li>
+                            <li><span style="color: #3b82f6; display: inline-block; width: 40px;">POST</span>
+                                /api/v1/data/sync-airflow</li>
+                            <li><span style="color: #10b981; display: inline-block; width: 40px;">GET</span>
+                                /api/v1/data/sources</li>
+                            <li><span style="color: #3b82f6; display: inline-block; width: 40px;">POST</span>
+                                /api/v1/data/sources</li>
+                            <li><span style="color: #f59e0b; display: inline-block; width: 40px;">PUT</span>
+                                /api/v1/data/sources/{id}</li>
+                            <li><span style="color: #f43f5e; display: inline-block; width: 40px;">DEL</span>
+                                /api/v1/data/sources/{id}</li>
+                            <li><span style="color: #10b981; display: inline-block; width: 40px;">GET</span>
+                                /api/v1/market/historical</li>
+                            <li><span style="color: #10b981; display: inline-block; width: 40px;">GET</span>
+                                /api/v1/market/volatility</li>
                         </ul>
                     </ul>
                 </div>
 
                 <!-- Microservice 4 -->
                 <div class="feature-card">
-                    <span class="badge" style="background: rgba(139, 92, 246, 0.1); color: #8b5cf6;">MLOps & Model Registry API (10 Endpoints)</span>
-                    <ul style="list-style: none; padding: 0; margin-top: 1rem; font-family: monospace; font-size: 0.9rem; color: #a3a3a3;">
-                        <li><span style="color: #3b82f6; display: inline-block; width: 40px;">POST</span> /api/v1/models/upload-weights</li>
-                        <li><span style="color: #10b981; display: inline-block; width: 40px;">GET</span> /api/v1/models/{id}/metrics</li>
-                        <li><span style="color: #f59e0b; display: inline-block; width: 40px;">PUT</span> /api/v1/models/{id}/version/promote</li>
-                        <li><span style="color: #3b82f6; display: inline-block; width: 40px;">POST</span> /api/v1/datasets/s3-sync</li>
-                        <li><span style="color: #f43f5e; display: inline-block; width: 40px;">DEL</span> /api/v1/models/{id}/rollback</li>
-                        <li style="color: #8b5cf6; margin-top: 0.5rem; border-top: 1px solid #333; padding-top: 0.5rem; cursor: pointer; user-select: none;" onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'none' ? 'block' : 'none'">+ 5 more version control endpoints ▼</li>
+                    <span class="badge" style="background: rgba(139, 92, 246, 0.1); color: #8b5cf6;">MLOps & Model
+                        Registry API (10 Endpoints)</span>
+                    <ul
+                        style="list-style: none; padding: 0; margin-top: 1rem; font-family: monospace; font-size: 0.9rem; color: #a3a3a3;">
+                        <li><span style="color: #3b82f6; display: inline-block; width: 40px;">POST</span>
+                            /api/v1/models/upload-weights</li>
+                        <li><span style="color: #10b981; display: inline-block; width: 40px;">GET</span>
+                            /api/v1/models/{id}/metrics</li>
+                        <li><span style="color: #f59e0b; display: inline-block; width: 40px;">PUT</span>
+                            /api/v1/models/{id}/version/promote</li>
+                        <li><span style="color: #3b82f6; display: inline-block; width: 40px;">POST</span>
+                            /api/v1/datasets/s3-sync</li>
+                        <li><span style="color: #f43f5e; display: inline-block; width: 40px;">DEL</span>
+                            /api/v1/models/{id}/rollback</li>
+                        <li style="color: #8b5cf6; margin-top: 0.5rem; border-top: 1px solid #333; padding-top: 0.5rem; cursor: pointer; user-select: none;"
+                            onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'none' ? 'block' : 'none'">
+                            + 5 more version control endpoints ▼</li>
                         <ul style="display: none; padding: 0; margin-top: 0.5rem; list-style: none;">
-                            <li><span style="color: #10b981; display: inline-block; width: 40px;">GET</span> /api/v1/models</li>
-                            <li><span style="color: #10b981; display: inline-block; width: 40px;">GET</span> /api/v1/models/{id}</li>
-                            <li><span style="color: #f43f5e; display: inline-block; width: 40px;">DEL</span> /api/v1/models/{id}</li>
-                            <li><span style="color: #10b981; display: inline-block; width: 40px;">GET</span> /api/v1/datasets</li>
-                            <li><span style="color: #f43f5e; display: inline-block; width: 40px;">DEL</span> /api/v1/datasets/{id}</li>
+                            <li><span style="color: #10b981; display: inline-block; width: 40px;">GET</span>
+                                /api/v1/models</li>
+                            <li><span style="color: #10b981; display: inline-block; width: 40px;">GET</span>
+                                /api/v1/models/{id}</li>
+                            <li><span style="color: #f43f5e; display: inline-block; width: 40px;">DEL</span>
+                                /api/v1/models/{id}</li>
+                            <li><span style="color: #10b981; display: inline-block; width: 40px;">GET</span>
+                                /api/v1/datasets</li>
+                            <li><span style="color: #f43f5e; display: inline-block; width: 40px;">DEL</span>
+                                /api/v1/datasets/{id}</li>
                         </ul>
                     </ul>
                 </div>
 
                 <!-- Microservice 5 -->
                 <div class="feature-card">
-                    <span class="badge" style="background: rgba(236, 72, 153, 0.1); color: #ec4899;">Billing & Subscriptions API (8 Endpoints)</span>
-                    <ul style="list-style: none; padding: 0; margin-top: 1rem; font-family: monospace; font-size: 0.9rem; color: #a3a3a3;">
-                        <li><span style="color: #10b981; display: inline-block; width: 40px;">GET</span> /api/v1/billing/compute-usage</li>
-                        <li><span style="color: #3b82f6; display: inline-block; width: 40px;">POST</span> /api/v1/billing/checkout-session</li>
-                        <li><span style="color: #10b981; display: inline-block; width: 40px;">GET</span> /api/v1/billing/invoices/latest</li>
-                        <li><span style="color: #f59e0b; display: inline-block; width: 40px;">PUT</span> /api/v1/billing/tier/upgrade</li>
-                        <li><span style="color: #3b82f6; display: inline-block; width: 40px;">POST</span> /api/v1/billing/stripe-webhook</li>
-                        <li style="color: #8b5cf6; margin-top: 0.5rem; border-top: 1px solid #333; padding-top: 0.5rem; cursor: pointer; user-select: none;" onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'none' ? 'block' : 'none'">+ 3 more ledger endpoints ▼</li>
+                    <span class="badge" style="background: rgba(236, 72, 153, 0.1); color: #ec4899;">Billing &
+                        Subscriptions API (8 Endpoints)</span>
+                    <ul
+                        style="list-style: none; padding: 0; margin-top: 1rem; font-family: monospace; font-size: 0.9rem; color: #a3a3a3;">
+                        <li><span style="color: #10b981; display: inline-block; width: 40px;">GET</span>
+                            /api/v1/billing/compute-usage</li>
+                        <li><span style="color: #3b82f6; display: inline-block; width: 40px;">POST</span>
+                            /api/v1/billing/checkout-session</li>
+                        <li><span style="color: #10b981; display: inline-block; width: 40px;">GET</span>
+                            /api/v1/billing/invoices/latest</li>
+                        <li><span style="color: #f59e0b; display: inline-block; width: 40px;">PUT</span>
+                            /api/v1/billing/tier/upgrade</li>
+                        <li><span style="color: #3b82f6; display: inline-block; width: 40px;">POST</span>
+                            /api/v1/billing/stripe-webhook</li>
+                        <li style="color: #8b5cf6; margin-top: 0.5rem; border-top: 1px solid #333; padding-top: 0.5rem; cursor: pointer; user-select: none;"
+                            onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'none' ? 'block' : 'none'">
+                            + 3 more ledger endpoints ▼</li>
                         <ul style="display: none; padding: 0; margin-top: 0.5rem; list-style: none;">
-                            <li><span style="color: #10b981; display: inline-block; width: 40px;">GET</span> /api/v1/billing/subs</li>
-                            <li><span style="color: #f43f5e; display: inline-block; width: 40px;">DEL</span> /api/v1/billing/subs/{id}</li>
-                            <li><span style="color: #10b981; display: inline-block; width: 40px;">GET</span> /api/v1/billing/methods</li>
+                            <li><span style="color: #10b981; display: inline-block; width: 40px;">GET</span>
+                                /api/v1/billing/subs</li>
+                            <li><span style="color: #f43f5e; display: inline-block; width: 40px;">DEL</span>
+                                /api/v1/billing/subs/{id}</li>
+                            <li><span style="color: #10b981; display: inline-block; width: 40px;">GET</span>
+                                /api/v1/billing/methods</li>
                         </ul>
                     </ul>
                 </div>
 
                 <!-- Microservice 6 -->
                 <div class="feature-card">
-                    <span class="badge" style="background: rgba(244, 63, 94, 0.1); color: #f43f5e;">System & Integration API (14 Endpoints)</span>
-                    <ul style="list-style: none; padding: 0; margin-top: 1rem; font-family: monospace; font-size: 0.9rem; color: #a3a3a3;">
-                        <li><span style="color: #3b82f6; display: inline-block; width: 40px;">POST</span> /api/v1/webhooks/register</li>
-                        <li><span style="color: #10b981; display: inline-block; width: 40px;">GET</span> /api/v1/system/health</li>
-                        <li><span style="color: #10b981; display: inline-block; width: 40px;">GET</span> /api/v1/system/audit-logs</li>
-                        <li><span style="color: #10b981; display: inline-block; width: 40px;">GET</span> /api/v1/stream/sse (Events)</li>
-                        <li><span style="color: #f43f5e; display: inline-block; width: 40px;">DEL</span> /api/v1/compliance/gdpr-purge</li>
-                        <li style="color: #8b5cf6; margin-top: 0.5rem; border-top: 1px solid #333; padding-top: 0.5rem; cursor: pointer; user-select: none;" onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'none' ? 'block' : 'none'">+ 9 more admin & compliance endpoints ▼</li>
+                    <span class="badge" style="background: rgba(244, 63, 94, 0.1); color: #f43f5e;">System & Integration
+                        API (14 Endpoints)</span>
+                    <ul
+                        style="list-style: none; padding: 0; margin-top: 1rem; font-family: monospace; font-size: 0.9rem; color: #a3a3a3;">
+                        <li><span style="color: #3b82f6; display: inline-block; width: 40px;">POST</span>
+                            /api/v1/webhooks/register</li>
+                        <li><span style="color: #10b981; display: inline-block; width: 40px;">GET</span>
+                            /api/v1/system/health</li>
+                        <li><span style="color: #10b981; display: inline-block; width: 40px;">GET</span>
+                            /api/v1/system/audit-logs</li>
+                        <li><span style="color: #10b981; display: inline-block; width: 40px;">GET</span>
+                            /api/v1/stream/sse (Events)</li>
+                        <li><span style="color: #f43f5e; display: inline-block; width: 40px;">DEL</span>
+                            /api/v1/compliance/gdpr-purge</li>
+                        <li style="color: #8b5cf6; margin-top: 0.5rem; border-top: 1px solid #333; padding-top: 0.5rem; cursor: pointer; user-select: none;"
+                            onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'none' ? 'block' : 'none'">
+                            + 9 more admin & compliance endpoints ▼</li>
                         <ul style="display: none; padding: 0; margin-top: 0.5rem; list-style: none;">
-                            <li><span style="color: #10b981; display: inline-block; width: 40px;">GET</span> /api/v1/webhooks</li>
-                            <li><span style="color: #f43f5e; display: inline-block; width: 40px;">DEL</span> /api/v1/webhooks/{id}</li>
-                            <li><span style="color: #f59e0b; display: inline-block; width: 40px;">PUT</span> /api/v1/webhooks/{id}</li>
-                            <li><span style="color: #3b82f6; display: inline-block; width: 40px;">POST</span> /api/v1/webhooks/test</li>
-                            <li><span style="color: #10b981; display: inline-block; width: 40px;">GET</span> /api/v1/system/metrics</li>
-                            <li><span style="color: #3b82f6; display: inline-block; width: 40px;">POST</span> /api/v1/system/maintenance</li>
-                            <li><span style="color: #10b981; display: inline-block; width: 40px;">GET</span> /api/v1/compliance/logs</li>
-                            <li><span style="color: #3b82f6; display: inline-block; width: 40px;">POST</span> /api/v1/compliance/export</li>
-                            <li><span style="color: #10b981; display: inline-block; width: 40px;">GET</span> /api/v1/system/alerts</li>
+                            <li><span style="color: #10b981; display: inline-block; width: 40px;">GET</span>
+                                /api/v1/webhooks</li>
+                            <li><span style="color: #f43f5e; display: inline-block; width: 40px;">DEL</span>
+                                /api/v1/webhooks/{id}</li>
+                            <li><span style="color: #f59e0b; display: inline-block; width: 40px;">PUT</span>
+                                /api/v1/webhooks/{id}</li>
+                            <li><span style="color: #3b82f6; display: inline-block; width: 40px;">POST</span>
+                                /api/v1/webhooks/test</li>
+                            <li><span style="color: #10b981; display: inline-block; width: 40px;">GET</span>
+                                /api/v1/system/metrics</li>
+                            <li><span style="color: #3b82f6; display: inline-block; width: 40px;">POST</span>
+                                /api/v1/system/maintenance</li>
+                            <li><span style="color: #10b981; display: inline-block; width: 40px;">GET</span>
+                                /api/v1/compliance/logs</li>
+                            <li><span style="color: #3b82f6; display: inline-block; width: 40px;">POST</span>
+                                /api/v1/compliance/export</li>
+                            <li><span style="color: #10b981; display: inline-block; width: 40px;">GET</span>
+                                /api/v1/system/alerts</li>
                         </ul>
                     </ul>
                 </div>
 
                 <!-- Future Microservice 1 -->
                 <div class="feature-card missing">
-                    <span class="badge" style="background: rgba(234, 179, 8, 0.1); color: #eab308;">V2: 3D GIS & Mapping API (6 Endpoints)</span>
-                    <ul style="list-style: none; padding: 0; margin-top: 1rem; font-family: monospace; font-size: 0.9rem; color: #a3a3a3;">
-                        <li><span style="color: #10b981; display: inline-block; width: 40px;">GET</span> /api/v2/gis/tiles/{z}/{x}/{y}</li>
-                        <li><span style="color: #10b981; display: inline-block; width: 40px;">GET</span> /api/v2/gis/heatmaps/climate</li>
-                        <li><span style="color: #3b82f6; display: inline-block; width: 40px;">POST</span> /api/v2/gis/layers/custom</li>
-                        <li><span style="color: #10b981; display: inline-block; width: 40px;">GET</span> /api/v2/gis/topology</li>
-                        <li><span style="color: #10b981; display: inline-block; width: 40px;">GET</span> /api/v2/gis/markers</li>
-                        <li style="color: #8b5cf6; margin-top: 0.5rem; border-top: 1px solid #333; padding-top: 0.5rem; cursor: pointer; user-select: none;" onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'none' ? 'block' : 'none'">+ 1 more mapping endpoint ▼</li>
+                    <span class="badge" style="background: rgba(234, 179, 8, 0.1); color: #eab308;">V2: 3D GIS & Mapping
+                        API (6 Endpoints)</span>
+                    <ul
+                        style="list-style: none; padding: 0; margin-top: 1rem; font-family: monospace; font-size: 0.9rem; color: #a3a3a3;">
+                        <li><span style="color: #10b981; display: inline-block; width: 40px;">GET</span>
+                            /api/v2/gis/tiles/{z}/{x}/{y}</li>
+                        <li><span style="color: #10b981; display: inline-block; width: 40px;">GET</span>
+                            /api/v2/gis/heatmaps/climate</li>
+                        <li><span style="color: #3b82f6; display: inline-block; width: 40px;">POST</span>
+                            /api/v2/gis/layers/custom</li>
+                        <li><span style="color: #10b981; display: inline-block; width: 40px;">GET</span>
+                            /api/v2/gis/topology</li>
+                        <li><span style="color: #10b981; display: inline-block; width: 40px;">GET</span>
+                            /api/v2/gis/markers</li>
+                        <li style="color: #8b5cf6; margin-top: 0.5rem; border-top: 1px solid #333; padding-top: 0.5rem; cursor: pointer; user-select: none;"
+                            onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'none' ? 'block' : 'none'">
+                            + 1 more mapping endpoint ▼</li>
                         <ul style="display: none; padding: 0; margin-top: 0.5rem; list-style: none;">
-                            <li><span style="color: #f43f5e; display: inline-block; width: 40px;">DEL</span> /api/v2/gis/layers/{id}</li>
+                            <li><span style="color: #f43f5e; display: inline-block; width: 40px;">DEL</span>
+                                /api/v2/gis/layers/{id}</li>
                         </ul>
                     </ul>
                 </div>
 
                 <!-- Future Microservice 2 -->
                 <div class="feature-card missing">
-                    <span class="badge" style="background: rgba(234, 179, 8, 0.1); color: #eab308;">V2: Real-Time Collab API (5 Endpoints)</span>
-                    <ul style="list-style: none; padding: 0; margin-top: 1rem; font-family: monospace; font-size: 0.9rem; color: #a3a3a3;">
-                        <li><span style="color: #3b82f6; display: inline-block; width: 40px;">POST</span> /api/v2/collab/sessions</li>
-                        <li><span style="color: #10b981; display: inline-block; width: 40px;">GET</span> /api/v2/collab/active-users</li>
-                        <li><span style="color: #f59e0b; display: inline-block; width: 40px;">PUT</span> /api/v2/collab/cursors</li>
-                        <li><span style="color: #3b82f6; display: inline-block; width: 40px;">POST</span> /api/v2/collab/messages</li>
-                        <li><span style="color: #f43f5e; display: inline-block; width: 40px;">DEL</span> /api/v2/collab/sessions/{id}</li>
+                    <span class="badge" style="background: rgba(234, 179, 8, 0.1); color: #eab308;">V2: Real-Time Collab
+                        API (5 Endpoints)</span>
+                    <ul
+                        style="list-style: none; padding: 0; margin-top: 1rem; font-family: monospace; font-size: 0.9rem; color: #a3a3a3;">
+                        <li><span style="color: #3b82f6; display: inline-block; width: 40px;">POST</span>
+                            /api/v2/collab/sessions</li>
+                        <li><span style="color: #10b981; display: inline-block; width: 40px;">GET</span>
+                            /api/v2/collab/active-users</li>
+                        <li><span style="color: #f59e0b; display: inline-block; width: 40px;">PUT</span>
+                            /api/v2/collab/cursors</li>
+                        <li><span style="color: #3b82f6; display: inline-block; width: 40px;">POST</span>
+                            /api/v2/collab/messages</li>
+                        <li><span style="color: #f43f5e; display: inline-block; width: 40px;">DEL</span>
+                            /api/v2/collab/sessions/{id}</li>
                     </ul>
                 </div>
 
                 <!-- Future Microservice 3 -->
                 <div class="feature-card missing">
-                    <span class="badge" style="background: rgba(234, 179, 8, 0.1); color: #eab308;">V2: GenAI Chat API (6 Endpoints)</span>
-                    <ul style="list-style: none; padding: 0; margin-top: 1rem; font-family: monospace; font-size: 0.9rem; color: #a3a3a3;">
-                        <li><span style="color: #3b82f6; display: inline-block; width: 40px;">POST</span> /api/v2/chat/completions</li>
-                        <li><span style="color: #10b981; display: inline-block; width: 40px;">GET</span> /api/v2/chat/history</li>
-                        <li><span style="color: #3b82f6; display: inline-block; width: 40px;">POST</span> /api/v2/chat/rag-sync</li>
-                        <li><span style="color: #10b981; display: inline-block; width: 40px;">GET</span> /api/v2/chat/prompts</li>
-                        <li><span style="color: #f43f5e; display: inline-block; width: 40px;">DEL</span> /api/v2/chat/threads/{id}</li>
-                        <li style="color: #8b5cf6; margin-top: 0.5rem; border-top: 1px solid #333; padding-top: 0.5rem; cursor: pointer; user-select: none;" onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'none' ? 'block' : 'none'">+ 1 more AI endpoint ▼</li>
+                    <span class="badge" style="background: rgba(234, 179, 8, 0.1); color: #eab308;">V2: GenAI Chat API
+                        (6 Endpoints)</span>
+                    <ul
+                        style="list-style: none; padding: 0; margin-top: 1rem; font-family: monospace; font-size: 0.9rem; color: #a3a3a3;">
+                        <li><span style="color: #3b82f6; display: inline-block; width: 40px;">POST</span>
+                            /api/v2/chat/completions</li>
+                        <li><span style="color: #10b981; display: inline-block; width: 40px;">GET</span>
+                            /api/v2/chat/history</li>
+                        <li><span style="color: #3b82f6; display: inline-block; width: 40px;">POST</span>
+                            /api/v2/chat/rag-sync</li>
+                        <li><span style="color: #10b981; display: inline-block; width: 40px;">GET</span>
+                            /api/v2/chat/prompts</li>
+                        <li><span style="color: #f43f5e; display: inline-block; width: 40px;">DEL</span>
+                            /api/v2/chat/threads/{id}</li>
+                        <li style="color: #8b5cf6; margin-top: 0.5rem; border-top: 1px solid #333; padding-top: 0.5rem; cursor: pointer; user-select: none;"
+                            onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'none' ? 'block' : 'none'">
+                            + 1 more AI endpoint ▼</li>
                         <ul style="display: none; padding: 0; margin-top: 0.5rem; list-style: none;">
-                            <li><span style="color: #3b82f6; display: inline-block; width: 40px;">POST</span> /api/v2/chat/feedback</li>
+                            <li><span style="color: #3b82f6; display: inline-block; width: 40px;">POST</span>
+                                /api/v2/chat/feedback</li>
                         </ul>
                     </ul>
                 </div>
 
                 <!-- Future Microservice 4 -->
                 <div class="feature-card missing">
-                    <span class="badge" style="background: rgba(234, 179, 8, 0.1); color: #eab308;">V2: Plugin Marketplace API (8 Endpoints)</span>
-                    <ul style="list-style: none; padding: 0; margin-top: 1rem; font-family: monospace; font-size: 0.9rem; color: #a3a3a3;">
-                        <li><span style="color: #10b981; display: inline-block; width: 40px;">GET</span> /api/v2/plugins/marketplace</li>
-                        <li><span style="color: #3b82f6; display: inline-block; width: 40px;">POST</span> /api/v2/plugins/install</li>
-                        <li><span style="color: #10b981; display: inline-block; width: 40px;">GET</span> /api/v2/plugins/installed</li>
-                        <li><span style="color: #f59e0b; display: inline-block; width: 40px;">PUT</span> /api/v2/plugins/{id}/enable</li>
-                        <li><span style="color: #f43f5e; display: inline-block; width: 40px;">DEL</span> /api/v2/plugins/{id}/uninstall</li>
-                        <li style="color: #8b5cf6; margin-top: 0.5rem; border-top: 1px solid #333; padding-top: 0.5rem; cursor: pointer; user-select: none;" onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'none' ? 'block' : 'none'">+ 3 more plugin endpoints ▼</li>
+                    <span class="badge" style="background: rgba(234, 179, 8, 0.1); color: #eab308;">V2: Plugin
+                        Marketplace API (8 Endpoints)</span>
+                    <ul
+                        style="list-style: none; padding: 0; margin-top: 1rem; font-family: monospace; font-size: 0.9rem; color: #a3a3a3;">
+                        <li><span style="color: #10b981; display: inline-block; width: 40px;">GET</span>
+                            /api/v2/plugins/marketplace</li>
+                        <li><span style="color: #3b82f6; display: inline-block; width: 40px;">POST</span>
+                            /api/v2/plugins/install</li>
+                        <li><span style="color: #10b981; display: inline-block; width: 40px;">GET</span>
+                            /api/v2/plugins/installed</li>
+                        <li><span style="color: #f59e0b; display: inline-block; width: 40px;">PUT</span>
+                            /api/v2/plugins/{id}/enable</li>
+                        <li><span style="color: #f43f5e; display: inline-block; width: 40px;">DEL</span>
+                            /api/v2/plugins/{id}/uninstall</li>
+                        <li style="color: #8b5cf6; margin-top: 0.5rem; border-top: 1px solid #333; padding-top: 0.5rem; cursor: pointer; user-select: none;"
+                            onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'none' ? 'block' : 'none'">
+                            + 3 more plugin endpoints ▼</li>
                         <ul style="display: none; padding: 0; margin-top: 0.5rem; list-style: none;">
-                            <li><span style="color: #3b82f6; display: inline-block; width: 40px;">POST</span> /api/v2/plugins/publish</li>
-                            <li><span style="color: #10b981; display: inline-block; width: 40px;">GET</span> /api/v2/plugins/{id}/reviews</li>
-                            <li><span style="color: #3b82f6; display: inline-block; width: 40px;">POST</span> /api/v2/plugins/{id}/reviews</li>
+                            <li><span style="color: #3b82f6; display: inline-block; width: 40px;">POST</span>
+                                /api/v2/plugins/publish</li>
+                            <li><span style="color: #10b981; display: inline-block; width: 40px;">GET</span>
+                                /api/v2/plugins/{id}/reviews</li>
+                            <li><span style="color: #3b82f6; display: inline-block; width: 40px;">POST</span>
+                                /api/v2/plugins/{id}/reviews</li>
                         </ul>
                     </ul>
                 </div>
@@ -1156,23 +1501,30 @@
         <!-- Implementation Blueprints Section -->
         <section class="section" id="blueprints">
             <h2 style="--accent-primary: #ec4899;">Developer Blueprints (Implementation)</h2>
-            <p style="margin-bottom: 2rem; color: var(--text-muted);">Interactive implementation resources to kickstart the backend, database, and infrastructure.</p>
-            
+            <p style="margin-bottom: 2rem; color: var(--text-muted);">Interactive implementation resources to kickstart
+                the backend, database, and infrastructure.</p>
+
             <div class="features-grid" style="grid-template-columns: 1fr; gap: 1rem;">
-                
+
                 <!-- Database Blueprint -->
                 <div class="feature-card" style="padding: 1.5rem;">
-                    <div style="display: flex; justify-content: space-between; align-items: center; cursor: pointer;" onclick="var sqlContent = document.getElementById('sql-content'); sqlContent.style.display = sqlContent.style.display === 'none' ? 'block' : 'none';">
+                    <div style="display: flex; justify-content: space-between; align-items: center; cursor: pointer;"
+                        onclick="var sqlContent = document.getElementById('sql-content'); sqlContent.style.display = sqlContent.style.display === 'none' ? 'block' : 'none';">
                         <div>
-                            <span class="badge" style="background: rgba(16, 185, 129, 0.1); color: #10b981;">Database Initialization</span>
+                            <span class="badge" style="background: rgba(16, 185, 129, 0.1); color: #10b981;">Database
+                                Initialization</span>
                             <h3 style="margin: 0.5rem 0 0 0;">View Complete PostgreSQL Schema (48 Tables)</h3>
                         </div>
                         <span style="font-size: 1.5rem; color: #10b981;">▼</span>
                     </div>
-                    
+
                     <div id="sql-content" style="display: none; margin-top: 1.5rem;">
-                        <button onclick="navigator.clipboard.writeText(document.getElementById('sql-code').innerText); this.innerText='Copied!'; setTimeout(() => this.innerText='Copy Code', 2000);" style="background: #10b981; color: #000; border: none; padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer; font-weight: bold; margin-bottom: 0.5rem;">Copy Code</button>
-                        <pre style="background: #111; padding: 1rem; border-radius: 8px; border: 1px solid #333; overflow-x: auto; max-height: 500px; overflow-y: auto;"><code id="sql-code" style="font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; color: #a3a3a3;">-- ==============================================================================
+                        <button
+                            onclick="navigator.clipboard.writeText(document.getElementById('sql-code').innerText); this.innerText='Copied!'; setTimeout(() => this.innerText='Copy Code', 2000);"
+                            style="background: #10b981; color: #000; border: none; padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer; font-weight: bold; margin-bottom: 0.5rem;">Copy
+                            Code</button>
+                        <pre
+                            style="background: #111; padding: 1rem; border-radius: 8px; border: 1px solid #333; overflow-x: auto; max-height: 500px; overflow-y: auto;"><code id="sql-code" style="font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; color: #a3a3a3;">-- ==============================================================================
 -- WORLD SIMULATION ENGINE: ENTERPRISE POSTGRESQL SCHEMA v1.0
 -- Total Tables: 48 | Dialect: PostgreSQL 15+
 -- ==============================================================================
@@ -1594,17 +1946,24 @@ CREATE INDEX idx_scenarios_req ON scenarios(request_id);
 
                 <!-- Folder Blueprint -->
                 <div class="feature-card" style="padding: 1.5rem;">
-                    <div style="display: flex; justify-content: space-between; align-items: center; cursor: pointer;" onclick="var folderContent = document.getElementById('folder-content'); folderContent.style.display = folderContent.style.display === 'none' ? 'block' : 'none';">
+                    <div style="display: flex; justify-content: space-between; align-items: center; cursor: pointer;"
+                        onclick="var folderContent = document.getElementById('folder-content'); folderContent.style.display = folderContent.style.display === 'none' ? 'block' : 'none';">
                         <div>
-                            <span class="badge" style="background: rgba(245, 158, 11, 0.1); color: #f59e0b;">Architecture Blueprint</span>
+                            <span class="badge"
+                                style="background: rgba(245, 158, 11, 0.1); color: #f59e0b;">Architecture
+                                Blueprint</span>
                             <h3 style="margin: 0.5rem 0 0 0;">View Project Folder Structure (Monorepo)</h3>
                         </div>
                         <span style="font-size: 1.5rem; color: #f59e0b;">▼</span>
                     </div>
-                    
+
                     <div id="folder-content" style="display: none; margin-top: 1.5rem;">
-                        <button onclick="navigator.clipboard.writeText(document.getElementById('folder-code').innerText); this.innerText='Copied!'; setTimeout(() => this.innerText='Copy Code', 2000);" style="background: #f59e0b; color: #000; border: none; padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer; font-weight: bold; margin-bottom: 0.5rem;">Copy Code</button>
-                        <pre style="background: #111; padding: 1rem; border-radius: 8px; border: 1px solid #333; overflow-x: auto; max-height: 500px; overflow-y: auto;"><code id="folder-code" style="font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; color: #a3a3a3;">world-simulation-engine/
+                        <button
+                            onclick="navigator.clipboard.writeText(document.getElementById('folder-code').innerText); this.innerText='Copied!'; setTimeout(() => this.innerText='Copy Code', 2000);"
+                            style="background: #f59e0b; color: #000; border: none; padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer; font-weight: bold; margin-bottom: 0.5rem;">Copy
+                            Code</button>
+                        <pre
+                            style="background: #111; padding: 1rem; border-radius: 8px; border: 1px solid #333; overflow-x: auto; max-height: 500px; overflow-y: auto;"><code id="folder-code" style="font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; color: #a3a3a3;">world-simulation-engine/
 ├── .github/                      # CI/CD Workflows
 │   ├── workflows/
 │   │   ├── backend-deploy.yml
@@ -1689,21 +2048,26 @@ CREATE INDEX idx_scenarios_req ON scenarios(request_id);
             </div>
         </section>
         <!-- Footer -->
-        <footer style="margin-top: 4rem; padding-top: 2rem; padding-bottom: 2rem; border-top: 1px solid rgba(255, 255, 255, 0.05); text-align: center;">
-            <div style="display: inline-block; background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 12px; padding: 1.5rem 3rem;">
-                <h3 style="color: var(--accent-primary); margin: 0 0 0.5rem 0; font-size: 1.3rem; letter-spacing: 1px;">World Simulation Engine</h3>
-                <p style="color: #fff; font-size: 1rem; margin-bottom: 1rem;">Architect: <strong>SRIBASH SARKAR</strong></p>
-                <div style="display: flex; gap: 2rem; justify-content: center; color: var(--text-muted); font-family: 'JetBrains Mono', monospace; font-size: 0.95rem;">
+        <footer
+            style="margin-top: 4rem; padding-top: 2rem; padding-bottom: 2rem; border-top: 1px solid rgba(255, 255, 255, 0.05); text-align: center;">
+            <div
+                style="display: inline-block; background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 12px; padding: 1.5rem 3rem;">
+                <h3 style="color: var(--accent-primary); margin: 0 0 0.5rem 0; font-size: 1.3rem; letter-spacing: 1px;">
+                    World Simulation Engine</h3>
+                <p style="color: #fff; font-size: 1rem; margin-bottom: 1rem;">Architect: <strong>SRIBASH SARKAR</strong>
+                </p>
+                <div
+                    style="display: flex; gap: 2rem; justify-content: center; color: var(--text-muted); font-family: 'JetBrains Mono', monospace; font-size: 0.95rem;">
                     <span>📞 9083646603</span>
                     <span>📧 sribashsarkarblp@gmail.com</span>
                 </div>
             </div>
         </footer>
 
-    </div>    <!-- Mermaid.js Initialization -->
+    </div> <!-- Mermaid.js Initialization -->
     <script type="module">
         import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
-        mermaid.initialize({ 
+        mermaid.initialize({
             startOnLoad: true,
             theme: 'dark',
             securityLevel: 'loose',
@@ -1719,4 +2083,5 @@ CREATE INDEX idx_scenarios_req ON scenarios(request_id);
         });
     </script>
 </body>
+
 </html>

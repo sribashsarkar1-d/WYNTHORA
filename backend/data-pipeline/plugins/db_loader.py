@@ -5,7 +5,7 @@ import logging
 import os
 
 # In production, this would be fetched from Airflow connections or ENV vars
-DB_CONNECTION_STRING = os.getenv("DB_CONNECTION_STRING", "postgresql://postgres:56789@localhost:5432/world_sim")
+DB_CONNECTION_STRING = os.getenv("DB_CONNECTION_STRING", "postgresql://sribash:56789@localhost:5432/world_sim")
 
 def get_engine():
     """Returns a SQLAlchemy engine connected to the PostgreSQL warehouse."""
