@@ -93,4 +93,4 @@ class YahooFinanceCollector(BaseCollector):
 
 if __name__ == "__main__":
     collector = YahooFinanceCollector()
-    collector.execute()
+    collector.execute(conflict_cols=["time", "ticker_id"])

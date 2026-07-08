@@ -23,22 +23,20 @@ class WhoCollector(BaseCollector):
             url = f"https://ghoapi.azureedge.net/api/{ind_code}"
             
             try:
-                response = requests.get(url)
-                if response.status_code == 200:
-                    records = response.json().get('value', [])
-                    for record in records:
-                        # We only want country-level data (SpatialDimType == 'COUNTRY')
-                        if record.get('SpatialDimType') == 'COUNTRY':
-                            all_data.append({
-                                'iso_code': record.get('SpatialDim'),
-                                'year': record.get('TimeDim'),
-                                'indicator': col_name,
-                                'value': record.get('NumericValue')
-                            })
-                else:
-                    self.logger.error(f"Failed to fetch {ind_code}. Status: {response.status_code}")
+                response = self.session.get(url, timeout=30)
+                response.raise_for_status()
+                records = response.json().get('value', [])
+                for record in records:
+                    # We only want country-level data (SpatialDimType == 'COUNTRY')
+                    if record.get('SpatialDimType') == 'COUNTRY':
+                        all_data.append({
+                            'iso_code': record.get('SpatialDim'),
+                            'year': record.get('TimeDim'),
+                            'indicator': col_name,
+                            'value': record.get('NumericValue')
+                        })
             except Exception as e:
-                self.logger.error(f"Exception while fetching WHO data: {e}")
+                self.logger.error(f"Failed to fetch {ind_code}: {e}")
                 
         return all_data
 
@@ -86,4 +84,4 @@ class WhoCollector(BaseCollector):
 
 if __name__ == "__main__":
     collector = WhoCollector()
-    collector.execute()
+    collector.execute(conflict_cols=["time", "iso_code"])

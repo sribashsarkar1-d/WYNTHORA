@@ -1,9 +1,76 @@
-name: CI
-on: [push]
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [ "main", "develop" ]
+  pull_request:
+    branches: [ "main", "develop" ]
+
 jobs:
-  build:
+  build-and-test:
     runs-on: ubuntu-latest
+    
+    services:
+      postgres:
+        image: postgres:15-alpine
+        env:
+          POSTGRES_USER: world_sim
+          POSTGRES_PASSWORD: secretpassword
+          POSTGRES_DB: world_sim_db
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+      redis:
+        image: redis:7-alpine
+        ports:
+          - 6379:6379
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
+
+    - name: Set up Go
+      uses: actions/setup-go@v4
+      with:
+        go-version: '1.21'
+        
+    - name: Ensure working directory is set
+      run: cd backend/core-engine
+
+    - name: Install dependencies
+      working-directory: ./backend/core-engine
+      run: go mod download
+
+    - name: go fmt
+      working-directory: ./backend/core-engine
+      run: if [ "$(gofmt -l . | wc -l)" -gt 0 ]; then exit 1; fi
+
+    - name: go vet
+      working-directory: ./backend/core-engine
+      run: go vet ./...
+
+    - name: golangci-lint
+      uses: golangci/golangci-lint-action@v3
+      with:
+        version: latest
+        working-directory: backend/core-engine
+
     - name: Run Tests
-      run: echo "Running tests..."
+      working-directory: ./backend/core-engine
+      env:
+        DB_URL: postgres://world_sim:secretpassword@localhost:5432/world_sim_db?sslmode=disable
+        REDIS_URL: redis://localhost:6379/0
+      run: go test -v -race ./...
+
+    - name: Build
+      working-directory: ./backend/core-engine
+      run: go build -v ./cmd/server

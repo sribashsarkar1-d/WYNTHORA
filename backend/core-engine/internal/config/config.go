@@ -9,17 +9,25 @@ import (
 
 // AppConfig holds the application configuration
 type AppConfig struct {
-	Port  string
-	DBUrl string
-	Env   string
+	Port             string
+	DBUrl            string
+	RedisURL         string
+	Env              string
+	JWTSecret        string
+	StorageProvider  string
+	StorageLocalPath string
 }
 
 // LoadConfig reads the .env file and populates the AppConfig struct
 func LoadConfig() *AppConfig {
-	err := godotenv.Load()
-	if err != nil {
-		log.Println("Warning: No .env file found or could not be loaded, relying on system environment variables")
+	env := os.Getenv("ENVIRONMENT")
+	if env == "" {
+		env = "development"
 	}
+
+	envFile := ".env." + env
+	godotenv.Load(envFile)
+	godotenv.Load() // Fallback to .env
 
 	port := os.Getenv("PORT")
 	if port == "" {
@@ -31,14 +39,33 @@ func LoadConfig() *AppConfig {
 		log.Fatal("DB_URL environment variable is required")
 	}
 
-	env := os.Getenv("ENVIRONMENT")
-	if env == "" {
-		env = "development"
+	redisURL := os.Getenv("REDIS_URL")
+	if redisURL == "" {
+		redisURL = "redis://localhost:6379/0"
+	}
+
+	jwtSecret := os.Getenv("JWT_SECRET")
+	if jwtSecret == "" {
+		jwtSecret = "supersecretdefault" // default for dev
+	}
+
+	storageProvider := os.Getenv("STORAGE_PROVIDER")
+	if storageProvider == "" {
+		storageProvider = "local"
+	}
+
+	storageLocalPath := os.Getenv("STORAGE_LOCAL_PATH")
+	if storageLocalPath == "" {
+		storageLocalPath = "./uploads"
 	}
 
 	return &AppConfig{
-		Port:  port,
-		DBUrl: dbURL,
-		Env:   env,
+		Port:             port,
+		DBUrl:            dbURL,
+		RedisURL:         redisURL,
+		Env:              env,
+		JWTSecret:        jwtSecret,
+		StorageProvider:  storageProvider,
+		StorageLocalPath: storageLocalPath,
 	}
 }

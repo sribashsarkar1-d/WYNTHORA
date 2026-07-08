@@ -1,0 +1,279 @@
+FILE: .\backend\ai-services\app\main.py
+  Classes: ['SharedState']
+  Functions: ['health_check']
+FILE: .\backend\ai-services\app\algorithms\data_loader.py
+  Classes: ['RealWorldDataLoader']
+  Functions: ['__init__', 'get_gdp_history', 'get_market_volatility', 'fetch_imf_data', 'fetch_un_population', 'fetch_who_health_data', 'fetch_noaa_climate', 'fetch_gdelt_events', 'fetch_iea_energy', 'get_global_trade_matrix']
+FILE: .\backend\ai-services\app\algorithms\master_simulation.py
+  Classes: ['MasterSimulation']
+  Functions: ['__init__', 'run_tick', 'apply_nation_policy']
+FILE: .\backend\ai-services\app\algorithms\abm\agent.py
+  Classes: ['IdleState', 'WorkingState', 'VirtualCitizen']
+  Functions: ['__init__', 'update', '__init__', 'update', '__init__', 'step']
+FILE: .\backend\ai-services\app\algorithms\abm\bandit.py
+  Classes: ['UCBBandit', 'EpsilonGreedyBandit']
+  Functions: ['__init__', 'select_arm', 'update', '__init__', 'select_arm', 'update']
+FILE: .\backend\ai-services\app\algorithms\abm\cellular.py
+  Classes: ['CellularAutomata']
+  Functions: ['__init__', 'set_state', 'step', 'get_state']
+FILE: .\backend\ai-services\app\algorithms\abm\company.py
+  Classes: ['CompanyAgent', 'CorporateEngine']
+  Functions: ['__init__', 'step', '__init__', 'step']
+FILE: .\backend\ai-services\app\algorithms\abm\decision_tree.py
+  Classes: ['DecisionNode', 'DecisionTree']
+  Functions: ['build_protest_tree', '__init__', 'is_leaf', '__init__', 'predict']
+FILE: .\backend\ai-services\app\algorithms\abm\fsm.py
+  Classes: ['State', 'FiniteStateMachine']
+  Functions: ['__init__', 'on_enter', 'on_exit', 'update', '__init__', 'add_state', 'add_transition', 'set_initial_state', 'update']
+FILE: .\backend\ai-services\app\algorithms\abm\pathfinding.py
+  Classes: ['Node', 'AStarPathfinder']
+  Functions: ['__init__', '__lt__', '__init__', 'heuristic', 'get_neighbors', 'find_path']
+FILE: .\backend\ai-services\app\algorithms\abm\test_abm.py
+  Classes: []
+  Functions: ['run_test']
+FILE: .\backend\ai-services\app\algorithms\abm\utility.py
+  Classes: ['CobbDouglasUtility']
+  Functions: ['__init__', 'set_preference', 'calculate_utility', 'optimal_basket']
+FILE: .\backend\ai-services\app\algorithms\abm\world.py
+  Classes: ['WorldEnvironment']
+  Functions: ['__init__', 'add_agent', 'tick']
+FILE: .\backend\ai-services\app\algorithms\crypto\ecdsa_signatures.py
+  Classes: ['ECDSASignature']
+  Functions: ['sign_message', 'verify_signature']
+FILE: .\backend\ai-services\app\algorithms\crypto\encryption.py
+  Classes: ['StateEncryption']
+  Functions: ['generate_sha256_checksum', 'rsa_encrypt_mock', 'rsa_decrypt_mock']
+FILE: .\backend\ai-services\app\algorithms\crypto\merkle.py
+  Classes: ['MerkleNode', 'MerkleTree']
+  Functions: ['__init__', '__init__', '_hash_data', '_build_tree', 'get_root_hash']
+FILE: .\backend\ai-services\app\algorithms\crypto\test_crypto.py
+  Classes: []
+  Functions: ['run_test']
+FILE: .\backend\ai-services\app\algorithms\crypto\zk_proofs.py
+  Classes: ['ZkSnarkProof']
+  Functions: ['generate_proof', 'verify_proof']
+FILE: .\backend\ai-services\app\algorithms\events\election_engine.py
+  Classes: ['ElectionEngine']
+  Functions: ['__init__', 'hold_election']
+FILE: .\backend\ai-services\app\algorithms\events\event_engine.py
+  Classes: ['GlobalEvent', 'WarEvent', 'PandemicEvent', 'ClimateDisasterEvent', 'EnergyCrisisEvent', 'EventEngine']
+  Functions: ['__init__', 'calculate_impact', '__init__', 'calculate_impact', '__init__', 'calculate_impact', '__init__', 'calculate_impact', '__init__', 'calculate_impact', '__init__', 'trigger_event', 'resolve_events', 'get_aggregated_impacts']
+FILE: .\backend\ai-services\app\algorithms\finance\arima_model.py
+  Classes: ['ARIMAModel']
+  Functions: ['__init__', 'fit', 'predict']
+FILE: .\backend\ai-services\app\algorithms\finance\black_scholes.py
+  Classes: ['BlackScholesPricer']
+  Functions: ['norm_cdf', '__init__', 'price']
+FILE: .\backend\ai-services\app\algorithms\finance\central_bank.py
+  Classes: ['CentralBank']
+  Functions: ['__init__', 'step']
+FILE: .\backend\ai-services\app\algorithms\finance\finbert_sentiment.py
+  Classes: ['FinBERTSentiment']
+  Functions: ['__init__', '_get_pipeline', 'analyze']
+FILE: .\backend\ai-services\app\algorithms\finance\gbm.py
+  Classes: ['GeometricBrownianMotion']
+  Functions: ['__init__', 'simulate_path']
+FILE: .\backend\ai-services\app\algorithms\finance\lstm_predictor.py
+  Classes: ['MarketLSTM']
+  Functions: ['__init__', 'predict']
+FILE: .\backend\ai-services\app\algorithms\finance\market_engine.py
+  Classes: ['FinancialMarketEngine']
+  Functions: ['__init__', 'run_market_simulation']
+FILE: .\backend\ai-services\app\algorithms\finance\test_finance.py
+  Classes: []
+  Functions: ['run_test']
+FILE: .\backend\ai-services\app\algorithms\finance\train_forecaster.py
+  Classes: []
+  Functions: ['get_training_data', 'train_lstm', 'train_transformer']
+FILE: .\backend\ai-services\app\algorithms\finance\transformer_informer.py
+  Classes: ['InformerTransformer']
+  Functions: ['__init__', 'predict_crash_risk']
+FILE: .\backend\ai-services\app\algorithms\gnn\bbn.py
+  Classes: ['BayesianBeliefNetwork']
+  Functions: ['setup_geopolitics_bbn', '__init__', 'add_node', 'query_probability']
+FILE: .\backend\ai-services\app\algorithms\gnn\geopolitics_model.py
+  Classes: ['GeopoliticsModel']
+  Functions: ['__init__', 'run_analysis']
+FILE: .\backend\ai-services\app\algorithms\gnn\graph_sage.py
+  Classes: ['SimpleGraphSAGE']
+  Functions: ['__init__', 'forward']
+FILE: .\backend\ai-services\app\algorithms\gnn\hmm.py
+  Classes: ['HiddenMarkovModel']
+  Functions: ['__init__', 'viterbi']
+FILE: .\backend\ai-services\app\algorithms\gnn\mdp.py
+  Classes: ['MarkovDecisionProcess']
+  Functions: ['__init__', 'value_iteration', 'get_optimal_policy']
+FILE: .\backend\ai-services\app\algorithms\gnn\pagerank.py
+  Classes: []
+  Functions: ['calculate_pagerank']
+FILE: .\backend\ai-services\app\algorithms\gnn\temporal_gnn.py
+  Classes: ['TemporalGNN']
+  Functions: ['__init__', 'forward']
+FILE: .\backend\ai-services\app\algorithms\gnn\test_gnn.py
+  Classes: []
+  Functions: ['run_test']
+FILE: .\backend\ai-services\app\algorithms\health\seir_model.py
+  Classes: ['SEIRModel']
+  Functions: ['__init__', '_deriv', 'simulate', 'step', 'I']
+FILE: .\backend\ai-services\app\algorithms\models\bayesian_network.py
+  Classes: ['DynamicBayesianNetwork']
+  Functions: ['__init__', 'calculate_recession_risk']
+FILE: .\backend\ai-services\app\algorithms\models\hmm_state.py
+  Classes: ['GeopoliticalHMM']
+  Functions: ['__init__', 'step', 'simulate_future']
+FILE: .\backend\ai-services\app\algorithms\models\monte_carlo.py
+  Classes: ['MonteCarloEngine']
+  Functions: ['__init__', 'run_scenarios']
+FILE: .\backend\ai-services\app\algorithms\models\rl_agent.py
+  Classes: ['PolicyRLAgent']
+  Functions: ['__init__', '_discretize_state', 'choose_action', 'learn', 'calculate_reward']
+FILE: .\backend\ai-services\app\algorithms\nlp\news_generator.py
+  Classes: ['NLPNewsGenerator']
+  Functions: ['__init__', 'fetch_live_news', 'generate_news']
+FILE: .\backend\ai-services\app\algorithms\rl\dqn.py
+  Classes: ['DeepQNetwork']
+  Functions: ['__init__', 'forward', 'get_weights', 'set_weights']
+FILE: .\backend\ai-services\app\algorithms\rl\federated.py
+  Classes: ['FederatedAveraging']
+  Functions: ['aggregate_weights']
+FILE: .\backend\ai-services\app\algorithms\rl\mcts.py
+  Classes: ['MCTSNode', 'MonteCarloTreeSearch']
+  Functions: ['__init__', 'ucb1', '__init__', 'select', 'expand', 'simulate', 'backpropagate', 'run_search']
+FILE: .\backend\ai-services\app\algorithms\rl\ppo_sac.py
+  Classes: ['ActorCritic']
+  Functions: ['__init__', 'forward', 'get_weights', 'set_weights']
+FILE: .\backend\ai-services\app\algorithms\rl\test_rl.py
+  Classes: []
+  Functions: ['run_test']
+FILE: .\backend\ai-services\app\algorithms\system_dynamics\cge_model.py
+  Classes: ['CGEModel']
+  Functions: ['__init__', 'solve_equilibrium']
+FILE: .\backend\ai-services\app\algorithms\system_dynamics\energy_model.py
+  Classes: ['EnergyEngine']
+  Functions: ['__init__', 'step']
+FILE: .\backend\ai-services\app\algorithms\system_dynamics\euler.py
+  Classes: ['EulerIntegrator']
+  Functions: ['__init__', 'step']
+FILE: .\backend\ai-services\app\algorithms\system_dynamics\infrastructure.py
+  Classes: ['InfrastructureEngine']
+  Functions: ['__init__', 'step']
+FILE: .\backend\ai-services\app\algorithms\system_dynamics\lotka_volterra.py
+  Classes: ['LotkaVolterraEconomy']
+  Functions: ['__init__', 'derivative']
+FILE: .\backend\ai-services\app\algorithms\system_dynamics\macro_model.py
+  Classes: ['MacroEnvironment']
+  Functions: ['__init__', 'tick', 'get_state']
+FILE: .\backend\ai-services\app\algorithms\system_dynamics\nation_state.py
+  Classes: ['NationState']
+  Functions: ['__init__', 'tick', 'get_state']
+FILE: .\backend\ai-services\app\algorithms\system_dynamics\pde.py
+  Classes: ['FiniteDifferencePDE']
+  Functions: ['__init__', 'set_initial_condition', 'step']
+FILE: .\backend\ai-services\app\algorithms\system_dynamics\rk4.py
+  Classes: ['RK4Integrator']
+  Functions: ['__init__', 'step']
+FILE: .\backend\ai-services\app\algorithms\system_dynamics\stochastic.py
+  Classes: ['StochasticIntegrator']
+  Functions: ['__init__', 'step_gbm']
+FILE: .\backend\ai-services\app\algorithms\system_dynamics\supply_chain.py
+  Classes: ['SupplyChainEngine']
+  Functions: ['__init__', '_initialize_base_network', 'apply_shock', 'step']
+FILE: .\backend\ai-services\app\algorithms\system_dynamics\test_dynamics.py
+  Classes: []
+  Functions: ['run_test']
+FILE: .\backend\ai-services\app\algorithms\system_dynamics\world_network.py
+  Classes: ['WorldNetwork']
+  Functions: ['__init__', '_initialize_nations', 'update_trade_network', 'tick', 'get_global_state', 'process_nation']
+FILE: .\backend\ai-services\app\api\v1\dependencies.py
+  Classes: []
+  Functions: ['get_db']
+FILE: .\backend\ai-services\app\api\v1\endpoints\inference.py
+  Classes: []
+  Functions: ['predict']
+FILE: .\backend\ai-services\app\api\v1\endpoints\simulation.py
+  Classes: ['ConnectionManager']
+  Functions: ['__init__', 'disconnect']
+FILE: .\backend\ai-services\app\api\v1\endpoints\training.py
+  Classes: []
+  Functions: ['train']
+FILE: .\backend\ai-services\app\core\config.py
+  Classes: ['Settings']
+  Functions: []
+FILE: .\backend\ai-services\app\models\domain.py
+  Classes: ['SimulationResult']
+  Functions: []
+FILE: .\backend\ai-services\app\scripts\populate_db.py
+  Classes: []
+  Functions: ['populate_countries_and_economics', 'fetch_yahoo_finance', 'fetch_gdelt_events', 'fetch_other_sources', 'main']
+FILE: .\backend\core-engine\cmd\server\main.go
+  Structs: []
+  Functions: ['main']
+FILE: .\backend\core-engine\internal\api\routes.go
+  Structs: []
+  Functions: ['RegisterRoutes']
+FILE: .\backend\core-engine\internal\api\server.go
+  Structs: []
+  Functions: ['SetupRouter']
+FILE: .\backend\core-engine\internal\api\handlers\simulation.go
+  Structs: []
+  Functions: ['HandleSimulation']
+FILE: .\backend\core-engine\internal\config\config.go
+  Structs: ['AppConfig']
+  Functions: ['LoadConfig']
+FILE: .\backend\core-engine\internal\core\simulation_loop.go
+  Structs: ['SimulationEngine']
+  Functions: ['NewSimulationEngine', 'Start', 'Stop', 'Tick', 'IsRunning']
+FILE: .\backend\core-engine\internal\infrastructure\db.go
+  Structs: []
+  Functions: ['ConnectDB']
+FILE: .\backend\core-engine\internal\infrastructure\database\postgres.go
+  Structs: []
+  Functions: ['Connect']
+FILE: .\backend\core-engine\internal\infrastructure\websocket\hub.go
+  Structs: ['Hub']
+  Functions: []
+FILE: .\backend\data-pipeline\dags\climate_dag.py
+  Classes: []
+  Functions: ['generate_mock_climate_data', 'fetch_climate_data']
+FILE: .\backend\data-pipeline\dags\gdelt_dag.py
+  Classes: []
+  Functions: ['fetch_gdelt_data']
+FILE: .\backend\data-pipeline\dags\macro_economy_dag.py
+  Classes: []
+  Functions: ['generate_mock_economic_data', 'fetch_macro_data']
+FILE: .\backend\data-pipeline\dags\master_data_pipeline.py
+  Classes: []
+  Functions: ['run_world_bank', 'run_yahoo_finance', 'run_gdelt', 'run_who']
+FILE: .\backend\data-pipeline\dags\world_bank_dag.py
+  Classes: []
+  Functions: ['fetch_world_bank_data']
+FILE: .\backend\data-pipeline\dags\yahoo_finance_dag.py
+  Classes: []
+  Functions: ['fetch_yahoo_finance']
+FILE: .\backend\data-pipeline\plugins\db_loader.py
+  Classes: []
+  Functions: ['get_engine', 'load_dataframe_to_postgres']
+FILE: .\backend\data-pipeline\scripts\collectors\base_collector.py
+  Classes: ['BaseCollector']
+  Functions: ['__init__', 'fetch_data', 'transform_data', 'save_to_db', 'execute']
+FILE: .\backend\data-pipeline\scripts\collectors\fred_collector.py
+  Classes: ['FredCollector']
+  Functions: ['__init__', 'fetch_data', 'transform_data']
+FILE: .\backend\data-pipeline\scripts\collectors\gdelt_collector.py
+  Classes: ['GdeltCollector']
+  Functions: ['__init__', 'fetch_data', 'transform_data', 'map_severity']
+FILE: .\backend\data-pipeline\scripts\collectors\imf_collector.py
+  Classes: ['ImfCollector']
+  Functions: ['__init__', 'fetch_data', 'transform_data']
+FILE: .\backend\data-pipeline\scripts\collectors\who_collector.py
+  Classes: ['WhoCollector']
+  Functions: ['__init__', 'fetch_data', 'transform_data', 'parse_year']
+FILE: .\backend\data-pipeline\scripts\collectors\world_bank_collector.py
+  Classes: ['WorldBankCollector']
+  Functions: ['__init__', 'fetch_data', 'transform_data']
+FILE: .\backend\data-pipeline\scripts\collectors\yahoo_finance_collector.py
+  Classes: ['YahooFinanceCollector']
+  Functions: ['__init__', 'fetch_data', 'transform_data']
+FILE: .\backend\data-pipeline\scripts\spark_jobs\aggregate_climate_data.py
+  Classes: []
+  Functions: ['create_spark_session', 'aggregate_climate_data']

@@ -1,2 +1,3 @@
 package database
+
 func Connect() {}

@@ -8,11 +8,12 @@ import (
 
 // SimulationEngine manages the core loop of the world simulation
 type SimulationEngine struct {
-	ticker  *time.Ticker
-	quit    chan struct{}
-	running bool
-	mu      sync.Mutex
+	ticker   *time.Ticker
+	quit     chan struct{}
+	running  bool
+	mu       sync.Mutex
 	TickRate time.Duration
+	OnTick   func()
 }
 
 // NewSimulationEngine initializes a new engine
@@ -74,6 +75,9 @@ func (se *SimulationEngine) Tick() {
 	// 4. Save state checkpoint to Database
 
 	log.Println("[TICK] Executing simulation step...")
+	if se.OnTick != nil {
+		se.OnTick()
+	}
 }
 
 // IsRunning returns the current status

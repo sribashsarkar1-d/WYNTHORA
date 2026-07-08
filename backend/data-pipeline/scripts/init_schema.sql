@@ -10,14 +10,16 @@ CREATE TABLE IF NOT EXISTS economic_time_series (
     time TIMESTAMP WITH TIME ZONE NOT NULL,
     iso_code VARCHAR(3) NOT NULL REFERENCES countries(iso_code),
     gdp_usd NUMERIC(25, 2),
-    inflation_rate DECIMAL(10, 4)
+    inflation_rate DECIMAL(10, 4),
+    UNIQUE(time, iso_code)
 );
 
 CREATE TABLE IF NOT EXISTS climate_time_series (
     time TIMESTAMP WITH TIME ZONE NOT NULL,
     iso_code VARCHAR(3) NOT NULL REFERENCES countries(iso_code),
     avg_temp_celsius DECIMAL(10, 4),
-    co2_ppm DECIMAL(10, 4)
+    co2_ppm DECIMAL(10, 4),
+    UNIQUE(time, iso_code)
 );
 
 -- Note: In a real TimescaleDB setup we would run:

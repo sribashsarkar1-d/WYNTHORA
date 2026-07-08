@@ -22,9 +22,14 @@ class WorldBankCollector(BaseCollector):
         for indicator, column_name in self.indicators.items():
             self.logger.info(f"Fetching {indicator} ({column_name}) from World Bank...")
             url = f"http://api.worldbank.org/v2/country/{self.countries}/indicator/{indicator}?format=json&per_page=1000"
-            response = requests.get(url)
-            
-            if response.status_code == 200 and len(response.json()) > 1:
+            try:
+                response = self.session.get(url, timeout=30)
+                response.raise_for_status()
+            except Exception as e:
+                self.logger.error(f"Failed to fetch {indicator}: {e}")
+                continue
+                
+            if len(response.json()) > 1:
                 data = response.json()[1]
                 for item in data:
                     if item['value'] is not None:
@@ -94,4 +99,4 @@ class WorldBankCollector(BaseCollector):
 
 if __name__ == "__main__":
     collector = WorldBankCollector()
-    collector.execute()
+    collector.execute(conflict_cols=["time", "iso_code"])
