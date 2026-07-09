@@ -1,7 +1,7 @@
 import numpy as np
 
 # Import the existing models
-from cge_model import CGEModel # type: ignore
+from .cge_model import CGEModel # type: ignore
 import sys
 import os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'health')))

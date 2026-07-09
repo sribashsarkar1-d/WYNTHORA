@@ -1,11 +1,7 @@
-import sys
-import os
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../../../')))
-
-from merkle import MerkleTree
-from encryption import StateEncryption
-from ecdsa_signatures import ECDSASignature
-from zk_proofs import ZkSnarkProof
+from .merkle import MerkleTree
+from .encryption import StateEncryption
+from .ecdsa_signatures import ECDSASignature
+from .zk_proofs import ZkSnarkProof
 
 def run_test():
     print("=== CRYPTOGRAPHIC STATE HASHING ANALYSIS ===")

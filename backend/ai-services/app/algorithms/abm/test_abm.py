@@ -1,5 +1,5 @@
-from world import WorldEnvironment
-from agent import VirtualCitizen
+from .world import WorldEnvironment
+from .agent import VirtualCitizen
 
 def run_test():
     print("Initializing ABM Simulation World (10x10)...")

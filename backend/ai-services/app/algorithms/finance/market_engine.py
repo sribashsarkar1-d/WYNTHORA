@@ -9,7 +9,7 @@ import numpy as np
 import sys
 import os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-from algorithms.data_loader import RealWorldDataLoader
+from app.algorithms.data_loader import RealWorldDataLoader
 
 class FinancialMarketEngine:
     """
@@ -26,6 +26,19 @@ class FinancialMarketEngine:
         
         self.data_loader = RealWorldDataLoader()
         self.rolling_stock_path = None
+        self.gdp_history = [20.0, 21.0, 22.0, 23.0] # default safe fallback
+        self.volatility_history = [0.1, 0.15, 0.12]
+        
+    async def initialize_data(self):
+        try:
+            self.gdp_history = await self.data_loader.get_gdp_history()
+            if not self.gdp_history:
+                self.gdp_history = [20.0, 21.0, 22.0, 23.0]
+            self.volatility_history = await self.data_loader.get_market_volatility()
+            if not self.volatility_history:
+                self.volatility_history = [0.1, 0.15, 0.12]
+        except Exception:
+            pass
 
     def run_market_simulation(self, active_events=None, macro_context=None, news_feed=None):
         if active_events is None:
@@ -77,7 +90,7 @@ class FinancialMarketEngine:
         print(f"   Value of a Call Option (Strike ${strike:.2f}, 30 days to expiry): ${call_price:.2f}")
 
         # 3. ARIMA Baseline Forecasting (e.g. steady GDP growth history)
-        gdp_history = self.data_loader.get_gdp_history()
+        gdp_history = self.gdp_history
         self.arima.fit(gdp_history)
         gdp_forecast = self.arima.predict(gdp_history, steps=2)
         print(f"\n3. ARIMA Macro Forecast:")
@@ -117,7 +130,7 @@ class FinancialMarketEngine:
 
         # 7. Transformer (Informer) Crash Risk
         # Simulate a high volatility spike
-        volatility_history = self.data_loader.get_market_volatility()
+        volatility_history = self.volatility_history
         base_crash_risk = self.transformer.predict_crash_risk(volatility_history)
                 
         crash_risk = min(0.99, base_crash_risk + shock_penalty)

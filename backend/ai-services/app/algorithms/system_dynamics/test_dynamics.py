@@ -2,7 +2,7 @@ import sys
 import os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../../../')))
 
-from macro_model import MacroEnvironment
+from .macro_model import MacroEnvironment
 
 def run_test():
     print("Initializing Macro System Dynamics Environment...")

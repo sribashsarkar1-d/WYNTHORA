@@ -4,8 +4,13 @@ import uvicorn
 import asyncio
 from contextlib import asynccontextmanager
 
-from api.v1.endpoints import simulation
-from algorithms.master_simulation import MasterSimulation # type: ignore
+from app.core.logging import setup_logging
+from app.core.telemetry import setup_telemetry
+
+logger = setup_logging()
+
+from app.api.v1.endpoints import simulation
+from app.algorithms.master_simulation import MasterSimulation # type: ignore
 
 # Global Simulation State
 class SharedState:
@@ -22,7 +27,7 @@ class SharedState:
 async def simulation_worker():
     print("Background Async Simulation Worker Started")
     loop = asyncio.get_running_loop()
-    from api.v1.endpoints.simulation import manager
+    from app.api.v1.endpoints.simulation import manager
     
     while True:
         if SharedState.is_running and SharedState.sim_instance:
@@ -67,7 +72,16 @@ async def lifespan(app: FastAPI):
     worker_task.cancel()
     SharedState.is_running = False
 
+from slowapi.errors import RateLimitExceeded
+from slowapi import _rate_limit_exceeded_handler
+from app.api.v1.endpoints.simulation import limiter
+
 app = FastAPI(title="AI Services API - Enterprise Edition", lifespan=lifespan)
+app.state.limiter = limiter
+app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)  # type: ignore
+
+# Setup Telemetry
+setup_telemetry(app)
 
 app.add_middleware(
     CORSMiddleware,

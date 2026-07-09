@@ -4,6 +4,6 @@
     "extraPaths": [
         "backend/data-pipeline/scripts/plugins",
         "backend/data-pipeline/scripts/collectors",
-        "backend/ai-services/app"
+        "backend/ai-services"
     ]
 }

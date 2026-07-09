@@ -1,13 +1,11 @@
-import sys
-import os
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../../../')))
+import asyncio
+from .market_engine import FinancialMarketEngine
 
-from market_engine import FinancialMarketEngine
-
-def run_test():
+async def run_test():
     print("Initializing Finance & Time-Series Environment...")
     engine = FinancialMarketEngine()
+    await engine.initialize_data()
     engine.run_market_simulation()
     
 if __name__ == "__main__":
-    run_test()
+    asyncio.run(run_test())

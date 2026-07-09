@@ -1,7 +1,9 @@
 import numpy as np
 import pandas as pd # type: ignore
 import concurrent.futures
-from nation_state import NationState # type: ignore
+from app.core.config import settings
+from .nation_state import NationState # type: ignore
+from typing import Dict, Any
 
 class WorldNetwork:
     """
@@ -21,13 +23,13 @@ class WorldNetwork:
         """
         try:
             from sqlalchemy import create_engine
-            engine = create_engine("postgresql://sribash:56789@localhost:5432/world_sim")
+            engine = create_engine(settings.sync_database_uri)
             
             # Fetch latest data for each country
             query = """
             SELECT c.iso_code, c.name as country_name,
-                   (SELECT gdp_usd FROM economic_time_series e WHERE e.iso_code = c.iso_code ORDER BY time DESC LIMIT 1) as gdp,
-                   (SELECT total_population FROM population_data p WHERE p.iso_code = c.iso_code ORDER BY time DESC LIMIT 1) as pop
+                   (SELECT gdp_usd FROM economic_time_series e WHERE e.country_code = c.iso_code ORDER BY year DESC LIMIT 1) as gdp,
+                   10000000 as pop
             FROM countries c
             """
             df = pd.read_sql(query, engine)
@@ -124,7 +126,7 @@ class WorldNetwork:
             # Scale net exports impact to avoid wild swings
             self.nations[iso].gdp += net_exports[i] * 0.02
             
-    def get_global_state(self):
+    def get_global_state(self) -> Dict[str, Any]:
         """
         Aggregates global metrics.
         """

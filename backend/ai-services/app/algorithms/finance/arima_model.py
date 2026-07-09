@@ -30,7 +30,8 @@ class ARIMAModel:
             Y[i - self.p] = timeseries[i]
 
         # OLS: beta = (X^T * X)^-1 * X^T * Y
-        beta = np.linalg.inv(X.T @ X) @ X.T @ Y
+        # Use pseudo-inverse (pinv) to avoid Singular Matrix errors for small data
+        beta = np.linalg.pinv(X.T @ X) @ X.T @ Y
         
         self.intercept = beta[0]
         self.coefficients = beta[1:]

@@ -1,15 +1,15 @@
 import numpy as np
 import torch
-from algorithms.gnn.graph_sage import SimpleGraphSAGE
-from algorithms.gnn.pagerank import calculate_pagerank
-from algorithms.gnn.bbn import setup_geopolitics_bbn
-from algorithms.gnn.mdp import MarkovDecisionProcess
-from algorithms.gnn.hmm import HiddenMarkovModel
+from app.algorithms.gnn.graph_sage import SimpleGraphSAGE
+from app.algorithms.gnn.pagerank import calculate_pagerank
+from app.algorithms.gnn.bbn import setup_geopolitics_bbn
+from app.algorithms.gnn.mdp import MarkovDecisionProcess
+from app.algorithms.gnn.hmm import HiddenMarkovModel
 
 import sys
 import os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-from algorithms.data_loader import RealWorldDataLoader
+from app.algorithms.data_loader import RealWorldDataLoader
 class GeopoliticsModel:
     """
     Integrates GNN, PageRank, MDP, HMM, and BBN to manage global alliances and supply chains.
@@ -21,8 +21,10 @@ class GeopoliticsModel:
         # 1. PageRank (Trade Matrix: rows=from, cols=to)
         # Represents volume of trade exports
         self.data_loader = RealWorldDataLoader()
-        self.trade_matrix = self.data_loader.get_global_trade_matrix()
+        self.trade_matrix = np.zeros((5, 5))
         
+    async def initialize_data(self):
+        self.trade_matrix = await self.data_loader.get_global_trade_matrix()        
         # 2. GNN / GraphSAGE (Alliance Network)
         # Node Features: [GDP, Military_Power]
         self.node_features = torch.tensor([

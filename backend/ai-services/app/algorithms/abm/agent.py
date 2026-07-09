@@ -1,7 +1,7 @@
-from algorithms.abm.fsm import FiniteStateMachine, State
-from algorithms.abm.bandit import UCBBandit
-from algorithms.abm.utility import CobbDouglasUtility
-from algorithms.abm.decision_tree import build_protest_tree
+from app.algorithms.abm.fsm import FiniteStateMachine, State
+from app.algorithms.abm.bandit import UCBBandit
+from app.algorithms.abm.utility import CobbDouglasUtility
+from app.algorithms.abm.decision_tree import build_protest_tree
 
 class IdleState(State):
     def __init__(self):

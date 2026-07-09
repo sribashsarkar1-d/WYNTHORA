@@ -1,4 +1,4 @@
-from pgmpy.models import BayesianNetwork
+from pgmpy.models import DiscreteBayesianNetwork
 from pgmpy.factors.discrete import TabularCPD
 from pgmpy.inference import VariableElimination
 
@@ -8,7 +8,7 @@ class DynamicBayesianNetwork:
     based on dynamic factors like GDP, Inflation, Oil, War, Trade, Debt.
     """
     def __init__(self):
-        self.model = BayesianNetwork([
+        self.model = DiscreteBayesianNetwork([
             ('War', 'Oil'),
             ('Trade', 'GDP'),
             ('Oil', 'Inflation'),

@@ -1,12 +1,10 @@
-import sys
-import os
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../../../')))
+import asyncio
+from .geopolitics_model import GeopoliticsModel
 
-from geopolitics_model import GeopoliticsModel
-
-def run_test():
+async def run_test():
     print("Initializing Geopolitics & GNN Environment...")
     model = GeopoliticsModel()
+    await model.initialize_data()
     
     print("\nRunning comprehensive global analysis...")
     model.run_analysis()
@@ -14,4 +12,4 @@ def run_test():
     print("\nAll models verified successfully.")
 
 if __name__ == "__main__":
-    run_test()
+    asyncio.run(run_test())

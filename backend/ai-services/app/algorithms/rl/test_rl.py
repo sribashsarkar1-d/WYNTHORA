@@ -1,10 +1,6 @@
-import sys
-import os
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../../../')))
-
-from mcts import MonteCarloTreeSearch
-from federated import FederatedAveraging
-from ppo_sac import ActorCritic
+from .mcts import MonteCarloTreeSearch
+from .federated import FederatedAveraging
+from .ppo_sac import ActorCritic
 
 def run_test():
     print("=== FEDERATED RL & BRANCHING ANALYSIS ===")

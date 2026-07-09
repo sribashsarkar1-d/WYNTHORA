@@ -1,5 +1,5 @@
-from pathfinding import AStarPathfinder
-from cellular import CellularAutomata
+from .pathfinding import AStarPathfinder
+from .cellular import CellularAutomata
 
 class WorldEnvironment:
     """
