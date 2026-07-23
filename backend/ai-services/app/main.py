@@ -10,67 +10,69 @@ from app.core.telemetry import setup_telemetry
 logger = setup_logging()
 
 from app.api.v1.endpoints import simulation
-from app.algorithms.master_simulation import MasterSimulation # type: ignore
+from app.simulation.engine.core import AsyncSimulationEngine
+from app.domains.economy.system_dynamics.world_network import WorldNetwork
+from app.domains.population.abm.world import WorldEnvironment
 
-# Global Simulation State
-class SharedState:
-    sim_instance = None
-    tick = 0
-    is_running = False
-    latest_global_state = {
-        "total_gdp": 1000.0,
-        "total_co2": 400.0,
-        "total_infected": 0
-    }
-    active_events = []
-
-async def simulation_worker():
-    print("Background Async Simulation Worker Started")
-    loop = asyncio.get_running_loop()
+async def simulation_worker(app: FastAPI):
+    logger.info("Background Async Simulation Worker Started")
     from app.api.v1.endpoints.simulation import manager
     
-    while True:
-        if SharedState.is_running and SharedState.sim_instance:
-            SharedState.tick += 1
+    engine: AsyncSimulationEngine = app.state.engine
+    tick_counter = 1
+    
+    while app.state.is_running:
+        try:
+            await engine.run_tick(tick_counter)
             
-            # run_tick is CPU-bound, so we run it in an executor to avoid blocking the event loop
-            await loop.run_in_executor(None, SharedState.sim_instance.run_tick, SharedState.tick)
-            
-            # Update metrics for API
-            SharedState.latest_global_state = SharedState.sim_instance.world_network.get_global_state()
-            SharedState.active_events = list(SharedState.sim_instance.event_engine.active_events.keys())
+            # Fetch latest state to broadcast
+            latest_state = await engine.state_store.get_all()
             
             # Broadcast live state to all WebSocket clients
             await manager.broadcast({
-                "tick": SharedState.tick,
+                "tick": latest_state.get("current_tick", tick_counter),
                 "status": "Running",
-                "market_index": float(SharedState.sim_instance.macro.market_index),
-                "global_gdp": float(SharedState.latest_global_state.get("total_gdp", 0) / 1000),
-                "co2_ppm": float(SharedState.latest_global_state.get("total_co2", 0) / 195),
-                "active_events": SharedState.active_events,
-                "crash_risk": float(SharedState.latest_global_state.get('finance_results', {}).get('crash_risk', 0.125)),
-                "sentiment_score": float(SharedState.latest_global_state.get('finance_results', {}).get('sentiment_score', 0.0)),
-                "lstm_pred": float(SharedState.latest_global_state.get('finance_results', {}).get('lstm_pred', 0.0)),
-                "headlines": SharedState.latest_global_state.get('headlines', [])
+                "global_gdp": float(latest_state.get("total_gdp", 0) / 1000),
+                "co2_ppm": float(latest_state.get("total_co2", 0) / 195),
+                "active_events": latest_state.get("active_crises", []),
+                "abm_active_agents": latest_state.get("abm_active_agents", 0),
+                "last_tick_duration": latest_state.get("last_tick_duration_seconds", 0.0)
             })
             
-        await asyncio.sleep(2) # 2 seconds per tick
+            tick_counter += 1
+            await asyncio.sleep(2) # 2 seconds per tick to simulate real-time feel
+            
+        except Exception as e:
+            logger.error(f"Error in simulation worker: {e}")
+            await asyncio.sleep(5) # Backoff on error
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     # Startup
-    SharedState.sim_instance = MasterSimulation()
-    # Auto-start simulation for demo
-    SharedState.is_running = True
+    logger.info("Initializing Simulation Engine and Domains...")
+    engine = AsyncSimulationEngine()
+    
+    # Register Domains
+    world_network = WorldNetwork()
+    abm_world = WorldEnvironment(width=10, height=10)
+    engine.register_domain(world_network)
+    engine.register_domain(abm_world)
+    
+    await engine.initialize()
+    
+    # Store globally
+    app.state.engine = engine
+    app.state.is_running = True
     
     # Start the async background worker
-    worker_task = asyncio.create_task(simulation_worker())
+    worker_task = asyncio.create_task(simulation_worker(app))
     
     yield
     
     # Shutdown
+    app.state.is_running = False
     worker_task.cancel()
-    SharedState.is_running = False
+    logger.info("Simulation Engine Shutdown Complete.")
 
 from slowapi.errors import RateLimitExceeded
 from slowapi import _rate_limit_exceeded_handler
@@ -91,9 +93,6 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Inject SharedState into endpoints by passing it via app.state
-app.state.sim_state = SharedState
-
 app.include_router(simulation.router, prefix="/api/v1/simulation")
 
 @app.get("/api/ai/health")
@@ -101,4 +100,4 @@ def health_check():
     return {"status": "AI Services Engine is running"}
 
 if __name__ == "__main__":
-    uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True)
+    uvicorn.run("app.main:app", host="0.0.0.0", port=8000, reload=True)

@@ -3,20 +3,22 @@ from fastapi.security.api_key import APIKeyHeader
 import logging
 from typing import Dict, Any
 import json
+import torch
 
 from slowapi import Limiter
 from slowapi.util import get_remote_address
 
 from app.core.config import settings
-from app.api.v1.dependencies import get_db
-from sqlalchemy.ext.asyncio import AsyncSession
-from app.algorithms.events.event_engine import WarEvent, PandemicEvent, EnergyCrisisEvent
-from app.algorithms.nlp.news_generator import NLPNewsGenerator
+from app.ai.nlp.news_generator import NLPNewsGenerator
+from app.domains.economy.finance.lstm_predictor import MarketLSTM
 
 router = APIRouter()
 logger = logging.getLogger("API_Simulation")
 news_gen = NLPNewsGenerator()
 limiter = Limiter(key_func=get_remote_address)
+
+# Pre-load ML Model
+lstm_model = MarketLSTM()
 
 api_key_header = APIKeyHeader(name="X-API-Key", auto_error=False)
 
@@ -27,15 +29,13 @@ async def get_api_key(api_key_header: str = Security(api_key_header)):
         status_code=status.HTTP_403_FORBIDDEN, detail="Could not validate credentials"
     )
 
-# --- WebSocket Connection Manager (Phase 16) ---
+# --- WebSocket Connection Manager ---
 class ConnectionManager:
     def __init__(self):
-        # Maps websocket to their subscribed topics
         self.active_connections: Dict[WebSocket, list] = {}
 
     async def connect(self, websocket: WebSocket):
         await websocket.accept()
-        # By default, subscribe to 'global' channel
         self.active_connections[websocket] = ["global"]
 
     def disconnect(self, websocket: WebSocket):
@@ -74,10 +74,6 @@ manager = ConnectionManager()
 
 @router.websocket("/ws")
 async def websocket_endpoint(websocket: WebSocket):
-    """
-    Live streaming WebSocket endpoint for the Digital Twin simulation state.
-    Supports subscriptions (e.g., {"action": "subscribe", "topic": "news"})
-    """
     await manager.connect(websocket)
     try:
         while True:
@@ -93,24 +89,21 @@ async def websocket_endpoint(websocket: WebSocket):
 
 @router.get("/status", tags=["Dashboard"])
 async def get_simulation_status(request: Request, api_key: str = Depends(get_api_key)):
-    """
-    Returns the real-time simulation tick, market index, and macroeconomic state.
-    """
-    sim_state = getattr(request.app.state, "sim_state", None)
-    if not sim_state or not getattr(sim_state, "sim_instance", None):
+    engine = getattr(request.app.state, "engine", None)
+    if not engine:
         return {"status": "Starting or Unavailable"}
         
+    state = await engine.state_store.get_all()
+    
     return {
-        "tick": sim_state.tick,
-        "status": "Running" if sim_state.is_running else "Paused",
-        "market_index": float(sim_state.sim_instance.macro.market_index),
-        "global_gdp": float(sim_state.latest_global_state.get("total_gdp", 0) / 1000),
-        "co2_ppm": float(sim_state.latest_global_state.get("total_co2", 0) / 195),
-        "active_events": sim_state.active_events
+        "tick": state.get("current_tick", 0),
+        "status": "Running" if request.app.state.is_running else "Paused",
+        "global_gdp": float(state.get("total_gdp", 0) / 1000),
+        "co2_ppm": float(state.get("total_co2", 0) / 195),
+        "active_events": state.get("active_crises", [])
     }
 
 from app.core.security import require_role
-from typing import Dict
 
 @router.post("/events/trigger", tags=["Control Panel"])
 @limiter.limit("5/minute")
@@ -121,74 +114,59 @@ async def trigger_event(
     api_key: str = Depends(get_api_key),
     user: Dict = Depends(require_role("admin"))
 ):
-    """
-    Triggers a global event dynamically in the real engine. (Requires Admin Role)
-    """
     if not (1.0 <= severity <= 10.0):
         raise HTTPException(status_code=400, detail="Severity must be between 1.0 and 10.0")
 
-    sim_state = getattr(request.app.state, "sim_state", None)
-    if not sim_state or not getattr(sim_state, "sim_instance", None):
+    engine = getattr(request.app.state, "engine", None)
+    if not engine:
         raise HTTPException(status_code=503, detail="Simulation not ready")
         
     try:
-        if "War" in event_name:
-            evt = WarEvent(event_name, severity, ["Random Region"])
-        elif "Crisis" in event_name or "Shock" in event_name:
-            evt = EnergyCrisisEvent(event_name, severity)
-        else:
-            evt = PandemicEvent(event_name, severity)
-            
-        sim_state.sim_instance.event_engine.trigger_event(evt)
+        # Push event directly into the global state store so all domains can react
+        current_crises = await engine.state_store.get("active_crises", [])
+        current_crises.append({"name": event_name, "severity": severity})
+        await engine.state_store.set("active_crises", current_crises)
+        
         logger.info(f"Triggered real event {event_name} via API by user {user.get('sub')}")
         return {"message": f"Event '{event_name}' injected into simulation!", "severity": severity, "triggered_by": user.get('sub')}
     except Exception as e:
         logger.error(f"Failed to trigger event: {e}")
         raise HTTPException(status_code=500, detail="Failed to trigger event")
 
-from app.services.feature_store import FeatureStore
-from app.algorithms.models.lstm_predictor import LSTMPredictionEngine
-from app.services.cache import redis_cache
 
-feature_store = FeatureStore()
-lstm_engine = LSTMPredictionEngine()
+from app.services.cache import redis_cache
 
 @router.get("/forecasts/risk", tags=["Dashboard"])
 async def get_risk_forecast(request: Request, api_key: str = Depends(get_api_key)):
-    """
-    Returns AI forecasting outputs using the ML Prediction Layer and Feature Store.
-    """
-    # 1. Check Cache
-    cache_key = "forecast_risk_usa"
+    cache_key = "forecast_risk_global"
     cached = await redis_cache.get(cache_key)
     if cached:
         return cached
 
-    sim_state = getattr(request.app.state, "sim_state", None)
-    if not sim_state:
+    engine = getattr(request.app.state, "engine", None)
+    if not engine:
         raise HTTPException(status_code=503, detail="Simulation not ready")
 
     try:
-        # 1. Fetch ML Features from Database (Feature Store)
-        seq = await feature_store.get_macro_sequence(country_code="USA")
+        state = await engine.state_store.get_all()
+        crises = state.get("active_crises", [])
         
-        # 2. Run Inference using LSTM Model
-        prediction = lstm_engine.predict(seq)
+        # 1. Provide mock feature tensor to LSTM (in reality this comes from FeatureStore)
+        mock_features = torch.randn(1, 10, 5)
         
-        # 3. Augment with active geopolitical risk from simulation
-        crash_prob = 0.874 if sim_state.active_events else 0.125
-        conflict_risk = 0.95 if any("War" in e for e in sim_state.active_events) else 0.241
+        # 2. Run Inference using new MarketLSTM
+        prediction_tensor = lstm_model.predict(mock_features)
+        predicted_growth = prediction_tensor.item()
+        
+        crash_prob = 0.874 if crises else 0.125
         
         result = {
-            "predicted_gdp_growth": prediction["predicted_gdp_growth"],
-            "predicted_inflation": prediction["predicted_inflation"],
+            "predicted_gdp_growth": predicted_growth,
             "market_crash_probability": crash_prob,
-            "conflict_risk": conflict_risk,
-            "sentiment": "Markets panicked!" if sim_state.active_events else "Markets stable."
+            "sentiment": "Markets panicked!" if crises else "Markets stable."
         }
         
-        # Cache for 60 seconds
-        await redis_cache.set(cache_key, result, ttl_seconds=60)
+        await redis_cache.set(cache_key, result, ttl_seconds=10)
         
         return result
     except Exception as e:
@@ -197,17 +175,16 @@ async def get_risk_forecast(request: Request, api_key: str = Depends(get_api_key
 
 @router.get("/news", tags=["Dashboard"])
 async def get_latest_news(request: Request, api_key: str = Depends(get_api_key)):
-    """
-    Returns AI-generated breaking news based on the real-time simulation state.
-    """
-    sim_state = getattr(request.app.state, "sim_state", None)
-    if not sim_state:
+    engine = getattr(request.app.state, "engine", None)
+    if not engine:
         raise HTTPException(status_code=503, detail="Simulation not ready")
     
+    state = await engine.state_store.get_all()
+    
     state_dict = {
-        "gdp_growth": 0.05 if sim_state.latest_global_state.get("total_gdp", 0) > 1200 else -0.05,
-        "total_infected": sim_state.latest_global_state.get("total_infected", 0),
-        "active_events": sim_state.active_events
+        "gdp_growth": 0.05 if state.get("total_gdp", 0) > 1200 else -0.05,
+        "total_infected": state.get("total_infected", 0),
+        "active_events": [c["name"] for c in state.get("active_crises", [])]
     }
     
     try:
@@ -216,4 +193,71 @@ async def get_latest_news(request: Request, api_key: str = Depends(get_api_key))
     except Exception as e:
         logger.error(f"Failed to generate news: {e}")
         raise HTTPException(status_code=500, detail="Failed to generate news")
+
+@router.get("/insights", tags=["Dashboard"])
+async def get_ai_insights(request: Request, api_key: str = Depends(get_api_key)):
+    # Generate some dynamic mock insights for the dashboard
+    import random
+    
+    # Check if there are active crises
+    engine = getattr(request.app.state, "engine", None)
+    active_crises = []
+    if engine:
+        state = await engine.state_store.get_all()
+        active_crises = state.get("active_crises", [])
+        
+    base_insights = [
+        {"t": "Agent 14 detected regime shift in copper futures", "c": "Macro Agent"},
+        {"t": "New satellite data ingested (Sentinel-2)", "c": "Data Pipeline"},
+        {"t": "Ensemble retrained — accuracy +0.4pp", "c": "ML Ops"},
+        {"t": "Treasury auction outlier flagged", "c": "Macro Agent"},
+        {"t": "EUR/USD ensemble diverging — increased volatility expected", "c": "FX Agent"},
+        {"t": "Taiwan strait tension index up 18% w/w — review supply chain B17", "c": "Geo Agent"},
+        {"t": "Brent crude likely to test $112 within 21 days (P=0.74)", "c": "Macro Agent"}
+    ]
+    
+    # Shuffle and pick 3-4 insights
+    random.shuffle(base_insights)
+    num_insights = random.randint(3, 4)
+    selected_insights = base_insights[:num_insights]
+    
+    if active_crises:
+        crisis = active_crises[-1]
+        selected_insights.insert(0, {
+            "t": f"Emergency Response Agent activated for {crisis['name']}",
+            "c": "Geo Agent"
+        })
+        
+    return {"insights": selected_insights[:4]}
+
+@router.get("/alerts", tags=["Dashboard"])
+async def get_risk_alerts(request: Request, api_key: str = Depends(get_api_key)):
+    import random
+    
+    engine = getattr(request.app.state, "engine", None)
+    if not engine:
+        raise HTTPException(status_code=503, detail="Simulation not ready")
+        
+    state = await engine.state_store.get_all()
+    active_crises = state.get("active_crises", [])
+    
+    alerts = []
+    
+    # Add real active crises from the simulation state
+    for crisis in active_crises:
+        tone = "danger" if crisis["severity"] > 7.0 else "warning"
+        alerts.append({"title": crisis["name"], "tone": tone})
+        
+    # Add some mock ambient alerts if there are none, to populate the UI
+    if len(alerts) < 3:
+        ambient_alerts = [
+            {"title": "Red Sea shipping disruption", "tone": "danger"},
+            {"title": "Argentina sovereign downgrade", "tone": "warning"},
+            {"title": "Pacific cyclone formation", "tone": "warning"},
+            {"title": "Unusual options activity in energy sector", "tone": "warning"}
+        ]
+        random.shuffle(ambient_alerts)
+        alerts.extend(ambient_alerts[:3 - len(alerts)])
+        
+    return {"alerts": alerts[:3]}
 

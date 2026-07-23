@@ -51,7 +51,7 @@ class EconomicTimeSeriesModel(Base):
     version = Column(Integer, default=1, nullable=False) # Optimistic locking
     created_at = Column(DateTime, default=datetime.utcnow)
     
-    country = relationship("CountryModel", backref="economic_data")
+    country = relationship("CountryModel",  backref="economic_data")
     
     __table_args__ = (
         Index('idx_economic_country_year', 'country_code', 'year', unique=True),

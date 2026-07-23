@@ -1,0 +1,8 @@
+{"timestamp": "2026-07-09T19:01:46.815321Z", "level": "INFO", "name": "TestWBPlugin", "message": "Health Check: PASS"}
+{"timestamp": "2026-07-09T19:01:52.105708Z", "level": "INFO", "name": "TestWBPlugin", "message": "Fetched raw data pages: 2"}
+{"timestamp": "2026-07-09T19:01:52.189479Z", "level": "INFO", "name": "TestWBPlugin", "message": "Normalized into 4441 contracts. Sample: dataset_version=None schema_version='1.0' checksum=None retrieved_at=datetime.datetime(2026, 7, 9, 19, 1, 52, 108064) country_code='ZH' year=2025 indicator_code='GDP_USD' value=1358694050872.54 source='WORLD_BANK'"}
+{"timestamp": "2026-07-09T19:01:53.291219Z", "level": "INFO", "name": "TestWBPlugin", "message": "Validation passed: True"}
+{"timestamp": "2026-07-09T19:08:39.137610Z", "level": "INFO", "name": "TestWBPlugin", "message": "Health Check: PASS"}
+{"timestamp": "2026-07-09T19:08:40.250780Z", "level": "INFO", "name": "TestWBPlugin", "message": "Fetched raw data pages: 2"}
+{"timestamp": "2026-07-09T19:08:40.301216Z", "level": "INFO", "name": "TestWBPlugin", "message": "Normalized into 4441 contracts. Sample: dataset_version=None schema_version='1.0' checksum=None retrieved_at=datetime.datetime(2026, 7, 9, 19, 8, 40, 250780) country_code='ZH' year=2025 indicator_code='GDP_USD' value=1358694050872.54 source='WORLD_BANK'"}
+{"timestamp": "2026-07-09T19:08:40.304976Z", "level": "INFO", "name": "TestWBPlugin", "message": "Validation passed: True"}

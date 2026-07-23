@@ -49,6 +49,18 @@ class Settings(BaseSettings):
     
     # CORS
     BACKEND_CORS_ORIGINS: List[str] = ["*"]
+    
+    # API Keys for External Services
+    WORLD_BANK_API_KEY: Optional[str] = None
+    FRED_API_KEY: Optional[str] = None
+    NOAA_API_KEY: Optional[str] = None
+    UN_COMTRADE_API_KEY: Optional[str] = None
+    OPENAI_API_KEY: Optional[str] = None
+    GDELT_API_KEY: Optional[str] = None
+    
+    # Ingestion Settings
+    MAX_RETRIES: int = 3
+    RATE_LIMIT_BURST: int = 10
 
     model_config = SettingsConfigDict(env_file=".env", env_file_encoding="utf-8", case_sensitive=True, extra="ignore")
 

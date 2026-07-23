@@ -1,12 +1,59 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Section, StatCard, Spark, Badge, Globe } from "@/components/wynthora";
-import { AlertTriangle, Sparkles, TrendingUp } from "lucide-react";
+import { Section, StatCard, Spark, Badge } from "@/components/wynthora";
+import { GlobeEngineWrapper } from "@/components/GlobeEngineWrapper";
+import { AlertTriangle, Sparkles, TrendingUp, Loader2 } from "lucide-react";
+import { useState, useEffect } from "react";
 
 export const Route = createFileRoute("/app/dashboard")({ component: Dashboard });
 
 const s = (n: number) => Array.from({ length: 24 }, (_, i) => 50 + Math.sin(i / 2 + n) * 20 + Math.random() * 10);
 
 function Dashboard() {
+  const [insights, setInsights] = useState<{t: string, c: string}[]>([]);
+  const [alerts, setAlerts] = useState<{title: string, tone: string}[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    let mounted = true;
+    
+    const fetchData = async () => {
+      try {
+        const [insightsRes, alertsRes] = await Promise.all([
+          fetch("http://localhost:8000/api/v1/simulation/insights"),
+          fetch("http://localhost:8000/api/v1/simulation/alerts")
+        ]);
+        
+        if (mounted && insightsRes.ok && alertsRes.ok) {
+          const insightsData = await insightsRes.json();
+          const alertsData = await alertsRes.json();
+          setInsights(insightsData.insights);
+          setAlerts(alertsData.alerts);
+        }
+      } catch (e) {
+        console.error("Failed to fetch dashboard data", e);
+        if (mounted) {
+          setInsights([
+            { t: "Brent crude likely to test $112 within 21 days (P=0.74)", c: "Macro Agent" },
+            { t: "Taiwan strait tension index up 18% w/w — review supply chain B17", c: "Geo Agent" }
+          ]);
+          setAlerts([
+            { title: "Backend API disconnected", tone: "danger" }
+          ]);
+        }
+      } finally {
+        if (mounted) setIsLoading(false);
+      }
+    };
+    
+    fetchData();
+    const interval = setInterval(fetchData, 10000); // Poll every 10s
+    
+    return () => {
+      mounted = false;
+      clearInterval(interval);
+    };
+  }, []);
+
   return (
     <div className="space-y-4">
       <div className="flex flex-wrap items-end justify-between gap-4">
@@ -29,7 +76,9 @@ function Dashboard() {
 
       <div className="grid gap-4 lg:grid-cols-3">
         <Section title="World Overview" className="lg:col-span-2">
-          <div className="flex items-center justify-center py-4"><Globe size={320} /></div>
+          <div className="flex items-center justify-center py-4 h-[350px] w-full rounded-xl overflow-hidden relative mb-4">
+            <GlobeEngineWrapper className="min-h-full" />
+          </div>
           <div className="grid grid-cols-4 gap-2 text-center text-xs">
             {[["NA", "Stable", "success"], ["EU", "Watch", "warning"], ["APAC", "Stable", "success"], ["MENA", "Critical", "danger"]].map(([r, s, t]) => (
               <div key={r} className="glass rounded-lg p-3"><div className="font-mono text-muted-foreground">{r}</div><div className="mt-1"><Badge tone={t as any}>{s}</Badge></div></div>
@@ -39,31 +88,35 @@ function Dashboard() {
 
         <div className="space-y-4">
           <Section title="AI Insights" action={<Sparkles className="h-4 w-4 text-purple" />}>
-            <ul className="space-y-3 text-sm">
-              {[
-                { t: "Brent crude likely to test $112 within 21 days (P=0.74)", c: "Macro Agent" },
-                { t: "Taiwan strait tension index up 18% w/w — review supply chain B17", c: "Geo Agent" },
-                { t: "EUR/USD ensemble diverging — increased volatility expected", c: "FX Agent" },
-              ].map((i) => (
-                <li key={i.t} className="glass rounded-lg border border-purple/20 p-3">
-                  <div className="text-foreground">{i.t}</div>
-                  <div className="mt-1 text-[10px] uppercase tracking-wider text-purple">{i.c}</div>
-                </li>
-              ))}
-            </ul>
+            {isLoading ? (
+              <div className="flex h-32 items-center justify-center">
+                <Loader2 className="h-6 w-6 animate-spin text-purple/50" />
+              </div>
+            ) : (
+              <ul className="space-y-3 text-sm">
+                {insights.map((i, idx) => (
+                  <li key={idx} className="glass rounded-lg border border-purple/20 p-3">
+                    <div className="text-foreground">{i.t}</div>
+                    <div className="mt-1 text-[10px] uppercase tracking-wider text-purple">{i.c}</div>
+                  </li>
+                ))}
+              </ul>
+            )}
           </Section>
           <Section title="Risk Alerts" action={<AlertTriangle className="h-4 w-4 text-destructive" />}>
-            <ul className="space-y-2 text-sm">
-              {[
-                ["Red Sea shipping disruption", "danger"],
-                ["Argentina sovereign downgrade", "warning"],
-                ["Pacific cyclone formation", "warning"],
-              ].map(([t, tone]) => (
-                <li key={t} className="flex items-center justify-between rounded-lg border border-border px-3 py-2">
-                  <span>{t}</span><Badge tone={tone as any}>active</Badge>
-                </li>
-              ))}
-            </ul>
+            {isLoading ? (
+              <div className="flex h-24 items-center justify-center">
+                <Loader2 className="h-6 w-6 animate-spin text-destructive/50" />
+              </div>
+            ) : (
+              <ul className="space-y-2 text-sm">
+                {alerts.map((a, idx) => (
+                  <li key={idx} className="flex items-center justify-between rounded-lg border border-border px-3 py-2">
+                    <span>{a.title}</span><Badge tone={a.tone as any}>active</Badge>
+                  </li>
+                ))}
+              </ul>
+            )}
           </Section>
         </div>
       </div>

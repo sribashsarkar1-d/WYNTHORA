@@ -13,13 +13,17 @@ def setup_telemetry(app):
     """
     try:
         # 1. OpenTelemetry Tracing
-        provider = TracerProvider()
-        processor = BatchSpanProcessor(ConsoleSpanExporter())
-        provider.add_span_processor(processor)
-        trace.set_tracer_provider(provider)
-        
-        FastAPIInstrumentor.instrument_app(app)
-        logger.info("OpenTelemetry Tracing initialized successfully.")
+        # Check if TracerProvider is already set to prevent "Overriding of current TracerProvider" warning
+        if type(trace.get_tracer_provider()).__name__ == 'ProxyTracerProvider':
+            provider = TracerProvider()
+            processor = BatchSpanProcessor(ConsoleSpanExporter())
+            provider.add_span_processor(processor)
+            trace.set_tracer_provider(provider)
+            
+            FastAPIInstrumentor.instrument_app(app)
+            logger.info("OpenTelemetry Tracing initialized successfully.")
+        else:
+            logger.info("OpenTelemetry Tracing already initialized.")
         
         # 2. Prometheus Metrics Endpoint
         metrics_app = make_asgi_app()

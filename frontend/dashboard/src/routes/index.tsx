@@ -113,6 +113,51 @@ function Landing() {
         </div>
       </section>
 
+      {/* Use Cases */}
+      <section className="border-y border-border bg-background/40 px-6 py-24 backdrop-blur lg:px-12">
+        <div className="mx-auto max-w-7xl">
+          <div className="mb-16 text-center">
+            <p className="text-xs uppercase tracking-[0.3em] text-cyan">Who it's for</p>
+            <h2 className="mt-3 font-display text-4xl font-bold tracking-tight md:text-5xl">Built for decision makers.</h2>
+          </div>
+          <div className="grid gap-6 md:grid-cols-3">
+            {[
+              { t: "Hedge Funds", d: "Simulate market reactions to geopolitical shocks before they happen. Alpha generation via alternative data." },
+              { t: "Governments", d: "Stress-test policy decisions against macroeconomic and climate scenarios to ensure national resilience." },
+              { t: "Supply Chain Leaders", d: "Identify vulnerabilities in global logistics networks and automatically route around disruptions." }
+            ].map(({ t, d }) => (
+              <div key={t} className="glass rounded-2xl p-8 border-t-4 border-t-cyan hover:border-cyan/50 transition">
+                <h3 className="text-xl font-bold">{t}</h3>
+                <p className="mt-4 text-sm text-muted-foreground">{d}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* How it Works */}
+      <section className="px-6 py-24 lg:px-12">
+        <div className="mx-auto max-w-7xl">
+          <div className="mb-16 max-w-2xl">
+            <p className="text-xs uppercase tracking-[0.3em] text-cyan">The Pipeline</p>
+            <h2 className="mt-3 font-display text-4xl font-bold tracking-tight md:text-5xl">From raw data to foresight.</h2>
+          </div>
+          <div className="relative border-l border-border/50 pl-8 ml-4 space-y-12">
+            {[
+              { s: "01", t: "Ingest Global Data", d: "Connect to 180+ real-time feeds including satellite imagery, financial markets, and news sentiment." },
+              { s: "02", t: "Multi-Agent Simulation", d: "Our 42 AI agents run thousands of Monte Carlo iterations to map out probability distributions of future events." },
+              { s: "03", t: "Actionable Insights", d: "Receive clear, probabilistic forecasts directly in your dashboard or integrated into your existing workflows." }
+            ].map(({ s, t, d }) => (
+              <div key={s} className="relative">
+                <div className="absolute -left-12 top-0 flex h-8 w-8 items-center justify-center rounded-full bg-cyan/20 text-xs font-bold text-cyan ring-4 ring-background">{s}</div>
+                <h3 className="text-xl font-bold text-foreground">{t}</h3>
+                <p className="mt-2 max-w-xl text-muted-foreground">{d}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Pricing */}
       <section id="pricing" className="px-6 py-24 lg:px-12">
         <div className="mx-auto max-w-7xl">
@@ -151,6 +196,31 @@ function Landing() {
               <figcaption className="mt-4 border-t border-border pt-4 text-xs"><div className="font-semibold">{t.n}</div><div className="text-muted-foreground">{t.r}</div></figcaption>
             </figure>
           ))}
+        </div>
+      </section>
+
+      {/* FAQ */}
+      <section className="border-t border-border px-6 py-24 lg:px-12">
+        <div className="mx-auto max-w-3xl">
+          <div className="mb-12 text-center">
+            <h2 className="font-display text-3xl font-bold md:text-4xl">Frequently asked questions</h2>
+          </div>
+          <div className="space-y-4">
+            {[
+              { q: "How does WYNTHORA's multi-agent system work?", a: "We use a federated system of 42 specialized AI agents. Each agent represents a different domain (e.g., energy, geopolitics, finance). They interact and negotiate with each other during simulations to produce realistic outcomes." },
+              { q: "Can I bring my own data?", a: "Yes, Institutional and Sovereign tiers support secure integrations with proprietary data lakes and internal APIs." },
+              { q: "What happens if a simulation runs out of bounds?", a: "Our system flags outlier scenarios and assigns them low probabilities, while providing a full traceback of the events that led to the anomaly." },
+              { q: "Is on-premise deployment available?", a: "Yes. For our Sovereign clients, we offer fully air-gapped deployments to meet strict compliance and security requirements." }
+            ].map(({ q, a }) => (
+              <details key={q} className="glass group rounded-xl [&_summary::-webkit-details-marker]:hidden">
+                <summary className="cursor-pointer px-6 py-4 font-semibold outline-none flex justify-between items-center">
+                  {q}
+                  <span className="text-cyan group-open:rotate-45 transition-transform duration-200 text-2xl leading-none">+</span>
+                </summary>
+                <div className="px-6 pb-4 text-sm text-muted-foreground">{a}</div>
+              </details>
+            ))}
+          </div>
         </div>
       </section>
 
